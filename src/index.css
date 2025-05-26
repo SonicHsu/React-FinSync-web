@@ -1,1 +1,62 @@
 @import "tailwindcss";
+
+.button-option {
+  @apply text-xl text-white/50 flex-1
+}
+
+.button-option-selected {
+  @apply text-xl text-gray-600 flex-1 bg-white rounded-full
+}
+
+
+.category-button {
+    @apply w-full h-full font-semibold text-xl bg-gray-800 hover:bg-gray-700 flex items-center justify-center cursor-pointer;
+  }
+
+.category-button-selected {
+  @apply w-full h-full font-semibold text-xl text-gray-800 bg-white flex items-center justify-center cursor-pointer;
+}  
+
+
+.dialog-entry-divider {
+  @apply w-full border-t border-blue-400/20 my-4
+}  
+
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.calendar-today {
+  @apply bg-blue-600/50 border border-blue-600;
+}
+  
+.calendar-normal {
+  @apply bg-white/10;
+}
+
+.mini-calendar-item {
+  @apply flex items-center justify-center
+}
+
+
+.mini-calendar-date-selected {
+ @apply bg-blue-500 rounded-full
+}
+
+.mini-calendar-date-today {
+ @apply bg-sky-300/30 rounded-full border border-blue-500
+}
