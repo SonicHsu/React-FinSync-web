@@ -1,27 +1,39 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 @import "tailwindcss";
 
+@theme {
+  --font-roboto: "Roboto", sans-serif;
+
+  --font-weight-thin: 100;
+  --font-weight-extralight: 200;
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+  --font-weight-black: 900;
+}
+
 .button-option {
-  @apply text-xl text-white/50 flex-1
+  @apply flex-1 cursor-pointer text-xl text-white/50;
 }
 
 .button-option-selected {
-  @apply text-xl text-gray-600 flex-1 bg-white rounded-full
+  @apply flex-1 cursor-pointer rounded-full bg-white text-xl text-gray-600;
 }
 
-
 .category-button {
-    @apply w-full h-full font-semibold text-xl bg-gray-800 hover:bg-gray-700 flex items-center justify-center cursor-pointer;
-  }
+  @apply flex h-full w-full cursor-pointer items-center justify-center bg-gray-800 text-xl font-semibold hover:bg-gray-700;
+}
 
 .category-button-selected {
-  @apply w-full h-full font-semibold text-xl text-gray-800 bg-white flex items-center justify-center cursor-pointer;
-}  
-
+  @apply flex h-full w-full cursor-pointer items-center justify-center bg-white text-xl font-semibold text-gray-800;
+}
 
 .dialog-entry-divider {
-  @apply w-full border-t border-blue-400/20 my-4
-}  
-
+  @apply my-4 w-full border-t border-blue-400/20;
+}
 
 .custom-scrollbar::-webkit-scrollbar {
   width: 8px;
@@ -41,22 +53,21 @@
 }
 
 .calendar-today {
-  @apply bg-blue-600/50 border border-blue-600;
+  @apply border border-blue-600 bg-blue-600/50;
 }
-  
+
 .calendar-normal {
   @apply bg-white/10;
 }
 
 .mini-calendar-item {
-  @apply flex items-center justify-center
+  @apply flex items-center justify-center;
 }
 
-
 .mini-calendar-date-selected {
- @apply bg-blue-500 rounded-full
+  @apply rounded-full bg-blue-500;
 }
 
 .mini-calendar-date-today {
- @apply bg-sky-300/30 rounded-full border border-blue-500
+  @apply rounded-full border border-blue-500 bg-sky-300/30;
 }
