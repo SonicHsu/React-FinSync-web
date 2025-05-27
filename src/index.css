@@ -17,11 +17,11 @@
 }
 
 .react-datepicker {
-  @apply border-none bg-blue-900/30 text-white;
+  @apply border-none bg-slate-700/80 text-white backdrop-blur;
 }
 
 .react-datepicker__header {
-  @apply border-none bg-blue-950/50 text-white/50;
+  @apply border-none bg-slate-950/50 text-white/50;
 }
 
 .react-datepicker__current-month {
