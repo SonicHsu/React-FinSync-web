@@ -8,15 +8,13 @@ import {
   subtractDays,
   today,
 } from "../utils/dateUtils";
-import ReactDatePicker from "react-datepicker";
 
 export default function DatePicker({ currentView, currentDate, onDateChange }) {
   const [openMode, setOpenMode] = useState(null);
-  const datePickerRef = useRef(null);
 
   const handleDateChange = (date) => {
     onDateChange(date);
-    setOpenMode(null); // 選完自動關閉
+    setOpenMode(null);
   };
 
   const handleLeftClick = () => {
@@ -36,65 +34,37 @@ export default function DatePicker({ currentView, currentDate, onDateChange }) {
   return (
     <div className="flex items-center space-x-2">
       <div className="relative flex items-center space-x-1">
-        <DateBox value="Today" onClick={() => onDateChange(today)} />
+        <DateBox type="today" value="Today" onClick={() => onDateChange(today)} />
 
-        <div className="relative">
-          <DateBox
-            value={currentDate.getFullYear()}
-            onClick={() => setOpenMode("year")}
-          />
-          {openMode === "year" && (
-            <div className="absolute top-full left-0 z-50 mt-2 w-[150px] ">
-              <ReactDatePicker
-                selected={currentDate}
-                onChange={handleDateChange}
-                onClickOutside={() => setOpenMode(null)}
-                showYearPicker={true}
-                open
-                inline
-              />
-            </div>
-          )}
-        </div>
+        <DateBox
+          type="year"
+          value={currentDate.getFullYear()}
+          onClick={() => setOpenMode("year")}
+          currentDate={currentDate}
+          mode={openMode}
+          handleDateChange={handleDateChange}
+          setOpenMode={setOpenMode}
+        />
 
-        <div className="relative">
-          <DateBox
-            value={String(currentDate.getMonth() + 1).padStart(2, "0")}
-            onClick={() => setOpenMode("month")}
-          />
-          {openMode === "month" && (
-            <div className="absolute top-full left-0 z-50 mt-2 w-[150px]">
-              <ReactDatePicker
-                selected={currentDate}
-                onChange={handleDateChange}
-                onClickOutside={() => setOpenMode(null)}
-                showMonthYearPicker={true}
-                open
-                inline
-              />
-            </div>
-          )}
-        </div>
+        <DateBox
+          type="month"
+          value={String(currentDate.getMonth() + 1).padStart(2, "0")}
+          onClick={() => setOpenMode("month")}
+          currentDate={currentDate}
+          mode={openMode}
+          handleDateChange={handleDateChange}
+          setOpenMode={setOpenMode}
+        />
 
-        {currentView === "Day" && (
-          <div className="relative">
-            <DateBox
-              value={String(currentDate.getDate()).padStart(2, "0")}
-              onClick={() => setOpenMode("day")}
-            />
-            {openMode === "day" && (
-              <div className="absolute top-full left-1/2 z-50 mt-2 -translate-x-1/2 transform">
-                <ReactDatePicker
-                  selected={currentDate}
-                  onChange={handleDateChange}
-                  onClickOutside={() => setOpenMode(null)}
-                  open
-                  inline
-                />
-              </div>
-            )}
-          </div>
-        )}
+        <DateBox
+          type="date"
+          value={String(currentDate.getDate()).padStart(2, "0")}
+          onClick={() => setOpenMode("date")}
+          currentDate={currentDate}
+          mode={openMode}
+          handleDateChange={handleDateChange}
+          setOpenMode={setOpenMode}
+        />
 
         {currentView === "Day" && (
           <span className="w-12 text-center text-2xl font-medium text-white/50">
@@ -103,14 +73,8 @@ export default function DatePicker({ currentView, currentDate, onDateChange }) {
         )}
       </div>
 
-      <ArrowButton
-        direction="left"
-        onClick={handleLeftClick}
-      />
-      <ArrowButton
-        direction="right"
-        onClick={handleRightClick}
-      />
+      <ArrowButton direction="left" onClick={handleLeftClick} />
+      <ArrowButton direction="right" onClick={handleRightClick} />
     </div>
   );
 }

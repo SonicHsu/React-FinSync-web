@@ -1,6 +1,40 @@
+import { useState, useEffect } from "react";
 import CalendarActionButtons from "./CalendarActionButtons";
+import MiniCalendarDay from "./MiniCalendarDay";
+import {
+  today,
+  generateMonthCalendarDays,
+  addMonths,
+  subtractMonths,
+  formatMonth,
+  isTheSameDay
+} from "../utils/dateUtils";
 
-export default function DayCalendarSidebar() {
+export default function DayCalendarSidebar({ date, onDateChange }) {
+  const [miniCalendarDate, setMiniCalendarDate] = useState(today);
+
+  const MiniCalendarDays = generateMonthCalendarDays(miniCalendarDate);
+  const MiniCalendarDaysAll = MiniCalendarDays.map((calendarDay) => (
+    <MiniCalendarDay
+    day={calendarDay}
+    currentDate={miniCalendarDate}
+    onClick={() => onDateChange(calendarDay)}
+    isToday={isTheSameDay(calendarDay, today())}
+    isSelected={isTheSameDay(calendarDay, date)}
+     />
+  ));
+
+  useEffect(() => {
+    // 如果主日期所在的月份和 miniCalendar 不一樣，就更新
+    const isSameMonth =
+      date.getFullYear() === miniCalendarDate.getFullYear() &&
+      date.getMonth() === miniCalendarDate.getMonth();
+
+    if (!isSameMonth) {
+      setMiniCalendarDate(date);
+    }
+  }, [date]);
+
   return (
     <div className="flex h-[668px] w-[280px] flex-col rounded-[10px]">
       <div
@@ -11,10 +45,17 @@ export default function DayCalendarSidebar() {
           className="flex h-[40px] w-full items-center justify-between p-4"
           data-mini-calendar-header
         >
-          <div className="text-2xl" data-mini-calendar-date></div>
+          <div className="text-2xl" data-mini-calendar-date>
+            {formatMonth(miniCalendarDate)}
+          </div>
 
           <div className="flex items-center space-x-6">
-            <button data-mini-calendar-pre-button>
+            <button
+              className="cursor-pointer"
+              onClick={() =>
+                setMiniCalendarDate((prevDate) => subtractMonths(prevDate, 1))
+              }
+            >
               <svg
                 width="10"
                 height="18"
@@ -32,7 +73,12 @@ export default function DayCalendarSidebar() {
               </svg>
             </button>
 
-            <button data-mini-calendar-next-button>
+            <button
+              className="cursor-pointer"
+              onClick={() =>
+                setMiniCalendarDate((prevDate) => addMonths(prevDate, 1))
+              }
+            >
               <svg
                 width="10"
                 height="18"
@@ -65,10 +111,7 @@ export default function DayCalendarSidebar() {
         </div>
 
         <div className="w-full px-2">
-          <ul
-            className="grid grid-cols-7 gap-1"
-            data-mini-calendar-day-list
-          ></ul>
+          <ul className="grid grid-cols-7 gap-1">{MiniCalendarDaysAll}</ul>
         </div>
       </div>
 

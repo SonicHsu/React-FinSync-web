@@ -23,7 +23,7 @@ export default function App() {
         {currentView === "Month" ? (
           <MonthCalendar date={currentDate} />
         ) : (
-          <DayCalendar date={currentDate} />
+          <DayCalendar date={currentDate} onDateChange={setCurrentDate} />
         )}
       </main>
     </div>

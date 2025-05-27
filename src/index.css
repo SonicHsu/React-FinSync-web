@@ -45,7 +45,7 @@
 }
 
 .react-datepicker__year-text {
-  @apply w-16 py-1 text-center text-base font-normal text-white hover:text-blue-800;
+  @apply py-1 text-center text-xl font-normal text-white hover:text-blue-800;
 }
 
 .react-datepicker__month {
@@ -53,11 +53,11 @@
 }
 
 .react-datepicker__month-wrapper {
-  @apply flex max-w-60 flex-wrap justify-center gap-0.5;
+  @apply flex flex-wrap justify-center gap-0.5;
 }
 
 .react-datepicker__month-text {
-  @apply w-16 py-1 text-center text-base font-normal text-white hover:text-blue-800;
+  @apply py-1 text-center text-xl font-normal text-white hover:text-blue-800;
 }
 
 .button-option {
