@@ -9,7 +9,6 @@ import {
   today,
 } from "../utils/dateUtils";
 import ReactDatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 
 export default function DatePicker({ currentView, currentDate, onDateChange }) {
   const [openMode, setOpenMode] = useState(null);
@@ -45,7 +44,7 @@ export default function DatePicker({ currentView, currentDate, onDateChange }) {
             onClick={() => setOpenMode("year")}
           />
           {openMode === "year" && (
-            <div className="absolute top-full left-0 z-50 mt-2 w-[150px]">
+            <div className="absolute top-full left-0 z-50 mt-2 w-[150px] ">
               <ReactDatePicker
                 selected={currentDate}
                 onChange={handleDateChange}

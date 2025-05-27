@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+@import "react-datepicker/dist/react-datepicker.css";
 @import "tailwindcss";
 
 @theme {
@@ -15,47 +16,49 @@
   --font-weight-black: 900;
 }
 
-@layer base {
-  .react-datepicker__year {
-    display: flex;
-    justify-content: center;
-    padding: 0.2rem;
-  }
-
-  .react-datepicker__year-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.2rem;
-  }
-
-  .react-datepicker__year-text {
-    width: 4rem;
-    text-align: center;
-    padding: 0.25rem;
-  }
-
-  .react-datepicker__month{
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-  }
-
-  .react-datepicker__month-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.2rem;
-    max-width: 240px; /* 3 個月份 * 每個寬度 4rem + 間距 */
-  }
-
-  .react-datepicker__month-text {
-    width: 4rem;
-    text-align: center;
-    padding: 0.25rem;
-  }
+.react-datepicker {
+  @apply border-none bg-blue-900/30 text-white;
 }
 
+.react-datepicker__header {
+  @apply border-none bg-blue-950/50 text-white/50;
+}
+
+.react-datepicker__current-month {
+  @apply text-white/50;
+}
+
+.react-datepicker__day-name {
+  @apply text-white/50;
+}
+
+.react-datepicker__day {
+  @apply text-base font-normal text-white hover:text-blue-800;
+}
+
+.react-datepicker__year {
+  @apply flex justify-center p-0.5;
+}
+
+.react-datepicker__year-wrapper {
+  @apply flex flex-wrap justify-center gap-0.5;
+}
+
+.react-datepicker__year-text {
+  @apply w-16 py-1 text-center text-base font-normal text-white hover:text-blue-800;
+}
+
+.react-datepicker__month {
+  @apply flex flex-col gap-0.5;
+}
+
+.react-datepicker__month-wrapper {
+  @apply flex max-w-60 flex-wrap justify-center gap-0.5;
+}
+
+.react-datepicker__month-text {
+  @apply w-16 py-1 text-center text-base font-normal text-white hover:text-blue-800;
+}
 
 .button-option {
   @apply flex-1 cursor-pointer text-xl text-white/50;
