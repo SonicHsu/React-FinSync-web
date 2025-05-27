@@ -6,11 +6,11 @@ export default function Header({ currentView, onViewChange, currentDate, onDateC
   return (
     <header className="mx-auto mt-1 flex h-[62px] w-[981px] items-center justify-between">
       <div>
-        <h1 className="text-5xl font-bold">簡單記帳</h1>
+        <h1 className="text-5xl font-bold">FinSync</h1>
       </div>
 
       <nav className="flex items-center space-x-10">
-        <DatePicker currentDate={currentDate} onDateChange={onDateChange}/>
+        <DatePicker currentView={currentView} currentDate={currentDate} onDateChange={onDateChange}/>
         <ViewToggle currentView={currentView} onViewChange={onViewChange} />
       </nav>
     </header>
