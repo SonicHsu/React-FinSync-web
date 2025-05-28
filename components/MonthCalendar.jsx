@@ -3,10 +3,10 @@ import MonthCalendarDay from "./MonthCalendarDay";
 import CalendarActionButtons from "./CalendarActionButtons";
 import { generateMonthCalendarDays } from "../utils/dateUtils";
 
-export default function MonthCalendar({ date }) {
+export default function MonthCalendar({ date, setDialogState }) {
   const calendarDays = generateMonthCalendarDays(date);
   const calendarDaysAll = calendarDays.map((calendarDay) => (
-    <MonthCalendarDay day={calendarDay} currentDate={date} />
+    <MonthCalendarDay  key={calendarDay.getTime()} day={calendarDay} currentDate={date} />
   ));
 
   return (
@@ -28,7 +28,7 @@ export default function MonthCalendar({ date }) {
       </div>
 
       <footer className="mt-5 flex h-[62px] w-full justify-between">
-        <CalendarActionButtons />
+        <CalendarActionButtons setDialogState={setDialogState} />
 
         <div className="flex h-full items-center justify-between space-x-6 rounded-[10px] border border-white/10 bg-white/10 px-5">
           <span className="text-3xl font-bold">月結餘</span>

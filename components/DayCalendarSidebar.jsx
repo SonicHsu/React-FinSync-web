@@ -10,12 +10,13 @@ import {
   isTheSameDay
 } from "../utils/dateUtils";
 
-export default function DayCalendarSidebar({ date, onDateChange }) {
+export default function DayCalendarSidebar({ date, onDateChange, setDialogState }) {
   const [miniCalendarDate, setMiniCalendarDate] = useState(today);
 
   const MiniCalendarDays = generateMonthCalendarDays(miniCalendarDate);
   const MiniCalendarDaysAll = MiniCalendarDays.map((calendarDay) => (
     <MiniCalendarDay
+    key={calendarDay.getTime()}
     day={calendarDay}
     currentDate={miniCalendarDate}
     onClick={() => onDateChange(calendarDay)}
@@ -66,9 +67,9 @@ export default function DayCalendarSidebar({ date, onDateChange }) {
                 <path
                   d="M8.75 16.5L1.25 9L8.75 1.5"
                   stroke="white"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
               </svg>
             </button>
@@ -89,9 +90,9 @@ export default function DayCalendarSidebar({ date, onDateChange }) {
                 <path
                   d="M1.25 16.5L8.75 9L1.25 1.5"
                   stroke="white"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
               </svg>
             </button>
@@ -116,7 +117,7 @@ export default function DayCalendarSidebar({ date, onDateChange }) {
       </div>
 
       <footer className="mt-4 flex w-full space-x-2">
-        <CalendarActionButtons />
+        <CalendarActionButtons setDialogState={setDialogState} />
       </footer>
     </div>
   );

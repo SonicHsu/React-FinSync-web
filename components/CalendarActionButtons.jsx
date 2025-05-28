@@ -1,7 +1,8 @@
-export default function CalendarActionButtons() {
+export default function CalendarActionButtons({setDialogState}) {
     return(
          <div className="space-x-2">
-          <button className="group transition duration-150 ease-in-out hover:scale-105">
+          <button className="group transition duration-150 ease-in-out hover:scale-105 cursor-pointer"
+          onClick={() => setDialogState(prev => ({...prev, entryForm: true}))}>
             <svg
               width="62"
               height="62"
@@ -18,13 +19,13 @@ export default function CalendarActionButtons() {
               <path
                 d="M31 17V45M17 31H45"
                 stroke="white"
-                stroke-width="4"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="4"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
             </svg>
           </button>
-          <button className="group transition duration-150 ease-in-out hover:scale-105">
+          <button className="group transition duration-150 ease-in-out hover:scale-105 cursor-pointer">
             <svg
               width="62"
               height="62"
@@ -41,9 +42,9 @@ export default function CalendarActionButtons() {
               <path
                 d="M43 47V27M31 47V15M19 47V35"
                 stroke="white"
-                stroke-width="4"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="4"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
             </svg>
           </button>
