@@ -5,7 +5,7 @@ import { generateMonthCalendarDays } from "../utils/dateUtils";
 
 export default function MonthCalendar({ date, setDialogState }) {
   const calendarDays = generateMonthCalendarDays(date);
-  const calendarDaysAll = calendarDays.map((calendarDay) => (
+  const calendarDaysComponents = calendarDays.map((calendarDay) => (
     <MonthCalendarDay  key={calendarDay.getTime()} day={calendarDay} currentDate={date} />
   ));
 
@@ -24,7 +24,7 @@ export default function MonthCalendar({ date, setDialogState }) {
       </div>
 
       <div className="w-full flex-1">
-        <ul className="grid grid-cols-7 gap-1">{calendarDaysAll}</ul>
+        <ul className="grid grid-cols-7 gap-1">{calendarDaysComponents}</ul>
       </div>
 
       <footer className="mt-5 flex h-[62px] w-full justify-between">

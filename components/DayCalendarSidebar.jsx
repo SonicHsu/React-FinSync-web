@@ -13,8 +13,8 @@ import {
 export default function DayCalendarSidebar({ date, onDateChange, setDialogState }) {
   const [miniCalendarDate, setMiniCalendarDate] = useState(today);
 
-  const MiniCalendarDays = generateMonthCalendarDays(miniCalendarDate);
-  const MiniCalendarDaysAll = MiniCalendarDays.map((calendarDay) => (
+  const miniCalendarDays = generateMonthCalendarDays(miniCalendarDate);
+  const miniCalendarDayComponents = miniCalendarDays.map((calendarDay) => (
     <MiniCalendarDay
     key={calendarDay.getTime()}
     day={calendarDay}
@@ -112,7 +112,7 @@ export default function DayCalendarSidebar({ date, onDateChange, setDialogState 
         </div>
 
         <div className="w-full px-2">
-          <ul className="grid grid-cols-7 gap-1">{MiniCalendarDaysAll}</ul>
+          <ul className="grid grid-cols-7 gap-1">{miniCalendarDayComponents}</ul>
         </div>
       </div>
 

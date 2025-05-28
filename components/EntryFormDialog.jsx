@@ -1,12 +1,42 @@
 import { useState } from "react";
-import { EXPENSE_CATEGORIES, INCOME_CATEGORIES } from "../constants/entryCategories";
+import EntryCategoryButton from "./EntryCategoryButton";
+import EntryInputSection from "./EntryInputSection";
+import {
+  EXPENSE_CATEGORIES,
+  INCOME_CATEGORIES,
+} from "../constants/entryCategories";
 
 export default function EntryFormDialog({ open, onClose }) {
   if (!open) return null;
 
   const [type, setType] = useState("expense");
-  const [category, setCategory] = useState('飲食');
+  const [category, setCategory] = useState("food");
+  const [mode, setMode] = useState("once");
+  const [amount, setAmount] = useState("");
+  const [date, setDate] = useState("");
+  const [note, setNote] = useState("");
 
+  const handleTypeChange = (newType) => {
+    setType(newType);
+    if (newType === "expense") {
+      setCategory("food"); // 支出預設：飲食
+    } else {
+      setCategory("salary"); // 收入預設：薪資
+    }
+  };
+
+  const currentCategories =
+    type === "expense" ? EXPENSE_CATEGORIES : INCOME_CATEGORIES;
+  const currentCategoryComponents = currentCategories.map((cat) => (
+    <EntryCategoryButton
+      key={cat.category}
+      category={cat.category}
+      label={cat.label}
+      color={cat.color}
+      selected={category === cat.category}
+      onClick={setCategory}
+    />
+  ));
 
   return (
     <div>
@@ -29,16 +59,16 @@ export default function EntryFormDialog({ open, onClose }) {
 
           <div className="dialog-entry-divider"></div>
 
-          <div className="flex h-[30px] w-[250px] items-center justify-center rounded-[90px] bg-gray-400/50">
+          <div className="flex h-[30px] w-[250px] items-center justify-center rounded-[90px] bg-gray-400/50 font-semibold">
             <button
-              className="button-option-selected font-bold"
-              data-entry-type-button="expense"
+              className={`${type === "expense" ? "button-option-selected" : "button-option"}`}
+              onClick={() => handleTypeChange("expense")}
             >
               支出
             </button>
             <button
-              className="button-option font-bold"
-              data-entry-type-button="income"
+              className={`${type === "income" ? "button-option-selected" : "button-option"}`}
+              onClick={() => handleTypeChange("income")}
             >
               收入
             </button>
@@ -51,133 +81,13 @@ export default function EntryFormDialog({ open, onClose }) {
               className="grid grid-cols-4 gap-4"
               data-entry-category-list-expense
             >
-              <li className="relative h-[30px] w-[80px] overflow-hidden rounded-full">
-                <div
-                  className="category-button-selected"
-                  data-entry-category="food"
-                >
-                  飲食
-                </div>
-                <div className="absolute bottom-0 left-0 h-1 w-full bg-orange-400"></div>
-              </li>
-              <li className="relative h-[30px] w-[80px] overflow-hidden rounded-full">
-                <div
-                  className="category-button"
-                  data-entry-category="transport"
-                >
-                  交通
-                </div>
-                <div className="absolute bottom-0 left-0 h-1 w-full bg-sky-400"></div>
-              </li>
-              <li className="relative h-[30px] w-[80px] overflow-hidden rounded-full">
-                <div className="category-button" data-entry-category="housing">
-                  住房
-                </div>
-                <div className="absolute bottom-0 left-0 h-1 w-full bg-emerald-400"></div>
-              </li>
-              <li className="relative h-[30px] w-[80px] overflow-hidden rounded-full">
-                <div
-                  className="category-button"
-                  data-entry-category="entertainment"
-                >
-                  娛樂
-                </div>
-                <div className="absolute bottom-0 left-0 h-1 w-full bg-pink-400"></div>
-              </li>
-              <li className="relative h-[30px] w-[80px] overflow-hidden rounded-full">
-                <div className="category-button" data-entry-category="life">
-                  生活
-                </div>
-                <div className="absolute bottom-0 left-0 h-1 w-full bg-purple-400"></div>
-              </li>
-              <li className="relative h-[30px] w-[80px] overflow-hidden rounded-full">
-                <div
-                  className="category-button"
-                  data-entry-category="expenseOther"
-                >
-                  其他
-                </div>
-                <div className="absolute bottom-0 left-0 h-1 w-full bg-gray-400"></div>
-              </li>
-            </ul>
-            <ul
-              className="grid grid-cols-4 gap-4"
-              data-entry-category-list-income
-            >
-              <li className="relative h-[30px] w-[80px] overflow-hidden rounded-full">
-                <div
-                  className="category-button-selected"
-                  data-entry-category="salary"
-                >
-                  薪資
-                </div>
-                <div className="absolute bottom-0 left-0 h-1 w-full bg-green-400"></div>
-              </li>
-              <li className="relative h-[30px] w-[80px] overflow-hidden rounded-full">
-                <div className="category-button" data-entry-category="bonus">
-                  獎金
-                </div>
-                <div className="absolute bottom-0 left-0 h-1 w-full bg-yellow-400"></div>
-              </li>
-              <li className="relative h-[30px] w-[80px] overflow-hidden rounded-full">
-                <div
-                  className="category-button"
-                  data-entry-category="investment"
-                >
-                  投資
-                </div>
-                <div className="absolute bottom-0 left-0 h-1 w-full bg-indigo-400"></div>
-              </li>
-              <li className="relative h-[30px] w-[80px] overflow-hidden rounded-full">
-                <div
-                  className="category-button"
-                  data-entry-category="incomeOther"
-                >
-                  其他
-                </div>
-                <div className="absolute bottom-0 left-0 h-1 w-full bg-gray-400"></div>
-              </li>
+              {currentCategoryComponents}
             </ul>
           </div>
 
           <div className="dialog-entry-divider"></div>
 
-          <div className="flex w-[368px] justify-between">
-            <div className="flex h-[30px] w-[174px] items-center justify-between rounded-xl bg-gray-800 px-3">
-              <span className="text-sm text-gray-400">金額</span>
-              <input
-                className="w-24 appearance-none border-none bg-transparent text-right text-xl font-medium text-white outline-none focus:ring-0"
-                type="text"
-                inputmode="numeric"
-                data-entry-amount-input
-              />
-            </div>
-
-            <div className="relative flex h-[30px] w-[174px] items-center justify-between rounded-xl bg-gray-800 px-3">
-              <span className="text-sm text-gray-400">日期</span>
-              <span
-                className="z-10 cursor-pointer text-xl font-medium"
-                data-entry-date
-              ></span>
-              <input
-                type="date"
-                className="absolute inset-0 h-full w-full opacity-0"
-                data-entry-date-picker
-              />
-            </div>
-          </div>
-
-          <div className="mt-2">
-            <div className="flex w-[368px] items-center justify-between rounded-xl bg-gray-800 px-3">
-              <span className="text-sm text-gray-400">備註</span>
-              <input
-                className="w-[300px] appearance-none border-none bg-transparent text-left text-xl font-medium text-white outline-none focus:ring-0"
-                type="text"
-                inputmode="numeric"
-                data-entry-note-input
-              />
-            </div>
-          </div>
+          <EntryInputSection />
 
           <div className="dialog-entry-divider"></div>
 
@@ -185,14 +95,17 @@ export default function EntryFormDialog({ open, onClose }) {
             <ul className="grid grid-cols-4 gap-4" data-entry-mode-list>
               <li className="relative h-[30px] w-[80px] overflow-hidden rounded-full">
                 <div
-                  className="category-button-selected"
-                  data-entry-mode="once"
+                  className={`${mode === "once" ? "category-button-selected" : "category-button"}`}
+                  onClick={() => setMode("once")}
                 >
                   單次
                 </div>
               </li>
               <li className="relative h-[30px] w-[80px] overflow-hidden rounded-full">
-                <div className="category-button" data-entry-mode="recurring">
+                <div
+                  className={`${mode === "recurring" ? "category-button-selected" : "category-button"}`}
+                  onClick={() => setMode("recurring")}
+                >
                   週期
                 </div>
               </li>
