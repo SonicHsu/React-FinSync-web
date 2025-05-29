@@ -5,16 +5,18 @@ import {
   EXPENSE_CATEGORIES,
   INCOME_CATEGORIES,
 } from "../constants/entryCategories";
+import { v4 as uuidv4 } from "uuid";
+import { validAmount, validDate, validNote } from "../utils/validation";
 
-export default function EntryFormDialog({ open, onClose }) {
+export default function EntryFormDialog({ open, onClose, currentDate, setEntries }) {
   if (!open) return null;
 
   const [type, setType] = useState("expense");
   const [category, setCategory] = useState("food");
-  const [mode, setMode] = useState("once");
   const [amount, setAmount] = useState("");
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(currentDate);
   const [note, setNote] = useState("");
+  const [mode, setMode] = useState("once");
 
   const handleTypeChange = (newType) => {
     setType(newType);
@@ -27,6 +29,7 @@ export default function EntryFormDialog({ open, onClose }) {
 
   const currentCategories =
     type === "expense" ? EXPENSE_CATEGORIES : INCOME_CATEGORIES;
+
   const currentCategoryComponents = currentCategories.map((cat) => (
     <EntryCategoryButton
       key={cat.category}
@@ -37,6 +40,25 @@ export default function EntryFormDialog({ open, onClose }) {
       onClick={setCategory}
     />
   ));
+
+  const handleSubmit = () => {
+    try {
+      const data = {
+        id: uuidv4(),
+        type: type,
+        category: category,
+        amount: validAmount(amount),
+        date: validDate(date),
+        note: validNote(note),
+        mode: mode,
+      };
+      console.log("submit data!");
+      setEntries(prevEntries => [data, ...prevEntries] )
+      onClose();
+    } catch (error) {
+      alert(error.message);
+    }
+  };
 
   return (
     <div>
@@ -87,7 +109,14 @@ export default function EntryFormDialog({ open, onClose }) {
 
           <div className="dialog-entry-divider"></div>
 
-          <EntryInputSection />
+          <EntryInputSection
+            amount={amount}
+            setAmount={setAmount}
+            date={date}
+            setDate={setDate}
+            note={note}
+            setNote={setNote}
+          />
 
           <div className="dialog-entry-divider"></div>
 
@@ -116,14 +145,14 @@ export default function EntryFormDialog({ open, onClose }) {
 
           <div className="mb-5 flex w-[368px] justify-between">
             <button
-              className="flex h-[40px] w-[174px] items-center justify-center rounded-xl bg-gray-800 text-2xl text-white/50 hover:bg-gray-600"
-              data-dialog-cancel-button
+              className="flex h-[40px] w-[174px] cursor-pointer items-center justify-center rounded-xl bg-gray-800 text-2xl text-white/50 hover:bg-gray-600"
+              onClick={onClose}
             >
               取消
             </button>
             <button
-              className="flex h-[40px] w-[174px] items-center justify-center rounded-xl bg-blue-600 text-2xl text-white hover:bg-blue-400"
-              data-dialog-confirm-button
+              className="flex h-[40px] w-[174px] cursor-pointer items-center justify-center rounded-xl bg-blue-600 text-2xl text-white hover:bg-blue-400"
+              onClick={handleSubmit}
             >
               確認
             </button>

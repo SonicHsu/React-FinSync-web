@@ -16,6 +16,10 @@ export default function App() {
     viewStats: false,
   });
 
+  const [entries, setEntries] = useState([]);
+  console.log("總共:")
+  console.log(entries);
+
   return (
     <div className="flex min-h-screen flex-col bg-gradient-to-b from-slate-950 via-indigo-950 to-slate-950 font-sans text-white">
       <AuthButtons />
@@ -34,6 +38,7 @@ export default function App() {
             date={currentDate}
             onDateChange={setCurrentDate}
             setDialogState={setDialogState}
+            entries={entries}
           />
         )}
       </main>
@@ -41,8 +46,9 @@ export default function App() {
       <EntryFormDialog
         open={dialogState.entryForm}
         onClose={() =>
-          setDialogState((prev) => ({ ...prev, entryForm: false }))
-        }
+          setDialogState((prev) => ({ ...prev, entryForm: false }))}
+        currentDate={currentDate} 
+        setEntries={setEntries}
       />
     </div>
   );
