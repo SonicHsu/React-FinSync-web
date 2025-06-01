@@ -32,7 +32,12 @@ export default function App() {
 
       <main>
         {currentView === "Month" ? (
-          <MonthCalendar date={currentDate} setDialogState={setDialogState} />
+          <MonthCalendar 
+          date={currentDate} 
+          setDialogState={setDialogState}
+          entries={entries}
+          onViewChange={setCurrentView}
+          onDateChange={setCurrentDate} />
         ) : (
           <DayCalendar
             date={currentDate}

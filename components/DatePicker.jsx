@@ -34,7 +34,11 @@ export default function DatePicker({ currentView, currentDate, onDateChange }) {
   return (
     <div className="flex items-center space-x-2">
       <div className="relative flex items-center space-x-1">
-        <DateBox type="today" value="Today" onClick={() => onDateChange(today)} />
+        <DateBox
+          type="today"
+          value="Today"
+          onClick={() => onDateChange(today)}
+        />
 
         <DateBox
           type="year"
@@ -56,15 +60,17 @@ export default function DatePicker({ currentView, currentDate, onDateChange }) {
           setOpenMode={setOpenMode}
         />
 
-        <DateBox
-          type="date"
-          value={String(currentDate.getDate()).padStart(2, "0")}
-          onClick={() => setOpenMode("date")}
-          currentDate={currentDate}
-          mode={openMode}
-          handleDateChange={handleDateChange}
-          setOpenMode={setOpenMode}
-        />
+        {currentView === "Day" && (
+          <DateBox
+            type="date"
+            value={String(currentDate.getDate()).padStart(2, "0")}
+            onClick={() => setOpenMode("date")}
+            currentDate={currentDate}
+            mode={openMode}
+            handleDateChange={handleDateChange}
+            setOpenMode={setOpenMode}
+          />
+        )}
 
         {currentView === "Day" && (
           <span className="w-12 text-center text-2xl font-medium text-white/50">

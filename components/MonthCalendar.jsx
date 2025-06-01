@@ -3,10 +3,23 @@ import MonthCalendarDay from "./MonthCalendarDay";
 import CalendarActionButtons from "./CalendarActionButtons";
 import { generateMonthCalendarDays } from "../utils/dateUtils";
 
-export default function MonthCalendar({ date, setDialogState }) {
+export default function MonthCalendar({
+  date,
+  onDateChange,
+  onViewChange,
+  setDialogState,
+  entries,
+}) {
   const calendarDays = generateMonthCalendarDays(date);
   const calendarDaysComponents = calendarDays.map((calendarDay) => (
-    <MonthCalendarDay  key={calendarDay.getTime()} day={calendarDay} currentDate={date} />
+    <MonthCalendarDay
+      key={calendarDay.getTime()}
+      day={calendarDay}
+      currentDate={date}
+      onDateChange={onDateChange}
+      onViewChange={onViewChange}
+      entries={entries}
+    />
   ));
 
   return (

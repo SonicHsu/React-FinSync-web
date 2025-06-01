@@ -60,6 +60,7 @@ export default function EntryInputSection({
           {isOpen && (
             <div className="absolute top-full left-0 z-50 mt-2 w-[150px]">
               <ReactDatePicker
+                selected={date}
                 onChange={handleEntryDateChange}
                 onClickOutside={() => setIsOpen(null)}
                 open
