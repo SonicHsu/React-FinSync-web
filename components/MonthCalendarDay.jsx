@@ -1,14 +1,10 @@
-import { isTheSameDay } from "../utils/dateUtils";
-import { useDayTotals } from "../hooks/useTotals";
+import { useDayEntriesAndTotals } from "../hooks/useDayEntriesAndTotals";
 
 
 export default function MonthCalendarDay({ day, currentDate, onDateChange, onViewChange, entries, }) {
   const currentMonth = currentDate.getMonth();
-    const dayEntries = entries.filter((entry) =>
-    isTheSameDay(entry.date, day),
-  );
 
-  const { dayExpenseTotal , dayIncomeTotal } = useDayTotals(dayEntries)
+  const {dayEntries, expenseTotal , incomeTotal} = useDayEntriesAndTotals(entries, day)
 
   const handelCalendarDayClick = () => {
     onDateChange(day)
@@ -37,11 +33,11 @@ export default function MonthCalendarDay({ day, currentDate, onDateChange, onVie
         </div>
 
         <div className="flex grow flex-col justify-evenly" data-day-summary>
-          {dayExpenseTotal > 0 && <div className="flex h-[20px] w-[120px] items-center justify-center rounded-full bg-gray-400/50 pt-0.5 text-center text-xl">
-            {dayExpenseTotal}
+          {expenseTotal > 0 && <div className="flex h-[20px] w-[120px] items-center justify-center rounded-full bg-gray-400/50 pt-0.5 text-center text-xl">
+            {expenseTotal}
           </div>}
-          {dayIncomeTotal > 0 && <div className="flex h-[20px] w-[120px] items-center justify-center rounded-full bg-sky-400/50 pt-0.5 text-center text-xl">
-            {dayIncomeTotal}
+          {incomeTotal > 0 && <div className="flex h-[20px] w-[120px] items-center justify-center rounded-full bg-sky-400/50 pt-0.5 text-center text-xl">
+            {incomeTotal}
           </div>}
         </div>
       </button>

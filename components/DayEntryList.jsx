@@ -1,11 +1,9 @@
 import DayEntry from "./DayEntry";
-import { isTheSameDay } from "../utils/dateUtils";
-import { useDayTotals } from "../hooks/useTotals";
+import { useDayEntriesAndTotals } from "../hooks/useDayEntriesAndTotals";
 
 export default function DayEntryList({ selectedDate, entries }) {
-  const dayEntries = entries.filter((entry) =>
-    isTheSameDay(entry.date, selectedDate),
-  );
+  const {dayEntries, expenseTotal , incomeTotal} = useDayEntriesAndTotals(entries, selectedDate)
+
   const entriesComponents = dayEntries.map((entry) => (
     <DayEntry
       key={entry.id}
@@ -16,23 +14,19 @@ export default function DayEntryList({ selectedDate, entries }) {
     />
   ));
 
-  const { dayExpenseTotal , dayIncomeTotal } = useDayTotals(dayEntries)
-  console.log(dayExpenseTotal);
-  console.log(dayIncomeTotal);
-
   return (
     <div className="flex h-[668px] w-[685px] flex-col items-center rounded-[10px] bg-gray-800/30">
       <div className="mt-5 flex h-[50px] w-[645px] justify-between">
         <div className="flex w-[310px] items-center justify-between rounded-[10px] bg-gray-400/50 px-3">
           <span className="text-2xl font-semibold">當日支出</span>
-          <span className="text-4xl" data-today-expense>
-            {dayExpenseTotal}
+          <span className="text-4xl" >
+            {expenseTotal}
           </span>
         </div>
         <div className="flex w-[310px] items-center justify-between rounded-[10px] bg-blue-400/50 px-3">
           <span className="text-2xl font-semibold">當日收入</span>
-          <span className="text-4xl" data-today-income>
-            {dayIncomeTotal}
+          <span className="text-4xl" >
+            {incomeTotal}
           </span>
         </div>
       </div>

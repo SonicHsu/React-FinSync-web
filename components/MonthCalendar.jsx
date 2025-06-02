@@ -1,7 +1,8 @@
 import { useState } from "react";
 import MonthCalendarDay from "./MonthCalendarDay";
 import CalendarActionButtons from "./CalendarActionButtons";
-import { generateMonthCalendarDays } from "../utils/dateUtils";
+import { generateMonthCalendarDays, isTheSameMonth } from "../utils/dateUtils";
+import { calculateDateTotals } from "../utils/calculator";
 
 export default function MonthCalendar({
   date,
@@ -21,6 +22,14 @@ export default function MonthCalendar({
       entries={entries}
     />
   ));
+
+  const monthEntries = entries.filter((entry) =>
+    isTheSameMonth(entry.date, date),
+  );
+
+  const monthTotals = calculateDateTotals(monthEntries)
+  const monthBalance = monthTotals.incomeTotal - monthTotals.expenseTotal
+
 
   return (
     <div className="mx-auto mt-8 flex w-[981px] flex-col items-center justify-between">
@@ -45,7 +54,7 @@ export default function MonthCalendar({
 
         <div className="flex h-full items-center justify-between space-x-6 rounded-[10px] border border-white/10 bg-white/10 px-5">
           <span className="text-3xl font-bold">月結餘</span>
-          <span className="text-5xl font-bold text-gray-400">0</span>
+          <span className={`text-5xl font-bold ${monthBalance < 0 ? "text-gray-400" : "text-blue-400"}`}>{monthBalance}</span>
         </div>
       </footer>
     </div>
