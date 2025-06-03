@@ -7,6 +7,7 @@ import {
 } from "../constants/entryCategories";
 import { v4 as uuidv4 } from "uuid";
 import { validAmount, validDate, validNote } from "../utils/validation";
+import { firestoreService } from "../src/firestoreService";
 
 export default function EntryFormDialog({
   open,
@@ -15,6 +16,8 @@ export default function EntryFormDialog({
   setEntries,
   isEditing,
   selectedEntry,
+  user,
+  loadEntries,
 }) {
   if (!open) return null; // TODO: 如果出現編輯狀態不同步問題，考慮加上 useEffect 來同步 props 到 state
 
@@ -60,7 +63,7 @@ export default function EntryFormDialog({
     />
   ));
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     try {
       const data = {
         id: isEditing && selectedEntry ? selectedEntry.id : uuidv4(),
@@ -71,19 +74,18 @@ export default function EntryFormDialog({
         note: validNote(note),
         mode: mode,
       };
-      
 
-      setEntries((prevEntries) => {
-        if (isEditing && selectedEntry) {
-          return prevEntries.map( prevEntry =>
-            prevEntry.id === selectedEntry.id ? data : prevEntry
-          );
-        } else {
-          return [...prevEntries, data];
-        }
-      });
+      if (isEditing && selectedEntry) {
+        await firestoreService.editEntry(
+          user?.uid,
+          selectedEntry.firebaseId,
+          data,
+        );
+      } else {
+        await firestoreService.addEntry(user?.uid, data);
+      }
 
-       console.log("submit data!"); 
+      await loadEntries();
       onClose();
     } catch (error) {
       alert(error.message);

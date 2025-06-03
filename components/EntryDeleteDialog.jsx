@@ -1,9 +1,11 @@
-export default function EntryDeleteDialog({ open, onClose, selectedEntry, setEntries }) {
+import { firestoreService } from "../src/firestoreService";
+
+export default function EntryDeleteDialog({ open, onClose, selectedEntry, user, loadEntries }) {
   if (!open) return null;
 
-  const handleDeleteButton = () => {
-     setEntries((preEntries) =>{
-        return preEntries.filter(entry => entry.id !== selectedEntry.id)})
+  const handleDeleteButton = async () => {
+     await firestoreService.deleteEntry(user?.uid, selectedEntry.firebaseId)
+     await loadEntries();
      onClose();   
   }
 
