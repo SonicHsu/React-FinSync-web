@@ -8,15 +8,34 @@ import {
 import { v4 as uuidv4 } from "uuid";
 import { validAmount, validDate, validNote } from "../utils/validation";
 
-export default function EntryFormDialog({ open, onClose, currentDate, setEntries }) {
-  if (!open) return null;
+export default function EntryFormDialog({
+  open,
+  onClose,
+  currentDate,
+  setEntries,
+  isEditing,
+  selectedEntry,
+}) {
+  if (!open) return null; // TODO: 如果出現編輯狀態不同步問題，考慮加上 useEffect 來同步 props 到 state
 
-  const [type, setType] = useState("expense");
-  const [category, setCategory] = useState("food");
-  const [amount, setAmount] = useState("");
-  const [date, setDate] = useState(currentDate);
-  const [note, setNote] = useState("");
-  const [mode, setMode] = useState("once");
+  const [type, setType] = useState(
+    isEditing && selectedEntry ? selectedEntry.type : "expense",
+  );
+  const [category, setCategory] = useState(
+    isEditing && selectedEntry ? selectedEntry.category : "food",
+  );
+  const [amount, setAmount] = useState(
+    isEditing && selectedEntry ? selectedEntry.amount.toString() : "",
+  );
+  const [date, setDate] = useState(
+    isEditing && selectedEntry ? selectedEntry.date : currentDate,
+  );
+  const [note, setNote] = useState(
+    isEditing && selectedEntry ? selectedEntry.note : "",
+  );
+  const [mode, setMode] = useState(
+    isEditing && selectedEntry ? selectedEntry.mode : "once",
+  );
 
   const handleTypeChange = (newType) => {
     setType(newType);
@@ -44,7 +63,7 @@ export default function EntryFormDialog({ open, onClose, currentDate, setEntries
   const handleSubmit = () => {
     try {
       const data = {
-        id: uuidv4(),
+        id: isEditing && selectedEntry ? selectedEntry.id : uuidv4(),
         type: type,
         category: category,
         amount: validAmount(amount),
@@ -52,8 +71,19 @@ export default function EntryFormDialog({ open, onClose, currentDate, setEntries
         note: validNote(note),
         mode: mode,
       };
-      console.log("submit data!");
-      setEntries(prevEntries => [data, ...prevEntries] )
+      
+
+      setEntries((prevEntries) => {
+        if (isEditing && selectedEntry) {
+          return prevEntries.map( prevEntry =>
+            prevEntry.id === selectedEntry.id ? data : prevEntry
+          );
+        } else {
+          return [...prevEntries, data];
+        }
+      });
+
+       console.log("submit data!"); 
       onClose();
     } catch (error) {
       alert(error.message);
@@ -65,19 +95,19 @@ export default function EntryFormDialog({ open, onClose, currentDate, setEntries
       <div
         className="fixed inset-0 z-40 bg-slate-950/70 backdrop-blur-sm"
         onClick={onClose}
-        data-dialog-backdrop
       ></div>
 
       <div
         className="fixed z-50 w-[420px] rounded-[10px] border border-blue-400/50 bg-slate-950/80"
         style={{ top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}
-        data-dialog="entry-form"
       >
         <div
           className="flex h-full w-full flex-col items-center text-white"
           data-entry-form
         >
-          <div className="mt-7 text-4xl font-bold">新增交易紀錄</div>
+          <div className="mt-7 text-4xl font-bold">
+            {isEditing ? "編輯交易紀錄" : "新增交易紀錄"}
+          </div>
 
           <div className="dialog-entry-divider"></div>
 
@@ -99,10 +129,7 @@ export default function EntryFormDialog({ open, onClose, currentDate, setEntries
           <div className="dialog-entry-divider"></div>
 
           <div className="min-h-[80px]">
-            <ul
-              className="grid grid-cols-4 gap-4"
-              data-entry-category-list-expense
-            >
+            <ul className="grid grid-cols-4 gap-4">
               {currentCategoryComponents}
             </ul>
           </div>

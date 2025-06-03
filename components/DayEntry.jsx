@@ -1,13 +1,13 @@
 import { EXPENSE_CATEGORIES, INCOME_CATEGORIES } from "../constants/entryCategories";
 
-export default function DayEntry({type, category, amount, note}) {
+export default function DayEntry({type, category, amount, note, onClick}) {
   const categories = type === "expense" ? EXPENSE_CATEGORIES : INCOME_CATEGORIES;
   const categoryItem = categories.find(item => item.category === category)
 
   return (
     <li
       className="mt-2 flex cursor-pointer items-center justify-between border-b border-white/20 pb-2"
-      data-entry
+      onClick={onClick}
     >
       <div className="flex items-center space-x-3 px-3">
         <span

@@ -1,8 +1,16 @@
 import DayEntry from "./DayEntry";
 import { useDayEntriesAndTotals } from "../hooks/useDayEntriesAndTotals";
 
-export default function DayEntryList({ selectedDate, entries }) {
+export default function DayEntryList({ selectedDate, entries, setDialogState, setSelectedEntry }) {
   const {dayEntries, expenseTotal , incomeTotal} = useDayEntriesAndTotals(entries, selectedDate)
+
+  const handleSelectEntry = (entry) => {
+    setSelectedEntry(entry);
+    setDialogState
+      (prev => ({...prev, entryDetail: true}))
+    
+  }
+
 
   const entriesComponents = dayEntries.map((entry) => (
     <DayEntry
@@ -11,6 +19,7 @@ export default function DayEntryList({ selectedDate, entries }) {
       category={entry.category}
       amount={entry.amount}
       note={entry.note}
+      onClick={() => handleSelectEntry(entry)}
     />
   ));
 
