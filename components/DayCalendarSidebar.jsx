@@ -10,7 +10,7 @@ import {
   isTheSameDay
 } from "../utils/dateUtils";
 
-export default function DayCalendarSidebar({ date, onDateChange, setDialogState }) {
+export default function DayCalendarSidebar({ date, onDateChange, handleOpenEntryForm }) {
   const [miniCalendarDate, setMiniCalendarDate] = useState(today);
 
   const miniCalendarDays = generateMonthCalendarDays(miniCalendarDate);
@@ -26,7 +26,7 @@ export default function DayCalendarSidebar({ date, onDateChange, setDialogState 
   ));
 
   useEffect(() => {
-    // 如果主日期所在的月份和 miniCalendar 不一樣，就更新
+    // 如果主日期所在的月份和 miniCalendar 不一樣，這裡要修改
     const isSameMonth =
       date.getFullYear() === miniCalendarDate.getFullYear() &&
       date.getMonth() === miniCalendarDate.getMonth();
@@ -117,7 +117,7 @@ export default function DayCalendarSidebar({ date, onDateChange, setDialogState 
       </div>
 
       <footer className="mt-4 flex w-full space-x-2">
-        <CalendarActionButtons setDialogState={setDialogState} />
+        <CalendarActionButtons handleOpenEntryForm={handleOpenEntryForm} />
       </footer>
     </div>
   );

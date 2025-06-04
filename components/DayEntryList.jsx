@@ -1,15 +1,8 @@
 import DayEntry from "./DayEntry";
 import { getDayEntriesAndTotals } from "../utils/calculator";
 
-export default function DayEntryList({ selectedDate, entries, setDialogState, setSelectedEntry }) {
+export default function DayEntryList({ selectedDate, entries, handleOpenEntryDetail, setSelectedEntry }) {
   const {dayEntries, expenseTotal , incomeTotal} = getDayEntriesAndTotals(entries, selectedDate)
-
-  const handleSelectEntry = (entry) => {
-    setSelectedEntry(entry);
-    setDialogState
-      (prev => ({...prev, entryDetail: true}))
-    
-  }
 
 
   const entriesComponents = dayEntries.map((entry) => (
@@ -19,7 +12,7 @@ export default function DayEntryList({ selectedDate, entries, setDialogState, se
       category={entry.category}
       amount={entry.amount}
       note={entry.note}
-      onClick={() => handleSelectEntry(entry)}
+      onClick={() => handleOpenEntryDetail(entry)}
     />
   ));
 

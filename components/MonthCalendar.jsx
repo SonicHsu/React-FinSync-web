@@ -8,7 +8,7 @@ export default function MonthCalendar({
   date,
   onDateChange,
   onViewChange,
-  setDialogState,
+  handleOpenEntryForm,
   entries,
 }) {
   const calendarDays = generateMonthCalendarDays(date);
@@ -50,7 +50,7 @@ export default function MonthCalendar({
       </div>
 
       <footer className="mt-5 flex h-[62px] w-full justify-between">
-        <CalendarActionButtons setDialogState={setDialogState} />
+        <CalendarActionButtons handleOpenEntryForm={handleOpenEntryForm} />
 
         <div className="flex h-full items-center justify-between space-x-6 rounded-[10px] border border-white/10 bg-white/10 px-5">
           <span className="text-3xl font-bold">月結餘</span>

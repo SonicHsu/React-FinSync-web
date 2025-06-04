@@ -8,8 +8,8 @@ export default function EntryDetailDialog({
   open,
   onClose,
   selectedEntry,
-  setDialogState,
-  setIsEditing
+  handleOpenEntryEdit,
+  handleOpenEntryDelete
 }) {
   if (!open) return null;
 
@@ -19,22 +19,6 @@ export default function EntryDetailDialog({
     (item) => item.category === selectedEntry.category,
   );
 
-  const handleEditButton = () => {
-    setIsEditing(true)
-    setDialogState((prev) => ({
-      ...prev,
-      entryDetail: false,
-      entryForm: true,
-    }));
-  };
-
-    const handleDeleteButton = () => {
-    setDialogState((prev) => ({
-      ...prev,
-      entryDetail: false,
-      entryDelete: true,
-    }));
-  };
 
   return (
     <div>
@@ -57,7 +41,7 @@ export default function EntryDetailDialog({
               交易明細
             </div>
             <div className="flex justify-end space-x-2">
-              <span className="cursor-pointer" onClick={handleEditButton}>
+              <span className="cursor-pointer" onClick={handleOpenEntryEdit}>
                 <svg
                   width="20"
                   height="20"
@@ -76,7 +60,7 @@ export default function EntryDetailDialog({
                 </svg>
               </span>
 
-              <span className="cursor-pointer" onClick={handleDeleteButton}>
+              <span className="cursor-pointer" onClick={handleOpenEntryDelete}>
                 <svg
                   width="20"
                   height="20"

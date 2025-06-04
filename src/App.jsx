@@ -1,18 +1,18 @@
 import { useState, useEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import AuthButtons from "../components/AuthButtons";
-import Header from "../components/Header";
-import MonthCalendar from "../components/MonthCalendar";
-import DayCalendar from "../components/DayCalendar";
-import EntryFormDialog from "../components/EntryFormDialog";
-import EntryDetailDialog from "../components/EntryDetailDialog";
-import EntryDeleteDialog from "../components/EntryDeleteDialog";
-import StatsPage from "../components/StatsPage";
+import CalendarPage from "../Pages/CalendarPage";
+import StatsPage from "../Pages/StatsPage";
 import { firestoreService } from "./firestoreService";
 import { today } from "../utils/dateUtils";
 
 export default function App() {
   const [user, setUser] = useState(null);
-  const [currentView, setCurrentView] = useState("Day");
   const [currentDate, setCurrentDate] = useState(today);
   const [dialogState, setDialogState] = useState({
     entryForm: false,
@@ -24,101 +24,66 @@ export default function App() {
   const [selectedEntry, setSelectedEntry] = useState(null);
   const [entries, setEntries] = useState([]);
 
-  const handleCloseEntryForm = () => {
-    setDialogState((prev) => ({ ...prev, entryForm: false }));
-    setIsEditing(false);
-  };
-
-  const handleCloseEntryDetail = () => {
-    setDialogState((prev) => ({ ...prev, entryDetail: false }));
-  };
-
-  const handleCloseEntryDelete = () => {
-    setDialogState((prev) => ({ ...prev, entryDelete: false }));
-  };
-
   const loadEntries = async () => {
     try {
       const data = await firestoreService.getEntries(user.uid); // 這裡從 Firebase 撈資料
-      setEntries(data); // 設定到畫面上的 entries 狀態中
+      setEntries(data);
     } catch (error) {
       console.error("讀取失敗:", error);
     }
   };
 
   useEffect(() => {
-  if (user) {
-    loadEntries(); // 使用者登入後自動載入
-  } else {
-    setEntries([]);
-    setSelectedEntry(null) // 登出時清空資料
-  }
-}, [user]);
+    if (user) {
+      loadEntries(); // 使用者登入後自動載入
+    } else {
+      setEntries([]);
+      setSelectedEntry(null); // 登出時清空資料
+    }
+  }, [user]);
 
   return (
-    <div className="flex min-h-screen flex-col bg-gradient-to-b from-slate-950 via-indigo-950 to-slate-950 font-sans text-white">
-      <AuthButtons user={user} setUser={setUser} />
-      <Header
-        currentView={currentView}
-        onViewChange={setCurrentView}
-        currentDate={currentDate}
-        onDateChange={setCurrentDate}
-      />
+    <Router>
+      <div className="flex min-h-screen flex-col bg-gradient-to-b from-slate-950 via-indigo-950 to-slate-950 font-sans text-white">
+        <AuthButtons user={user} setUser={setUser} />
 
-      <main>
-        {currentView === "Month" ? (
-          <MonthCalendar
-            date={currentDate}
-            setDialogState={setDialogState}
-            entries={entries}
-            onViewChange={setCurrentView}
-            onDateChange={setCurrentDate}
+        <Routes>
+
+          <Route
+            path="/"
+            element={
+              <CalendarPage
+                user={user}
+                currentDate={currentDate}
+                setCurrentDate={setCurrentDate}
+                dialogState={dialogState}
+                setDialogState={setDialogState}
+                entries={entries}
+                setEntries={setEntries}
+                selectedEntry={selectedEntry}
+                setSelectedEntry={setSelectedEntry}
+                isEditing={isEditing}
+                setIsEditing={setIsEditing}
+                loadEntries={loadEntries}
+              />
+            }
           />
-        ) : (
-          <DayCalendar
-            date={currentDate}
-            onDateChange={setCurrentDate}
-            setDialogState={setDialogState}
-            entries={entries}
-            setSelectedEntry={setSelectedEntry}
-          />
-        )}
-      </main>
 
-      <EntryFormDialog
-        open={dialogState.entryForm}
-        onClose={handleCloseEntryForm}
-        currentDate={currentDate}
-        setEntries={setEntries}
-        isEditing={isEditing}
-        selectedEntry={selectedEntry}
-        user={user}
-        loadEntries={loadEntries}
-      />
+            <Route
+              path="/stats" 
+              element={
+                <StatsPage 
+                currentDate={currentDate} 
+                setCurrentDate={setCurrentDate}
+                entries={entries}    
+              />
+              }
+            />
 
-      <EntryDetailDialog
-        open={dialogState.entryDetail}
-        onClose={handleCloseEntryDetail}
-        currentDate={currentDate}
-        selectedEntry={selectedEntry}
-        setSelectedEntry={setSelectedEntry}
-        setDialogState={setDialogState}
-        setIsEditing={setIsEditing}
-      />
 
-      <EntryDeleteDialog
-        open={dialogState.entryDelete}
-        onClose={handleCloseEntryDelete}
-        selectedEntry={selectedEntry}
-        setEntries={setEntries}
-        user={user}
-        loadEntries={loadEntries}
-      />
-
-      <StatsPage
-      entries={entries}
-      currentDate={currentDate}
-       />
-    </div>
+            <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
