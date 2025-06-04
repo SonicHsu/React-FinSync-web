@@ -6,6 +6,7 @@ import DayCalendar from "../components/DayCalendar";
 import EntryFormDialog from "../components/EntryFormDialog";
 import EntryDetailDialog from "../components/EntryDetailDialog";
 import EntryDeleteDialog from "../components/EntryDeleteDialog";
+import StatsPage from "../components/StatsPage";
 import { firestoreService } from "./firestoreService";
 import { today } from "../utils/dateUtils";
 
@@ -113,6 +114,11 @@ export default function App() {
         user={user}
         loadEntries={loadEntries}
       />
+
+      <StatsPage
+      entries={entries}
+      currentDate={currentDate}
+       />
     </div>
   );
 }

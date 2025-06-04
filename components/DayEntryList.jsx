@@ -1,8 +1,8 @@
 import DayEntry from "./DayEntry";
-import { useDayEntriesAndTotals } from "../hooks/useDayEntriesAndTotals";
+import { getDayEntriesAndTotals } from "../utils/calculator";
 
 export default function DayEntryList({ selectedDate, entries, setDialogState, setSelectedEntry }) {
-  const {dayEntries, expenseTotal , incomeTotal} = useDayEntriesAndTotals(entries, selectedDate)
+  const {dayEntries, expenseTotal , incomeTotal} = getDayEntriesAndTotals(entries, selectedDate)
 
   const handleSelectEntry = (entry) => {
     setSelectedEntry(entry);

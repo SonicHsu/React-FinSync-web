@@ -33,7 +33,7 @@ export default function EntryDeleteDialog({ open, onClose, selectedEntry, user, 
           <div className="m-5 flex w-[368px] justify-between">
             <button
               className="flex h-[40px] w-[174px] items-center justify-center rounded-xl bg-gray-800 text-2xl text-white/50 outline-none hover:bg-gray-600 cursor-pointer"
-              data-dialog-cancel-button
+              onClick={onClose}
             >
               取消
             </button>
