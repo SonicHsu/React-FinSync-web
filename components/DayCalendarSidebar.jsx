@@ -7,7 +7,8 @@ import {
   addMonths,
   subtractMonths,
   formatMonth,
-  isTheSameDay
+  isTheSameDay,
+  isTheSameMonth
 } from "../utils/dateUtils";
 
 export default function DayCalendarSidebar({ date, onDateChange, handleOpenEntryForm }) {
@@ -26,12 +27,7 @@ export default function DayCalendarSidebar({ date, onDateChange, handleOpenEntry
   ));
 
   useEffect(() => {
-    // 如果主日期所在的月份和 miniCalendar 不一樣，這裡要修改
-    const isSameMonth =
-      date.getFullYear() === miniCalendarDate.getFullYear() &&
-      date.getMonth() === miniCalendarDate.getMonth();
-
-    if (!isSameMonth) {
+    if (!isTheSameMonth(date, miniCalendarDate)) {
       setMiniCalendarDate(date);
     }
   }, [date]);

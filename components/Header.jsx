@@ -1,23 +1,39 @@
 import DatePicker from "./DatePicker";
 import ViewToggle from "./ViewToggle";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
+export default function Header({
+  currentView,
+  onViewChange,
+  currentDate,
+  onDateChange,
+}) {
+  const location = useLocation();
+  const isStatsPage = location.pathname === '/stats';
 
-export default function Header({ currentView, onViewChange, currentDate, onDateChange }) {
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
-const handleHomeButton = () => {
+  const handleHomeButton = () => {
     navigate("/");
   };
   return (
     <header className="mx-auto mt-1 flex h-[62px] w-[981px] items-center justify-between">
       <div>
-        <h1 className="text-5xl font-bold cursor-pointer" onClick={handleHomeButton}>FinSync</h1>
+        <h1
+          className="cursor-pointer text-5xl font-bold"
+          onClick={handleHomeButton}
+        >
+          FinSync
+        </h1>
       </div>
 
       <nav className="flex items-center space-x-10">
-        <DatePicker currentView={currentView} currentDate={currentDate} onDateChange={onDateChange}/>
-        <ViewToggle currentView={currentView} onViewChange={onViewChange} />
+        <DatePicker
+          currentView={currentView}
+          currentDate={currentDate}
+          onDateChange={onDateChange}
+        />
+        {!isStatsPage && <ViewToggle currentView={currentView} onViewChange={onViewChange} />}
       </nav>
     </header>
   );
