@@ -1,4 +1,5 @@
 import { useState } from "react";
+import IncomeExpenseToggleForForm from "./IncomeExpenseToggleForForm";
 import EntryCategoryButton from "./EntryCategoryButton";
 import EntryInputSection from "./EntryInputSection";
 import {
@@ -113,21 +114,8 @@ export default function EntryFormDialog({
 
           <div className="dialog-entry-divider"></div>
 
-          <div className="flex h-[30px] w-[250px] items-center justify-center rounded-[90px] bg-gray-400/50 font-semibold">
-            <button
-              className={`${type === "expense" ? "button-option-selected" : "button-option"}`}
-              onClick={() => handleTypeChange("expense")}
-            >
-              支出
-            </button>
-            <button
-              className={`${type === "income" ? "button-option-selected" : "button-option"}`}
-              onClick={() => handleTypeChange("income")}
-            >
-              收入
-            </button>
-          </div>
-
+          <IncomeExpenseToggleForForm type={type} handleTypeChange={handleTypeChange} />
+         
           <div className="dialog-entry-divider"></div>
 
           <div className="min-h-[80px]">

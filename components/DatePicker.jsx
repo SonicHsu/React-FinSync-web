@@ -9,7 +9,7 @@ import {
   today,
 } from "../utils/dateUtils";
 
-export default function DatePicker({ currentView, currentDate, onDateChange }) {
+export default function DatePicker({ isStatsPage, currentView, currentDate, onDateChange }) {
   const [openMode, setOpenMode] = useState(null);
 
   const handleDateChange = (date) => {
@@ -34,11 +34,11 @@ export default function DatePicker({ currentView, currentDate, onDateChange }) {
   return (
     <div className="flex items-center space-x-2">
       <div className="relative flex items-center space-x-1">
-        <DateBox
+        {!isStatsPage && <DateBox
           type="today"
           value="Today"
           onClick={() => onDateChange(today)}
-        />
+        />}
 
         <DateBox
           type="year"

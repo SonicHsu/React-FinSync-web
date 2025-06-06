@@ -1,5 +1,9 @@
-import { isTheSameMonth } from "../utils/dateUtils"
-import { calculateCategoryStats } from "../utils/calculator"
+import { useState, useEffect } from "react";
+import { isTheSameMonth } from "../utils/dateUtils";
+import {
+  calculateCategoryStats,
+  getYearlyMonthlyTotals,
+} from "../utils/calculator";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -8,8 +12,9 @@ import {
   Title,
   Tooltip,
   Legend,
-} from 'chart.js';
-import { Bar } from 'react-chartjs-2';
+} from "chart.js";
+import { Bar } from "react-chartjs-2";
+import ChartDataLabels from "chartjs-plugin-datalabels";
 
 ChartJS.register(
   CategoryScale,
@@ -17,64 +22,126 @@ ChartJS.register(
   BarElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
+  ChartDataLabels,
 );
 
+export default function StatsDisplay({ entries, currentDate }) {
+  const yearlyTotals = getYearlyMonthlyTotals(entries, currentDate); //取得當年度每月最大支出或收入作為圖表基準
+  const maxValue = Math.max(
+    ...yearlyTotals.map((item) =>
+      Math.max(item.expenseTotal, item.incomeTotal),
+    ),
+  );
+  const maxWithBuffer = Math.ceil(maxValue * 1.2);
+  const { expenseStats, incomeStats } = calculateCategoryStats(
+    entries,
+    currentDate,
+    isTheSameMonth,
+  );
 
-export default function StatsDisplay({entries, currentDate}) {
-    const { expenseStats, incomeStats } = calculateCategoryStats(entries, currentDate, isTheSameMonth)
+  const expenseLabels = expenseStats.map((stat) => stat.label);
+  const expenseAmounts = expenseStats.map((stat) => stat.amount);
+  const expenseChartColors = expenseStats.map((stat) => stat.chartColor);
 
-    console.log(expenseStats)
-    console.log(incomeStats)
+  const incomeLabels = incomeStats.map((stat) => stat.label);
+  const incomeAmounts = incomeStats.map((stat) => stat.amount);
+  const incomeChartColors = incomeStats.map((stat) => stat.chartColor);
 
-    // 圖表選項配置
+  const [isExpense, setIsExpense] = useState(true);
+  const labels = isExpense ? expenseLabels : incomeLabels;
+  const amounts = isExpense ? expenseAmounts : incomeAmounts;
+  const colors = isExpense ? expenseChartColors : incomeChartColors;
+
+  // 圖表數據
+  const data = {
+    labels: labels,
+    datasets: [
+      {
+        label: "支出金額",
+        data: amounts,
+        backgroundColor: colors,
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  // 圖表選項配置
   const options = {
+    indexAxis: "y",
     responsive: true,
+
     plugins: {
       legend: {
-        position: 'top',
+        display: false, // 關掉圖例
       },
       title: {
-        display: true,
-        text: '月銷售數據統計',
+        display: false, // 關掉標題
+      },
+      tooltip: {
+        enabled: false, // 👈 這行關掉滑鼠提示
+      },
+      datalabels: {
+        anchor: "end", // 文字在長條中間
+        align: "end", // 文字對齊中間
+        color: "white", // 文字顏色
+        font: {
+          weight: "500",
+          size: 30,
+        },
+        formatter: (value) => {
+          if (value === 0) return "";
+          return value;
+        }, // 顯示的值
       },
     },
+
     scales: {
-      y: {
+      x: {
         beginAtZero: true,
+        max: maxWithBuffer,
+        ticks: {
+          //關掉軸上的刻度文字
+          display: false,
+        },
+        grid: {
+          //關掉內部的網格線
+          display: false,
+        },
+        border: {
+          display: false, //關掉底線
+        },
+      },
+
+      y: {
+        ticks: {
+          display: true,
+          font: {
+            size: 24, // 👈 想要多大就設多大（單位是 px）
+          },
+          color: "white",
+        },
+        grid: {
+          //關掉內部的網格線
+          display: false,
+        },
       },
     },
   };
 
-  // 圖表數據
-  const data = {
-    labels: ['一月', '二月', '三月', '四月', '五月', '六月'],
-    datasets: [
-      {
-        label: '銷售額 (萬元)',
-        data: [12, 19, 8, 15, 22, 18],
-        backgroundColor: 'rgba(53, 162, 235, 0.5)',
-        borderColor: 'rgba(53, 162, 235, 1)',
-        borderWidth: 1,
-      },
-      {
-        label: '利潤 (萬元)',
-        data: [8, 12, 5, 9, 15, 11],
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
-        borderColor: 'rgba(255, 99, 132, 1)',
-        borderWidth: 1,
-      },
-    ],}
+  return (
+    <div className="mx-auto mt-8 flex w-[981px] flex-col items-center justify-between rounded-[10px] bg-gray-800/30">
+      <h2 className="mt-5 text-4xl font-bold">月統計</h2>
+      <div className="h-[480px] w-full px-5">
+        <Bar data={data} options={options} />
+      </div>
 
-    return(
-        <div className="mx-auto mt-8 flex w-[981px] flex-col rounded-[10px] bg-gray-800/30 items-center justify-between">
-             <Bar data={data} options={options} />
-            <h1>{expenseStats[0].amount}</h1>
-            <h1>{expenseStats[1].amount}</h1>
-            <h1>{expenseStats[2].amount}</h1>
-            <h1>{expenseStats[3].amount}</h1>
-            <h1>{expenseStats[4].amount}</h1>
-            <h1>{expenseStats[5].amount}</h1>
-        </div>
-    )
+      <h1>{expenseStats[0].amount}</h1>
+      <h1>{expenseStats[1].amount}</h1>
+      <h1>{expenseStats[2].amount}</h1>
+      <h1>{expenseStats[3].amount}</h1>
+      <h1>{expenseStats[4].amount}</h1>
+      <h1>{expenseStats[5].amount}</h1>
+    </div>
+  );
 }

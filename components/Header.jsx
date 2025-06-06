@@ -29,6 +29,7 @@ export default function Header({
 
       <nav className="flex items-center space-x-10">
         <DatePicker
+          isStatsPage={isStatsPage}
           currentView={currentView}
           currentDate={currentDate}
           onDateChange={onDateChange}
