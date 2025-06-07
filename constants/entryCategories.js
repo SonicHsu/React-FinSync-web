@@ -11,5 +11,7 @@ export const INCOME_CATEGORIES = [
   { category: "salary", label: "薪資", color: "bg-green-400", chartColor: "#4ade80" },
   { category: "bonus", label: "獎金", color: "bg-yellow-400", chartColor: "#facc15" },
   { category: "investment", label: "投資", color: "bg-indigo-400", chartColor: "#818cf8" },
+  { category: "interest", label: "利息", color: "bg-teal-400", chartColor: "#2dd4bf" },
+  { category: "gift", label: "贈與", color: "bg-pink-400", chartColor: "#f472b6" },
   { category: "incomeOther", label: "其他", color: "bg-gray-400", chartColor: "#9ca3af" },
 ];

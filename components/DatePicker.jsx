@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import ArrowButton from "./ArrowButton";
 import DateBox from "./DateBox";
 import {
@@ -50,7 +50,7 @@ export default function DatePicker({ isStatsPage, currentView, currentDate, onDa
           setOpenMode={setOpenMode}
         />
 
-        <DateBox
+        {currentView !== "Year" && <DateBox
           type="month"
           value={String(currentDate.getMonth() + 1).padStart(2, "0")}
           onClick={() => setOpenMode("month")}
@@ -58,7 +58,7 @@ export default function DatePicker({ isStatsPage, currentView, currentDate, onDa
           mode={openMode}
           handleDateChange={handleDateChange}
           setOpenMode={setOpenMode}
-        />
+        />}
 
         {currentView === "Day" && (
           <DateBox

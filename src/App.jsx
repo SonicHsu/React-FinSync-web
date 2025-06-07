@@ -10,6 +10,7 @@ import CalendarPage from "../Pages/CalendarPage";
 import StatsPage from "../Pages/StatsPage";
 import { firestoreService } from "./firestoreService";
 import { today } from "../utils/dateUtils";
+import "../utils/chartSetup"
 
 export default function App() {
   const [user, setUser] = useState(null);
