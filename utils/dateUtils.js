@@ -103,6 +103,13 @@ export function formatMonth(date) {
     return date.toLocaleString('zh-TW', options);
 }
 
+export function formatMonthZh(date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  return `${year} 年 ${month} 月`;
+}
+
+
 export function formatDateForStats(date) {
     const yyyy = date.getFullYear();
     const mm = String(date.getMonth() + 1).padStart(2, '0');

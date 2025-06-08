@@ -1,15 +1,3 @@
-export function padChartData(stats, maxCount) {
-  const filledStats = [...stats];
-  while (filledStats.length < maxCount) {
-    filledStats.push({
-      label: "",
-      amount: 0,
-      chartColor: "rgba(0,0,0,0)",
-    });
-  }
-  return filledStats;
-}
-
 export function getMonthChartOptions(maxWithBuffer) {
   return {
     indexAxis: "y",

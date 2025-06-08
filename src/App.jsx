@@ -8,9 +8,10 @@ import {
 import AuthButtons from "../components/AuthButtons";
 import CalendarPage from "../Pages/CalendarPage";
 import StatsPage from "../Pages/StatsPage";
+import LoginPage from "../Pages/LoginPage";
 import { firestoreService } from "./firestoreService";
 import { today } from "../utils/dateUtils";
-import "../utils/chartSetup"
+import "../utils/chartSetup";
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -49,10 +50,9 @@ export default function App() {
         <AuthButtons user={user} setUser={setUser} />
 
         <Routes>
-
           <Route
             path="/"
-            element={
+            element={user ?
               <CalendarPage
                 user={user}
                 currentDate={currentDate}
@@ -66,23 +66,27 @@ export default function App() {
                 isEditing={isEditing}
                 setIsEditing={setIsEditing}
                 loadEntries={loadEntries}
-              />
+              /> :
+               <Navigate to="/login" />
             }
           />
 
-            <Route
-              path="/stats" 
-              element={
-                <StatsPage 
-                currentDate={currentDate} 
+          <Route
+            path="/stats"
+            element={
+              user ?
+              <StatsPage
+                currentDate={currentDate}
                 setCurrentDate={setCurrentDate}
-                entries={entries}    
-              />
-              }
-            />
+                entries={entries}
+              /> :
+               <Navigate to="/login" />
+            }
+          />
 
+          <Route path="/login" element={!user ? <LoginPage /> : <Navigate to="/" />}/>
 
-            <Route path="*" element={<Navigate to="/" replace />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
     </Router>
