@@ -106,7 +106,6 @@ export default function EntryFormDialog({
       >
         <div
           className="flex h-full w-full flex-col items-center text-white"
-          data-entry-form
         >
           <div className="mt-7 text-4xl font-bold">
             {isEditing ? "編輯交易紀錄" : "新增交易紀錄"}

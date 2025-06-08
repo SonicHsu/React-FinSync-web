@@ -5,6 +5,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 import AuthButtons from "../components/AuthButtons";
 import CalendarPage from "../Pages/CalendarPage";
 import StatsPage from "../Pages/StatsPage";
@@ -14,7 +15,7 @@ import { today } from "../utils/dateUtils";
 import "../utils/chartSetup";
 
 export default function App() {
-  const [user, setUser] = useState(null);
+  const { user, login, logout, loginAsGuest } = useAuth();
   const [currentDate, setCurrentDate] = useState(today);
   const [dialogState, setDialogState] = useState({
     entryForm: false,
@@ -47,44 +48,52 @@ export default function App() {
   return (
     <Router>
       <div className="flex min-h-screen flex-col bg-gradient-to-b from-slate-950 via-indigo-950 to-slate-950 font-sans text-white">
-        <AuthButtons user={user} setUser={setUser} />
+        <AuthButtons user={user} login={login} logout={logout} />
 
         <Routes>
           <Route
             path="/"
-            element={user ?
-              <CalendarPage
-                user={user}
-                currentDate={currentDate}
-                setCurrentDate={setCurrentDate}
-                dialogState={dialogState}
-                setDialogState={setDialogState}
-                entries={entries}
-                setEntries={setEntries}
-                selectedEntry={selectedEntry}
-                setSelectedEntry={setSelectedEntry}
-                isEditing={isEditing}
-                setIsEditing={setIsEditing}
-                loadEntries={loadEntries}
-              /> :
-               <Navigate to="/login" />
+            element={
+              user ? (
+                <CalendarPage
+                  user={user}
+                  currentDate={currentDate}
+                  setCurrentDate={setCurrentDate}
+                  dialogState={dialogState}
+                  setDialogState={setDialogState}
+                  entries={entries}
+                  setEntries={setEntries}
+                  selectedEntry={selectedEntry}
+                  setSelectedEntry={setSelectedEntry}
+                  isEditing={isEditing}
+                  setIsEditing={setIsEditing}
+                  loadEntries={loadEntries}
+                />
+              ) : (
+                <Navigate to="/login" />
+              )
             }
           />
 
           <Route
             path="/stats"
             element={
-              user ?
-              <StatsPage
-                currentDate={currentDate}
-                setCurrentDate={setCurrentDate}
-                entries={entries}
-              /> :
-               <Navigate to="/login" />
+              user ? (
+                <StatsPage
+                  currentDate={currentDate}
+                  setCurrentDate={setCurrentDate}
+                  entries={entries}
+                />
+              ) : (
+                <Navigate to="/login" />
+              )
             }
           />
 
-          <Route path="/login" element={!user ? <LoginPage /> : <Navigate to="/" />}/>
+          <Route
+            path="/login"
+            element={!user ? <LoginPage login={login} loginAsGuest={loginAsGuest} /> : <Navigate to="/" />}
+          />
 
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

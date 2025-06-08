@@ -1,33 +1,8 @@
-import { useState, useEffect } from "react";
-import { auth, provider } from "../src/firebase";
-import { signInWithPopup, signOut, onAuthStateChanged } from "firebase/auth";
-
-export default function AuthButtons({user, setUser}) {
+import { useEffect } from "react";
 
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-    });
-    return unsubscribe;
-  }, []);
+export default function AuthButtons({user, login, logout}) {
 
-  const login = async () => {
-    try {
-      await signInWithPopup(auth, provider);
-    } catch (error) {
-      console.error("登入失敗", error);
-    }
-  };
-
-  const logout = async () => {
-    try {
-      await signOut(auth);
-      console.log(user);
-    } catch (error) {
-      console.error("登出失敗", error);
-    }
-  };
 
   useEffect(() => {
     if (user) {
