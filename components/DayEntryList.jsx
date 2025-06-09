@@ -1,9 +1,16 @@
 import DayEntry from "./DayEntry";
 import { getDayEntriesAndTotals } from "../utils/calculator";
 
-export default function DayEntryList({ selectedDate, entries, handleOpenEntryDetail, setSelectedEntry }) {
-  const {dayEntries, expenseTotal , incomeTotal} = getDayEntriesAndTotals(entries, selectedDate)
-
+export default function DayEntryList({
+  selectedDate,
+  entries,
+  handleOpenEntryDetail,
+  setSelectedEntry,
+}) {
+  const { dayEntries, expenseTotal, incomeTotal } = getDayEntriesAndTotals(
+    entries,
+    selectedDate,
+  );
 
   const entriesComponents = dayEntries.map((entry) => (
     <DayEntry
@@ -17,26 +24,20 @@ export default function DayEntryList({ selectedDate, entries, handleOpenEntryDet
   ));
 
   return (
-    <div className="flex h-[668px] w-[685px] flex-col items-center rounded-[10px] bg-gray-800/30">
-      <div className="mt-5 flex h-[50px] w-[645px] justify-between">
+    <div className="mt-3 flex max-h-[calc(100vh-100px)] min-h-0 w-[90%] max-w-sm flex-grow flex-col items-center rounded-[10px] bg-gray-800/30 lg:mt-0 lg:max-w-[685px] mb-15">
+      <div className="mt-5 hidden h-[50px] w-[90%] justify-between space-x-2 lg:flex">
         <div className="flex w-[310px] items-center justify-between rounded-[10px] bg-gray-400/50 px-3">
           <span className="text-2xl font-semibold">當日支出</span>
-          <span className="text-4xl" >
-            {expenseTotal}
-          </span>
+          <span className="text-4xl">{expenseTotal}</span>
         </div>
         <div className="flex w-[310px] items-center justify-between rounded-[10px] bg-blue-400/50 px-3">
           <span className="text-2xl font-semibold">當日收入</span>
-          <span className="text-4xl" >
-            {incomeTotal}
-          </span>
+          <span className="text-4xl">{incomeTotal}</span>
         </div>
       </div>
 
-      <div className="custom-scrollbar mt-3 h-[550px] w-[645px] overflow-y-auto">
-        <ul className="flex flex-col px-4" data-entry-list>
-          {entriesComponents}
-        </ul>
+      <div className="custom-scrollbar mt-3 mb-3 min-h-0 w-full flex-grow overflow-y-auto lg:w-[90%]">
+        <ul className="flex flex-col px-4">{entriesComponents}</ul>
       </div>
     </div>
   );

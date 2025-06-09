@@ -33,16 +33,14 @@ export default function DayCalendarSidebar({ date, onDateChange, handleOpenEntry
   }, [date]);
 
   return (
-    <div className="flex h-[668px] w-[280px] flex-col rounded-[10px]">
+    <div className="flex  w-[90%] max-w-sm lg:w-[280px] flex-col rounded-[10px]">
       <div
-        className="flex h-[240px] w-full flex-col rounded-[10px] bg-gray-800/30"
-        data-mini-calendar
+        className="flex h-auto w-full flex-col rounded-[10px] bg-gray-800/30"
       >
         <div
           className="flex h-[40px] w-full items-center justify-between p-4"
-          data-mini-calendar-header
         >
-          <div className="text-2xl" data-mini-calendar-date>
+          <div className="text-2xl">
             {formatMonth(miniCalendarDate)}
           </div>
 
@@ -107,12 +105,12 @@ export default function DayCalendarSidebar({ date, onDateChange, handleOpenEntry
           </ul>
         </div>
 
-        <div className="w-full px-2">
-          <ul className="grid grid-cols-7 gap-1">{miniCalendarDayComponents}</ul>
+        <div className="w-full px-2 mb-2">
+          <ul className="grid grid-cols-7 gap-0 lg:gap-1">{miniCalendarDayComponents}</ul>
         </div>
       </div>
 
-      <footer className="mt-4 flex w-full space-x-2">
+      <footer className="mt-4 lg:flex w-full space-x-2 hidden">
         <CalendarActionButtons handleOpenEntryForm={handleOpenEntryForm} />
       </footer>
     </div>

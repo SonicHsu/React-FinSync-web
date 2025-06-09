@@ -10,12 +10,14 @@ import AuthButtons from "../components/AuthButtons";
 import CalendarPage from "../Pages/CalendarPage";
 import StatsPage from "../Pages/StatsPage";
 import LoginPage from "../Pages/LoginPage";
+import NotFoundPage from "../Pages/NotFoundPage";
 import { firestoreService } from "./firestoreService";
 import { today } from "../utils/dateUtils";
 import "../utils/chartSetup";
 
 export default function App() {
   const { user, login, logout, loginAsGuest } = useAuth();
+
   const [currentDate, setCurrentDate] = useState(today);
   const [dialogState, setDialogState] = useState({
     entryForm: false,
@@ -47,28 +49,29 @@ export default function App() {
 
   return (
     <Router>
-      <div className="flex min-h-screen flex-col bg-gradient-to-b from-slate-950 via-indigo-950 to-slate-950 font-sans text-white">
-        <AuthButtons user={user} login={login} logout={logout} />
-
+      <div className="flex h-screen flex-col bg-gradient-to-b from-slate-950 via-indigo-950 to-slate-950 font-sans text-white">
         <Routes>
           <Route
             path="/"
             element={
               user ? (
-                <CalendarPage
-                  user={user}
-                  currentDate={currentDate}
-                  setCurrentDate={setCurrentDate}
-                  dialogState={dialogState}
-                  setDialogState={setDialogState}
-                  entries={entries}
-                  setEntries={setEntries}
-                  selectedEntry={selectedEntry}
-                  setSelectedEntry={setSelectedEntry}
-                  isEditing={isEditing}
-                  setIsEditing={setIsEditing}
-                  loadEntries={loadEntries}
-                />
+                <>
+                  <AuthButtons user={user} login={login} logout={logout} />
+                  <CalendarPage
+                    user={user}
+                    currentDate={currentDate}
+                    setCurrentDate={setCurrentDate}
+                    dialogState={dialogState}
+                    setDialogState={setDialogState}
+                    entries={entries}
+                    setEntries={setEntries}
+                    selectedEntry={selectedEntry}
+                    setSelectedEntry={setSelectedEntry}
+                    isEditing={isEditing}
+                    setIsEditing={setIsEditing}
+                    loadEntries={loadEntries}
+                  />
+                </>
               ) : (
                 <Navigate to="/login" />
               )
@@ -79,11 +82,14 @@ export default function App() {
             path="/stats"
             element={
               user ? (
-                <StatsPage
-                  currentDate={currentDate}
-                  setCurrentDate={setCurrentDate}
-                  entries={entries}
-                />
+                <>
+                  <AuthButtons user={user} login={login} logout={logout} />
+                  <StatsPage
+                    currentDate={currentDate}
+                    setCurrentDate={setCurrentDate}
+                    entries={entries}
+                  />
+                </>
               ) : (
                 <Navigate to="/login" />
               )
@@ -92,10 +98,16 @@ export default function App() {
 
           <Route
             path="/login"
-            element={!user ? <LoginPage login={login} loginAsGuest={loginAsGuest} /> : <Navigate to="/" />}
+            element={
+              !user ? (
+                <LoginPage login={login} loginAsGuest={loginAsGuest} />
+              ) : (
+                <Navigate to="/" />
+              )
+            }
           />
 
-          <Route path="*" element={<Navigate to="/" replace />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </div>
     </Router>

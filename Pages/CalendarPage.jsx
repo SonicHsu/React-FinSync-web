@@ -70,7 +70,7 @@ export default function CalendarPage({
         onDateChange={setCurrentDate}
       />
 
-      <main>
+      <main className="flex flex-col flex-grow min-h-0">
         {currentView === "Month" ? (
           <MonthCalendar
             date={currentDate}
