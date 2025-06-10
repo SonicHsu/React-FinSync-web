@@ -3,14 +3,32 @@ import { useNavigate } from "react-router-dom";
 export default function CalendarActionButtons({ handleOpenEntryForm }) {
   const navigate = useNavigate();
 
-
   const handleStatsButton = () => {
     navigate("/stats");
   };
-  
 
   return (
-    <div className="space-x-2">
+    <div className="space-x-2 flex">
+      <button
+        className="bg-white/10 w-[62px] h-[62px] rounded-full group cursor-pointer transition  duration-150 ease-in-out hover:scale-105 lg:hidden flex justify-center items-center"
+        onClick={handleOpenEntryForm}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="40"
+          height="40"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="lucide lucide-user-round-icon lucide-user-round "
+        >
+          <circle cx="12" cy="8" r="5" />
+          <path d="M20 21a8 8 0 0 0-16 0" />
+        </svg>
+      </button>
       <button
         className="group cursor-pointer transition duration-150 ease-in-out hover:scale-105"
         onClick={handleOpenEntryForm}
@@ -37,8 +55,10 @@ export default function CalendarActionButtons({ handleOpenEntryForm }) {
           />
         </svg>
       </button>
-      <button className="group cursor-pointer transition duration-150 ease-in-out hover:scale-105"
-      onClick={handleStatsButton}>
+      <button
+        className="group cursor-pointer transition duration-150 ease-in-out hover:scale-105"
+        onClick={handleStatsButton}
+      >
         <svg
           width="62"
           height="62"

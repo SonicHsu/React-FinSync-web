@@ -11,7 +11,7 @@ export default function DayCalendar({
 }) {
   return (
     <div className="flex flex-col items-center text-white flex-grow min-h-0">
-      <div className="mx-auto mt-2 flex w-full max-w-[981px] flex-grow min-h-0 flex-col items-center justify-center lg:mt-8 lg:flex-row lg:items-start lg:justify-between">
+      <div className="mx-auto mt-2 flex w-full max-w-[981px] flex-grow min-h-0 flex-col items-center justify-start lg:mt-8 lg:flex-row lg:items-start lg:justify-between">
         <DayCalendarSidebar
           date={date}
           onDateChange={onDateChange}
@@ -22,7 +22,7 @@ export default function DayCalendar({
           selectedDate={date}
           entries={entries}
           handleOpenEntryDetail={handleOpenEntryDetail}
-          setSelectedEntry={setSelectedEntry}
+          handleOpenEntryForm={handleOpenEntryForm}
         />
       </div>
     </div>

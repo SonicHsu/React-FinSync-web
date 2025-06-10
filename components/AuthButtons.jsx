@@ -10,7 +10,7 @@ export default function AuthButtons({user, login, logout}) {
   }, [user]);
 
   return (
-    <div className="mx-auto mt-2 lg:mt-8 flex h-[30px] w-[90%] lg:w-[981px] items-center justify-end space-x-2">
+    <div className="mx-auto mt-2 lg:mt-8 hidden lg:flex h-[30px] w-[90%] lg:w-[981px] items-center justify-end space-x-2">
       <div className="text-xl">{user.isAnonymous ? "Guest" : user.displayName}</div>
       {user.isAnonymous && (
         <button
@@ -28,8 +28,6 @@ export default function AuthButtons({user, login, logout}) {
           登出
         </button>
       )}
-
-
     </div>
   );
 }

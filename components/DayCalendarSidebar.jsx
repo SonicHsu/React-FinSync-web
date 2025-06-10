@@ -40,7 +40,7 @@ export default function DayCalendarSidebar({ date, onDateChange, handleOpenEntry
         <div
           className="flex h-[40px] w-full items-center justify-between p-4"
         >
-          <div className="text-2xl">
+          <div className="text-base sm:text-lg lg:text-2xl">
             {formatMonth(miniCalendarDate)}
           </div>
 

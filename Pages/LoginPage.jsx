@@ -1,26 +1,30 @@
 export default function LoginPage({ login, loginAsGuest }) {
   return (
-    <main className="mx-auto mt-30 flex w-[90%] max-w-sm flex-col items-center rounded-[10px] border border-blue-400/50 bg-slate-950/80 sm:mt-36 lg:mt-40 sm:max-w-md" >
+    <main className="mx-auto mt-30 flex w-[90%] max-w-sm flex-col items-center rounded-[10px] border border-blue-400/50 bg-slate-950/80 sm:mt-36 sm:max-w-md lg:mt-40">
       <section className="mt-3">
         <header className="flex flex-col space-y-3 text-center">
-          <h1 className="mt-3 text-4xl lg:text-5xl font-bold">FinSync</h1>
-          <p className="text-lg lg:text-xl font-light text-white/80">
+          <h1 className="mt-3 text-4xl font-bold lg:text-5xl">FinSync</h1>
+          <p className="text-lg font-light text-white/80 lg:text-xl">
             專為個人打造的輕量級記帳系統
           </p>
         </header>
       </section>
 
-      <section className="mt-4 sm:mt-6 mb-6 flex flex-col space-y-4">
+      <section className="mt-4 mb-6 flex flex-col space-y-4 sm:mt-6">
         <button
-          className="flex cursor-pointer items-center justify-center gap-x-2 rounded-full bg-slate-700/20 px-6 sm:px-15 py-3 text-sm lg:text-lg text-gray-400 hover:bg-slate-700/50 hover:text-white"
+          className="flex cursor-pointer items-center justify-center gap-x-2 rounded-full bg-slate-700/20 px-6 py-3 text-sm text-gray-400 hover:bg-slate-700/50 hover:text-white sm:px-15 lg:text-lg"
           onClick={login}
         >
-          <img src="/public/google-icon.svg" alt="Google" className="h-5 w-5 sm:h-6 sm:w-6" />
+          <img
+            src="/public/google-icon.svg"
+            alt="Google"
+            className="h-5 w-5 sm:h-6 sm:w-6"
+          />
           Log in with Google
         </button>
 
         <button
-          className="flex cursor-pointer items-center justify-center gap-x-2 rounded-full bg-slate-700/20 px-6 sm:px-15 py-3 text-sm lg:text-lg text-gray-400 hover:bg-slate-700/50 hover:text-white"
+          className="flex cursor-pointer items-center justify-center gap-x-2 rounded-full bg-slate-700/20 px-6 py-3 text-sm text-gray-400 hover:bg-slate-700/50 hover:text-white sm:px-15 lg:text-lg"
           onClick={loginAsGuest}
         >
           <svg
