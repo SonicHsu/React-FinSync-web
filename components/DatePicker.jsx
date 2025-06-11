@@ -34,11 +34,13 @@ export default function DatePicker({ isStatsPage, currentView, currentDate, onDa
   return (
     <div className="flex items-center space-x-2">
       <div className="relative flex items-center space-x-1">
-        {!isStatsPage && <DateBox
+        {!isStatsPage &&<div className="hidden lg:flex">
+          <DateBox
           type="today"
           value="Today"
           onClick={() => onDateChange(today)}
-        />}
+        />
+        </div> }
 
         <DateBox
           type="year"
@@ -73,7 +75,7 @@ export default function DatePicker({ isStatsPage, currentView, currentDate, onDa
         )}
 
         {currentView === "Day" && (
-          <span className="w-12 text-center text-2xl font-medium text-white/50">
+          <span className="hidden lg:flex w-12 text-center text-2xl font-medium text-white/50">
             {currentDate.toLocaleDateString("en-US", { weekday: "short" })}
           </span>
         )}

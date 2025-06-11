@@ -26,13 +26,13 @@ export default function DayEntryList({
 
   return (
     <>
-      <div className="mt-3 flex max-h-[calc(100vh-10px)] min-h-0 w-[90%] max-w-sm flex-grow flex-col items-center rounded-[10px] bg-gray-800/30 lg:mt-0 lg:max-w-[685px]">
-        <div className="mt-5 hidden h-[50px] w-[90%] justify-between space-x-2 lg:flex">
-          <div className="flex w-[310px] items-center justify-between rounded-[10px] bg-gray-400/50 px-3">
+      <div className="mt-3 flex max-h-[calc(100vh-10px)] min-h-0 w-[90%] max-w-sm flex-grow flex-col items-center rounded-[10px] bg-gray-800/30 sm:mt-0 sm:max-w-[90%] lg:max-w-[685px] sm:mx-1">
+        <div className="mt-5 hidden h-auto w-full justify-between items-center sm:space-y-2 lg:space-x-2 sm:flex sm:flex-col lg:flex-row px-2">
+          <div className="flex sm:w-full lg:w-[310px] items-center justify-between rounded-[10px] bg-gray-400/50 px-3 py-2 my-1">
             <span className="text-2xl font-semibold">當日支出</span>
             <span className="text-4xl">{expenseTotal}</span>
           </div>
-          <div className="flex w-[310px] items-center justify-between rounded-[10px] bg-blue-400/50 px-3">
+          <div className="flex sm:w-full lg:w-[310px] items-center justify-between rounded-[10px] bg-blue-400/50 px-3 py-2 my-1">
             <span className="text-2xl font-semibold">當日收入</span>
             <span className="text-4xl">{incomeTotal}</span>
           </div>
@@ -42,7 +42,7 @@ export default function DayEntryList({
           <ul className="flex flex-col px-4">{entriesComponents}</ul>
         </div>
       </div>
-      <footer className="mt-6 mb-6 flex w-full items-center justify-center space-x-2 lg:hidden">
+      <footer className="mt-6 mb-6 flex w-full items-center justify-center space-x-2 sm:hidden lg:hidden">
         <CalendarActionButtons handleOpenEntryForm={handleOpenEntryForm} />
       </footer>
     </>

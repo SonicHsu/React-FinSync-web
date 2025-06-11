@@ -33,7 +33,7 @@ export default function DayCalendarSidebar({ date, onDateChange, handleOpenEntry
   }, [date]);
 
   return (
-    <div className="flex  w-[90%] max-w-sm lg:w-[280px] flex-col rounded-[10px]">
+    <div className="flex  w-[90%] max-w-sm min-w-[250px] sm:w-[280px] flex-col rounded-[10px]">
       <div
         className="flex h-auto w-full flex-col rounded-[10px] bg-gray-800/30"
       >
@@ -110,7 +110,7 @@ export default function DayCalendarSidebar({ date, onDateChange, handleOpenEntry
         </div>
       </div>
 
-      <footer className="mt-4 lg:flex w-full space-x-2 hidden">
+      <footer className="mt-4 lg:flex w-full space-x-2 hidden sm:flex">
         <CalendarActionButtons handleOpenEntryForm={handleOpenEntryForm} />
       </footer>
     </div>

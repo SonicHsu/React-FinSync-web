@@ -34,7 +34,7 @@ export default function Header({
         </h1>
       </div>
 
-      <nav className="hidden lg:flex  items-center space-x-10">
+      <nav className="hidden sm:flex  items-center space-x-10">
         <DatePicker
           isStatsPage={isStatsPage}
           currentView={currentView}

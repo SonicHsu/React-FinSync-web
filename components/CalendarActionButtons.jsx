@@ -10,7 +10,7 @@ export default function CalendarActionButtons({ handleOpenEntryForm }) {
   return (
     <div className="space-x-2 flex">
       <button
-        className="bg-white/10 w-[62px] h-[62px] rounded-full group cursor-pointer transition  duration-150 ease-in-out hover:scale-105 lg:hidden flex justify-center items-center"
+        className="bg-white/10 w-[62px] h-[62px] rounded-full group cursor-pointer transition  duration-150 ease-in-out hover:scale-105 sm:hidden lg:hidden flex justify-center items-center"
         onClick={handleOpenEntryForm}
       >
         <svg
