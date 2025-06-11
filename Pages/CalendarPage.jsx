@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "../components/Header";
 import MonthCalendar from "../components/MonthCalendar";
 import DayCalendar from "../components/DayCalendar";
 import EntryFormDialog from "../components/EntryFormDialog";
 import EntryDetailDialog from "../components/EntryDetailDialog";
 import EntryDeleteDialog from "../components/EntryDeleteDialog";
+import { useIsMobile } from "../hooks/useIsMobile ";
 
 export default function CalendarPage({
   user,
@@ -60,6 +61,15 @@ export default function CalendarPage({
   const handleCloseEntryDelete = () => {
     setDialogState((prev) => ({ ...prev, entryDelete: false }));
   };
+
+  const isMobile = useIsMobile();
+
+  useEffect(() => {
+  if (isMobile) {
+    setCurrentView("Day");
+  }
+}, [isMobile]);
+
 
   return (
     <>

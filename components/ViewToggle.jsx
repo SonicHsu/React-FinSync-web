@@ -1,7 +1,7 @@
 export default function ViewToggle({ currentView, onViewChange }) {
 
   return (
-    <div className="flex h-[30px] w-[250px] items-center justify-center rounded-[90px] bg-gray-400/50 font-semibold">
+    <div className="flex h-full w-[160px] lg:w-[250px] items-center justify-center rounded-full bg-gray-400/50 font-semibold">
       <button
         className={`${currentView === "Day" ? "button-option-selected" : "button-option"}`}
         onClick={() =>  onViewChange("Day")}

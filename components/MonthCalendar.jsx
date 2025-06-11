@@ -32,16 +32,16 @@ export default function MonthCalendar({
 
 
   return (
-    <div className="mx-auto mt-8 flex w-[981px] flex-col items-center justify-between">
+    <div className="mx-auto mt-8 flex w-[90%] lg:w-[981px] flex-col items-center justify-between">
       <div className="top-0 h-[30px] w-full">
         <ul className="grid grid-cols-7 gap-1 text-xl font-light text-white/50">
-          <li className="w-[135px] flex-1 text-center">Sun</li>
-          <li className="w-[135px] flex-1 text-center">Mon</li>
-          <li className="w-[135px] flex-1 text-center">Tue</li>
-          <li className="w-[135px] flex-1 text-center">Wed</li>
-          <li className="w-[135px] flex-1 text-center">Thu</li>
-          <li className="w-[135px] flex-1 text-center">Fri</li>
-          <li className="w-[135px] flex-1 text-center">Sat</li>
+          <li className="w-auto lg:w-[135px] flex-1 text-center">Sun</li>
+          <li className="w-auto lg:w-[135px] flex-1 text-center">Mon</li>
+          <li className="w-auto lg:w-[135px] flex-1 text-center">Tue</li>
+          <li className="w-auto lg:w-[135px] flex-1 text-center">Wed</li>
+          <li className="w-auto lg:w-[135px] flex-1 text-center">Thu</li>
+          <li className="w-auto lg:w-[135px] flex-1 text-center">Fri</li>
+          <li className="w-auto lg:w-[135px] flex-1 text-center">Sat</li>
         </ul>
       </div>
 
@@ -53,8 +53,8 @@ export default function MonthCalendar({
         <CalendarActionButtons handleOpenEntryForm={handleOpenEntryForm} />
 
         <div className="flex h-full items-center justify-between space-x-6 rounded-[10px] border border-white/10 bg-white/10 px-5">
-          <span className="text-3xl font-bold">月結餘</span>
-          <span className={`text-5xl font-bold ${monthBalance < 0 ? "text-gray-400" : "text-blue-400"}`}>{monthBalance}</span>
+          <span className="text-2xl lg:text-3xl font-bold">月結餘</span>
+          <span className={`text-4xl lg:text-5xl font-bold ${monthBalance < 0 ? "text-gray-400" : "text-blue-400"}`}>{monthBalance}</span>
         </div>
       </footer>
     </div>

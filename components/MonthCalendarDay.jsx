@@ -13,7 +13,7 @@ export default function MonthCalendarDay({ day, currentDate, onDateChange, onVie
 
   return (
     <li
-      className={`h-[95px] w-[135px] ${isTheSameMonth(day, currentDate) ? "" : "opacity-25"}`}
+      className={`sm:h-[80px] lg:h-[95px] lg:w-[135px] ${isTheSameMonth(day, currentDate) ? "" : "opacity-25"}`}
 
     >
       <button
@@ -22,7 +22,7 @@ export default function MonthCalendarDay({ day, currentDate, onDateChange, onVie
         onClick={handelCalendarDayClick} 
       >
         <div className="top-0 flex h-[35px] w-full items-center justify-between rounded-t-[10px] bg-gray-800/50 px-2">
-          <span className="text-3xl font-bold">
+          <span className="text-xl lg:text-3xl font-bold">
             {day.getDate()}
           </span>
           <span
@@ -32,11 +32,11 @@ export default function MonthCalendarDay({ day, currentDate, onDateChange, onVie
           </span>
         </div>
 
-        <div className="flex grow flex-col justify-evenly">
-          {expenseTotal > 0 && <div className="flex h-[20px] w-[120px] items-center justify-center rounded-full bg-gray-400/50 pt-0.5 text-center text-xl">
+        <div className="flex grow flex-col w-full items-center justify-evenly">
+          {expenseTotal > 0 && <div className="flex h-[18px] lg:h-[20px] w-full lg:w-[120px] items-center justify-center rounded-full bg-gray-400/50 py-0.5 text-center text-base lg:text-xl">
             {expenseTotal}
           </div>}
-          {incomeTotal > 0 && <div className="flex h-[20px] w-[120px] items-center justify-center rounded-full bg-sky-400/50 pt-0.5 text-center text-xl">
+          {incomeTotal > 0 && <div className="flex  h-[18px] lg:h-[20px] w-full lg:w-[120px] items-center justify-center rounded-full bg-sky-400/50 py-0.5 text-center text-base lg:text-xl">
             {incomeTotal}
           </div>}
         </div>

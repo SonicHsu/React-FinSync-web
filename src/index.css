@@ -61,11 +61,11 @@
 }
 
 .button-option {
-  @apply flex-1 cursor-pointer text-xl text-white/50;
+  @apply flex-1 cursor-pointer text-base lg:text-xl text-white/50;
 }
 
 .button-option-selected {
-  @apply flex-1 cursor-pointer rounded-full bg-white text-xl text-gray-600;
+  @apply flex-1 cursor-pointer rounded-full bg-white text-base lg:text-xl text-gray-600;
 }
 
 .category-button {

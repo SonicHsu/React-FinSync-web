@@ -12,7 +12,7 @@ export default function Header({
   setStatType,
 }) {
   const location = useLocation();
-  const isStatsPage = location.pathname === '/stats';
+  const isStatsPage = location.pathname === "/stats";
 
   const navigate = useNavigate();
 
@@ -21,27 +21,34 @@ export default function Header({
   };
 
   const handleStatTypeChange = (newStatType) => {
-      setStatType(newStatType)
-  }
+    setStatType(newStatType);
+  };
   return (
-    <header className="mx-auto mt-1 flex h-auto lg:h-[62px] w-full px-4 sm:w-[90%] lg:w-[981px] items-center justify-center lg:justify-between">
+    <header className="mx-auto mt-1 flex h-auto w-full items-center justify-center sm:w-[90%] lg:h-[62px] lg:w-[90%] max-w-[981px] sm:justify-between">
       <div>
         <h1
-          className="cursor-pointer text-2xl sm:text-4xl lg:text-5xl font-bold"
+          className="cursor-pointer text-2xl font-bold sm:text-4xl lg:text-5xl"
           onClick={handleHomeButton}
         >
           FinSync
         </h1>
       </div>
 
-      <nav className="hidden sm:flex  items-center space-x-10">
+      <nav className="hidden items-center space-x-3 sm:flex lg:space-x-10">
         <DatePicker
           isStatsPage={isStatsPage}
           currentView={currentView}
           currentDate={currentDate}
           onDateChange={onDateChange}
         />
-        {!isStatsPage ? <ViewToggle currentView={currentView} onViewChange={onViewChange} /> : <IncomeExpenseToggleForStats statType={statType} handleStatTypeChange={handleStatTypeChange}  />}
+        {!isStatsPage ? (
+          <ViewToggle currentView={currentView} onViewChange={onViewChange} />
+        ) : (
+          <IncomeExpenseToggleForStats
+            statType={statType}
+            handleStatTypeChange={handleStatTypeChange}
+          />
+        )}
       </nav>
     </header>
   );
