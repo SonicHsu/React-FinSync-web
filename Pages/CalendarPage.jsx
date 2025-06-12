@@ -5,7 +5,7 @@ import DayCalendar from "../components/DayCalendar";
 import EntryFormDialog from "../components/EntryFormDialog";
 import EntryDetailDialog from "../components/EntryDetailDialog";
 import EntryDeleteDialog from "../components/EntryDeleteDialog";
-import { useIsMobile } from "../hooks/useIsMobile ";
+
 
 export default function CalendarPage({
   user,
@@ -20,6 +20,7 @@ export default function CalendarPage({
   isEditing,
   setIsEditing,
   loadEntries,
+  isMobile,
 }) {
   const [currentView, setCurrentView] = useState("Day");
 
@@ -62,7 +63,7 @@ export default function CalendarPage({
     setDialogState((prev) => ({ ...prev, entryDelete: false }));
   };
 
-  const isMobile = useIsMobile();
+
 
   useEffect(() => {
   if (isMobile) {

@@ -101,24 +101,25 @@ export default function EntryFormDialog({
       ></div>
 
       <div
-        className="fixed z-50 w-[420px] rounded-[10px] border border-blue-400/50 bg-slate-950/80"
+        className="fixed z-50 w-[300px] rounded-[10px] border border-blue-400/50 bg-slate-950/80 lg:w-[420px]"
         style={{ top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}
       >
-        <div
-          className="flex h-full w-full flex-col items-center text-white"
-        >
-          <div className="mt-7 text-4xl font-bold">
+        <div className="flex h-full w-full flex-col items-center text-white">
+          <div className="mt-4 text-2xl font-bold lg:mt-7 lg:text-4xl">
             {isEditing ? "編輯交易紀錄" : "新增交易紀錄"}
           </div>
 
           <div className="dialog-entry-divider"></div>
 
-          <IncomeExpenseToggleForForm type={type} handleTypeChange={handleTypeChange} />
-         
+          <IncomeExpenseToggleForForm
+            type={type}
+            handleTypeChange={handleTypeChange}
+          />
+
           <div className="dialog-entry-divider"></div>
 
-          <div className="min-h-[80px]">
-            <ul className="grid grid-cols-4 gap-4">
+          <div className="w-full px-6">
+            <ul className="grid grid-cols-4 gap-2 lg:gap-4">
               {currentCategoryComponents}
             </ul>
           </div>
@@ -136,9 +137,9 @@ export default function EntryFormDialog({
 
           <div className="dialog-entry-divider"></div>
 
-          <div>
-            <ul className="grid grid-cols-4 gap-4" data-entry-mode-list>
-              <li className="relative h-[30px] w-[80px] overflow-hidden rounded-full">
+          <div className="w-full px-6">
+            <ul className="grid grid-cols-4 gap-2 lg:gap-4">
+              <li className="relative h-[30px] w-[60px] overflow-hidden rounded-full lg:w-[80px]">
                 <div
                   className={`${mode === "once" ? "category-button-selected" : "category-button"}`}
                   onClick={() => setMode("once")}
@@ -146,7 +147,7 @@ export default function EntryFormDialog({
                   單次
                 </div>
               </li>
-              <li className="relative h-[30px] w-[80px] overflow-hidden rounded-full">
+              <li className="relative h-[30px] w-[60px] overflow-hidden rounded-full lg:w-[80px]">
                 <div
                   className={`${mode === "recurring" ? "category-button-selected" : "category-button"}`}
                   onClick={() => setMode("recurring")}
@@ -159,15 +160,15 @@ export default function EntryFormDialog({
 
           <div className="dialog-entry-divider"></div>
 
-          <div className="mb-5 flex w-[368px] justify-between">
+          <div className="mb-3 flex w-full justify-between space-x-4 px-6 lg:mb-5">
             <button
-              className="flex h-[40px] w-[174px] cursor-pointer items-center justify-center rounded-xl bg-gray-800 text-2xl text-white/50 hover:bg-gray-600"
+              className="flex w-full cursor-pointer items-center justify-center rounded-xl bg-gray-800 py-0.5 text-xl text-white/50 hover:bg-gray-600 lg:py-1 lg:text-2xl"
               onClick={onClose}
             >
               取消
             </button>
             <button
-              className="flex h-[40px] w-[174px] cursor-pointer items-center justify-center rounded-xl bg-blue-600 text-2xl text-white hover:bg-blue-400"
+              className="flex w-full cursor-pointer items-center justify-center rounded-xl bg-blue-600 py-0.5 text-xl text-white hover:bg-blue-400 lg:py-1 lg:text-2xl"
               onClick={handleSubmit}
             >
               確認

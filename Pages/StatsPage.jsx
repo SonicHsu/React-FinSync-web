@@ -2,7 +2,7 @@ import { useState } from "react";
 import StatsDisplay from "../components/StatsDisplay";
 import Header from "../components/Header";
 
-export default function StatsPage({  currentDate, setCurrentDate, entries }) {
+export default function StatsPage({  currentDate, setCurrentDate, entries, isMobile }) {
 
   const [statType, setStatType] = useState("expense")
 
@@ -16,7 +16,7 @@ export default function StatsPage({  currentDate, setCurrentDate, entries }) {
             setStatType={setStatType}
           />
 
-    <StatsDisplay entries={entries} currentDate={currentDate} statType={statType} />
+    <StatsDisplay entries={entries} currentDate={currentDate} statType={statType} isMobile={isMobile} />
     </>
   );
 }

@@ -1,7 +1,13 @@
-export function getMonthChartOptions(maxWithBuffer) {
+export function getMonthChartOptions(maxWithBuffer, isMobile) {
+
+  const fontSize = isMobile ? 14 : 24;
+  const labelFontSize = isMobile ? 18 : 30;
+
   return {
     indexAxis: "y",
     responsive: true,
+    maintainAspectRatio: false,
+    aspectRatio: isMobile ? undefined : 2,
     plugins: {
       legend: { display: false },
       title: { display: false },
@@ -10,7 +16,7 @@ export function getMonthChartOptions(maxWithBuffer) {
         anchor: "end",
         align: "end",
         color: "white",
-        font: { weight: "500", size: 30 },
+        font: { weight: "500", size: labelFontSize },
         formatter: (value) => value === 0 ? "" : value,
       },
     },
@@ -25,7 +31,7 @@ export function getMonthChartOptions(maxWithBuffer) {
       y: {
         ticks: {
           display: true,
-          font: { size: 24 },
+          font: { size: fontSize },
           color: "white",
         },
         grid: { display: false },

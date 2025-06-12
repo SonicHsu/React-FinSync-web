@@ -24,7 +24,7 @@ export default function Header({
     setStatType(newStatType);
   };
   return (
-    <header className="mx-auto mt-1 flex h-auto w-full items-center justify-center sm:w-[90%] lg:h-[62px] lg:w-[90%] max-w-[981px] sm:justify-between">
+    <header className="mx-auto mt-1 flex flex-col sm:flex-row h-auto w-full items-center justify-center sm:w-[90%] lg:h-[62px] lg:w-[90%] max-w-[981px] sm:justify-between">
       <div>
         <h1
           className="cursor-pointer text-2xl font-bold sm:text-4xl lg:text-5xl"
@@ -34,7 +34,7 @@ export default function Header({
         </h1>
       </div>
 
-      <nav className="hidden items-center space-x-3 sm:flex lg:space-x-10">
+      <nav className={`${isStatsPage ? "" : "hidden"} items-center space-x-2  sm:space-x-3 flex sm:flex lg:space-x-10 mt-2 lg:mt-0`}>
         <DatePicker
           isStatsPage={isStatsPage}
           currentView={currentView}

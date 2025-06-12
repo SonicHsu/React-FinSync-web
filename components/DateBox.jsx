@@ -8,9 +8,7 @@ export default function DateBox({
   mode,
   handleDateChange,
   setOpenMode,
-  
 }) {
-
   const isOpen = mode === type;
 
   const renderMonthContent = (monthIndex, shortMonth, longMonth, day) => {
@@ -27,7 +25,7 @@ export default function DateBox({
     <div className="relative">
       <div
         onClick={onClick}
-        className="flex h-[38px] cursor-pointer items-center justify-center rounded-[10px] border border-blue-400/50 bg-white/10 px-2 sm:text-2xl lg:text-3xl hover:bg-blue-400/50"
+        className="flex h-[38px] cursor-pointer items-center justify-center rounded-[10px] border border-blue-400/50 bg-white/10 px-2 text-xl hover:bg-blue-400/50 sm:text-2xl lg:text-3xl"
       >
         {value}
       </div>

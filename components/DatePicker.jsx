@@ -32,8 +32,8 @@ export default function DatePicker({ isStatsPage, currentView, currentDate, onDa
   };
 
   return (
-    <div className="flex items-center space-x-2">
-      <div className="relative flex items-center space-x-1">
+    <div className="flex items-center space-x-1 lg:space-x-2">
+      <div className="relative flex items-center space-x-0.5 sm:space-x-1">
         {!isStatsPage &&<div className="hidden lg:flex">
           <DateBox
           type="today"

@@ -14,6 +14,7 @@ import NotFoundPage from "../Pages/NotFoundPage";
 import { firestoreService } from "./firestoreService";
 import { today } from "../utils/dateUtils";
 import "../utils/chartSetup";
+import { useIsMobile } from "../hooks/useIsMobile ";
 
 export default function App() {
   const { user, login, logout, loginAsGuest } = useAuth();
@@ -28,6 +29,8 @@ export default function App() {
   const [isEditing, setIsEditing] = useState(false);
   const [selectedEntry, setSelectedEntry] = useState(null);
   const [entries, setEntries] = useState([]);
+
+  const isMobile = useIsMobile();
 
   const loadEntries = async () => {
     try {
@@ -70,6 +73,7 @@ export default function App() {
                     isEditing={isEditing}
                     setIsEditing={setIsEditing}
                     loadEntries={loadEntries}
+                    isMobile={isMobile}
                   />
                 </>
               ) : (
@@ -88,6 +92,7 @@ export default function App() {
                     currentDate={currentDate}
                     setCurrentDate={setCurrentDate}
                     entries={entries}
+                    isMobile={isMobile}
                   />
                 </>
               ) : (

@@ -69,15 +69,15 @@
 }
 
 .category-button {
-  @apply flex h-full w-full cursor-pointer items-center justify-center bg-gray-800 text-xl font-semibold hover:bg-gray-700;
+  @apply flex h-full w-full cursor-pointer items-center justify-center bg-gray-800 text-base lg:text-xl font-semibold hover:bg-gray-700;
 }
 
 .category-button-selected {
-  @apply flex h-full w-full cursor-pointer items-center justify-center bg-white text-xl font-semibold text-gray-800;
+  @apply flex h-full w-full cursor-pointer items-center justify-center bg-white text-base lg:text-xl font-semibold text-gray-800;
 }
 
 .dialog-entry-divider {
-  @apply my-4 w-full border-t border-blue-400/20;
+  @apply my-2 lg:my-4 w-full border-t border-blue-400/20;
 }
 
 .custom-scrollbar::-webkit-scrollbar {

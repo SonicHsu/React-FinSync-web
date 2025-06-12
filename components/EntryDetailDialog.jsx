@@ -9,7 +9,7 @@ export default function EntryDetailDialog({
   onClose,
   selectedEntry,
   handleOpenEntryEdit,
-  handleOpenEntryDelete
+  handleOpenEntryDelete,
 }) {
   if (!open) return null;
 
@@ -19,7 +19,6 @@ export default function EntryDetailDialog({
     (item) => item.category === selectedEntry.category,
   );
 
-
   return (
     <div>
       <div
@@ -28,16 +27,14 @@ export default function EntryDetailDialog({
       ></div>
 
       <div
-        className="fixed z-50 w-[420px] rounded-[10px] border border-blue-400/50 bg-slate-950/80"
+        className="fixed z-50 w-[300px] rounded-[10px] border border-blue-400/50 bg-slate-950/80 lg:w-[420px]"
         style={{ top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}
       >
         <div className="flex h-full w-full flex-col items-center px-6 text-white">
-          <div className="mt-4 grid w-full grid-cols-[1fr_auto_1fr] items-center">
-            <div></div>
-            <div
-              className="text-center text-3xl font-bold"
-              data-entry-detail-title
-            >
+          <div className="mt-4 flex w-full items-center justify-between lg:grid lg:grid-cols-[1fr_auto_1fr]">
+            <div className="hidden lg:flex"></div>
+
+            <div className="text-center text-2xl font-bold lg:text-3xl">
               交易明細
             </div>
             <div className="flex justify-end space-x-2">
@@ -104,25 +101,29 @@ export default function EntryDetailDialog({
           <div className="mt-4 flex w-full items-center justify-between">
             <div className="flex items-center space-x-1">
               <span
-                className={`inline-block h-[18px] w-[18px] rounded-full ${matchedCategory.color}`}
+                className={`inline-block h-3 w-3 rounded-full lg:h-4 lg:w-4 ${matchedCategory.color}`}
               ></span>
-              <span className="text-2xl">{matchedCategory.label}</span>
+              <span className="text-lg lg:text-2xl">
+                {matchedCategory.label}
+              </span>
             </div>
 
             <div
-              className={`flex rounded-full px-4 text-2xl ${selectedEntry.type === "expense" ? "bg-gray-400/50" : "bg-blue-400/50"}`}
+              className={`flex rounded-full px-3 text-xl lg:px-4 lg:text-2xl ${selectedEntry.type === "expense" ? "bg-gray-400/50" : "bg-blue-400/50"}`}
             >
               {selectedEntry.amount}
             </div>
           </div>
 
           <div className="mt-4 w-full">
-            <div className="w-full items-center rounded-xl bg-gray-800/50 px-2 py-1 text-2xl text-white/50">
+            <div className="w-full items-center rounded-xl bg-gray-800/50 px-2 py-1 text-xl text-white/50 lg:text-2xl">
               {selectedEntry.note}
             </div>
           </div>
 
-          <div className="m-4 text-2xl">{formatDate(selectedEntry.date)}</div>
+          <div className="m-4 text-xl lg:text-2xl">
+            {formatDate(selectedEntry.date)}
+          </div>
         </div>
       </div>
     </div>

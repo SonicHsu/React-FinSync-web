@@ -6,7 +6,7 @@ export default function EntryCategoryButton({
   onClick,
 }) {
   return (
-    <li className="relative h-[30px] w-[80px] overflow-hidden rounded-full">
+    <li className="relative h-[30px] w-[60px] overflow-hidden rounded-full lg:w-[80px]">
       <div
         className={`${selected ? "category-button-selected" : "category-button"}`}
         onClick={() => onClick(category)}

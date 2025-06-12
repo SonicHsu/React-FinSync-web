@@ -36,12 +36,12 @@ export default function EntryInputSection({
   };
 
   return (
-    <div>
-      <div className="flex w-[368px] justify-between">
-        <div className="flex h-[30px] w-[174px] items-center justify-between rounded-xl bg-gray-800 px-3">
+    <>
+      <div className="flex w-full flex-col justify-between space-y-2 px-6 lg:flex-row lg:space-x-2">
+        <div className="flex h-[30px] w-full items-center justify-between rounded-xl bg-gray-800 px-3">
           <span className="text-sm text-gray-400">金額</span>
           <input
-            className="w-24 appearance-none border-none bg-transparent text-right text-xl font-medium text-white outline-none focus:ring-0"
+            className="w-48 appearance-none border-none bg-transparent text-right text-xl font-medium text-white outline-none focus:ring-0 lg:w-26"
             type="text"
             inputMode="numeric"
             value={amount}
@@ -49,10 +49,10 @@ export default function EntryInputSection({
           />
         </div>
 
-        <div className="relative flex h-[30px] w-[174px] items-center justify-between rounded-xl bg-gray-800 px-3">
+        <div className="relative flex h-[30px] w-full items-center justify-between rounded-xl bg-gray-800 px-3">
           <span className="text-sm text-gray-400">日期</span>
           <span
-            className="z-10 cursor-pointer text-xl font-medium"
+            className="z-10 cursor-pointer text-lg font-medium lg:text-xl"
             onClick={handleDatePicker}
           >
             {formatDate(date)}
@@ -71,11 +71,11 @@ export default function EntryInputSection({
         </div>
       </div>
 
-      <div className="mt-2">
-        <div className="flex w-[368px] items-center justify-between rounded-xl bg-gray-800 px-3">
+      <div className="mt-2 w-full px-6">
+        <div className="flex w-full items-center justify-between rounded-xl bg-gray-800 px-3">
           <span className="text-sm text-gray-400">備註</span>
           <input
-            className="w-[300px] appearance-none border-none bg-transparent text-left text-xl font-medium text-white outline-none focus:ring-0"
+            className="w-48 appearance-none border-none bg-transparent text-left text-xl font-medium text-white outline-none focus:ring-0 lg:w-[300px]"
             type="text"
             inputMode="numeric"
             value={note}
@@ -83,6 +83,6 @@ export default function EntryInputSection({
           />
         </div>
       </div>
-    </div>
+    </>
   );
 }
