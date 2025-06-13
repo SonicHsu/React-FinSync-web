@@ -1,7 +1,17 @@
-export function getMonthChartOptions(maxWithBuffer, isMobile) {
+import { useResponsiveValue } from "../hooks/useResponsiveValue";
 
-  const fontSize = isMobile ? 14 : 24;
-  const labelFontSize = isMobile ? 18 : 30;
+export function getMonthChartOptions(maxWithBuffer, isMobile, isTablet, isMobileOrTablet, isDesktop) {
+
+  const fontSize = useResponsiveValue({
+  mobile: 18,
+  tablet: 20,
+  desktop: 24
+});
+  const labelFontSize = useResponsiveValue({
+  mobile: 22,
+  tablet: 26,
+  desktop: 30
+});
 
   return {
     indexAxis: "y",

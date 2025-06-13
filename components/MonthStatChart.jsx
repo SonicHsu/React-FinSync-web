@@ -6,6 +6,9 @@ export default function MonthStatChart({
   statsToUse,
   maxWithBuffer,
   isMobile,
+  isTablet,
+  isMobileOrTablet,
+  isDesktop,
 }) {
   const chartRef = useRef(null);
 
@@ -23,7 +26,7 @@ export default function MonthStatChart({
     ],
   };
 
-  const options = getMonthChartOptions(maxWithBuffer, isMobile);
+  const options = getMonthChartOptions(maxWithBuffer, isMobile, isTablet, isMobileOrTablet, isDesktop);
 
   useEffect(() => {
     function handleResize() {
@@ -41,7 +44,7 @@ export default function MonthStatChart({
   }, []);
 
   return (
-    <div className="w-full flex-1 px-5 sm:h-[480px]">
+    <div className="w-full flex-1 px-5 h-[310px] sm:h-[480px]">
       <Bar
         ref={chartRef}
         key={isMobile ? "mobile" : "desktop"}

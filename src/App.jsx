@@ -14,7 +14,7 @@ import NotFoundPage from "../Pages/NotFoundPage";
 import { firestoreService } from "./firestoreService";
 import { today } from "../utils/dateUtils";
 import "../utils/chartSetup";
-import { useIsMobile } from "../hooks/useIsMobile ";
+import { useBreakpoint } from "../hooks/useBreakpoint";
 
 export default function App() {
   const { user, login, logout, loginAsGuest } = useAuth();
@@ -30,7 +30,7 @@ export default function App() {
   const [selectedEntry, setSelectedEntry] = useState(null);
   const [entries, setEntries] = useState([]);
 
-  const isMobile = useIsMobile();
+  const {isMobile, isTablet, isMobileOrTablet, isDesktop} = useBreakpoint();
 
   const loadEntries = async () => {
     try {
@@ -93,6 +93,9 @@ export default function App() {
                     setCurrentDate={setCurrentDate}
                     entries={entries}
                     isMobile={isMobile}
+                    isTablet={isTablet}
+                    isMobileOrTablet={isMobileOrTablet}
+                    isDesktop={isDesktop}
                   />
                 </>
               ) : (
