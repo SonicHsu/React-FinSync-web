@@ -1,20 +1,24 @@
 import { useState, useEffect } from "react";
 
 export function useBreakpoint() {
-  const [isMobile, setIsMobile] = useState(false);
-  const [isTablet, setIsTablet] = useState(false);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+  const [isTablet, setIsTablet] = useState<boolean>(false);
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
     const mobileQuery = window.matchMedia("(max-width: 639px)");
     const tabletQuery = window.matchMedia(
       "(min-width: 640px) and (max-width: 1023px)",
     );
 
-    const handleMobileChange = (e) => setIsMobile(e.matches);
-    const handleTabletChange = (e) => setIsTablet(e.matches);
+    setIsMobile(mobileQuery.matches);
+    setIsTablet(tabletQuery.matches);
 
-    handleMobileChange(mobileQuery);
-    handleTabletChange(tabletQuery);
+    const handleMobileChange = (e: MediaQueryListEvent) =>
+      setIsMobile(e.matches);
+    const handleTabletChange = (e: MediaQueryListEvent) =>
+      setIsTablet(e.matches);
 
     mobileQuery.addEventListener("change", handleMobileChange);
     tabletQuery.addEventListener("change", handleTabletChange);

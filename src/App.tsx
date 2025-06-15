@@ -14,28 +14,33 @@ import NotFoundPage from "../Pages/NotFoundPage";
 import { firestoreService } from "./firestoreService";
 import { today } from "../utils/dateUtils";
 import "../utils/chartSetup";
-import { useBreakpoint } from "../hooks/useBreakpoint";
+
+import { Entry, DialogState } from "./types";
+
 
 export default function App() {
   const { user, login, logout, loginAsGuest } = useAuth();
 
-  const [currentDate, setCurrentDate] = useState(today);
-  const [dialogState, setDialogState] = useState({
+  const [currentDate, setCurrentDate] = useState<Date>(today);
+  const [dialogState, setDialogState] = useState<DialogState>({
     entryForm: false,
     entryDetail: false,
     entryDelete: false,
     viewStats: false,
   });
-  const [isEditing, setIsEditing] = useState(false);
-  const [selectedEntry, setSelectedEntry] = useState(null);
-  const [entries, setEntries] = useState([]);
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [selectedEntry, setSelectedEntry] = useState<Entry | null>(null);
+  const [entries, setEntries] = useState<Entry[]>([]);
 
-  const {isMobile, isTablet, isMobileOrTablet, isDesktop} = useBreakpoint();
+
 
   const loadEntries = async () => {
+    if (!user) return;
+
     try {
-      const data = await firestoreService.getEntries(user.uid); // 這裡從 Firebase 撈資料
-      setEntries(data);
+      const firestoreData = await firestoreService.getEntries(user.uid); // 這裡從 Firebase 撈資料
+      const entries: Entry[] = firestoreData.map(({ firebaseId, ...entry }) => entry);
+      setEntries(entries);
     } catch (error) {
       console.error("讀取失敗:", error);
     }
@@ -73,7 +78,6 @@ export default function App() {
                     isEditing={isEditing}
                     setIsEditing={setIsEditing}
                     loadEntries={loadEntries}
-                    isMobile={isMobile}
                   />
                 </>
               ) : (
@@ -92,10 +96,6 @@ export default function App() {
                     currentDate={currentDate}
                     setCurrentDate={setCurrentDate}
                     entries={entries}
-                    isMobile={isMobile}
-                    isTablet={isTablet}
-                    isMobileOrTablet={isMobileOrTablet}
-                    isDesktop={isDesktop}
                   />
                 </>
               ) : (

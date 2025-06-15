@@ -1,6 +1,6 @@
-import { useResponsiveValue } from "../hooks/useResponsiveValue";
+import { useResponsiveValue } from "../hooks/useResponsiveValue.ts";
 
-export function getMonthChartOptions(maxWithBuffer, isMobile, isTablet, isMobileOrTablet, isDesktop) {
+export function getMonthChartOptions(maxWithBuffer, isMobile) {
 
   const fontSize = useResponsiveValue({
   mobile: 18,

@@ -1,17 +1,15 @@
 import { useEffect, useRef } from "react";
 import { Bar } from "react-chartjs-2";
 import { getMonthChartOptions } from "../utils/monthStatChartConfig";
+import { useBreakpoint } from "../hooks/useBreakpoint";
 
 export default function MonthStatChart({
   statsToUse,
   maxWithBuffer,
-  isMobile,
-  isTablet,
-  isMobileOrTablet,
-  isDesktop,
 }) {
   const chartRef = useRef(null);
 
+  const { isMobile } = useBreakpoint();
   const data = {
     labels: statsToUse.map((stat) => stat.label),
     datasets: [
@@ -26,7 +24,7 @@ export default function MonthStatChart({
     ],
   };
 
-  const options = getMonthChartOptions(maxWithBuffer, isMobile, isTablet, isMobileOrTablet, isDesktop);
+  const options = getMonthChartOptions(maxWithBuffer);
 
   useEffect(() => {
     function handleResize() {

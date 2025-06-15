@@ -7,10 +7,6 @@ export default function StatsDisplay({
   entries,
   currentDate,
   statType,
-  isMobile,
-  isTablet,
-  isMobileOrTablet,
-  isDesktop,
 }) {
   const { statsToUse, maxWithBuffer, monthTotals, monthBalance } =
     calculateMonthStatsData(entries, currentDate, statType);
@@ -26,10 +22,6 @@ export default function StatsDisplay({
         <MonthStatChart
           statsToUse={statsToUse}
           maxWithBuffer={maxWithBuffer}
-          isMobile={isMobile}
-          isTablet={isTablet}
-          isMobileOrTablet={isMobileOrTablet}
-          isDesktop={isDesktop}
         />
       </div>
 
