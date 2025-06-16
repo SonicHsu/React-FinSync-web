@@ -4,8 +4,7 @@ import Header from "../components/Header";
 
 export default function StatsPage({  currentDate, setCurrentDate, entries }) {
 
-  const [statType, setStatType] = useState("expense")
-
+  
 
   return (
     <>

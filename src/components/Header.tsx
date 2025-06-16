@@ -3,16 +3,10 @@ import ViewToggle from "./ViewToggle";
 import IncomeExpenseToggleForStats from "./IncomeExpenseToggleForStats";
 import { useNavigate, useLocation } from "react-router-dom";
 
-export default function Header({
-  currentView,
-  onViewChange,
-  currentDate,
-  onDateChange,
-  statType,
-  setStatType,
-}) {
+
+export default function Header() {
   const location = useLocation();
-  const isStatsPage = location.pathname === "/stats";
+  const isStatsPage:boolean = location.pathname === "/stats";
 
   const navigate = useNavigate();
 
@@ -20,9 +14,6 @@ export default function Header({
     navigate("/");
   };
 
-  const handleStatTypeChange = (newStatType) => {
-    setStatType(newStatType);
-  };
   return (
     <header className="mx-auto mt-1 flex flex-col sm:flex-row h-auto w-full items-center justify-center sm:w-[90%] lg:h-[62px] lg:w-[90%] max-w-[981px] sm:justify-between">
       <div>
@@ -37,16 +28,11 @@ export default function Header({
       <nav className={`${isStatsPage ? "" : "hidden"} items-center space-x-2  sm:space-x-3 flex sm:flex lg:space-x-10 mt-2 lg:mt-0`}>
         <DatePicker
           isStatsPage={isStatsPage}
-          currentView={currentView}
-          currentDate={currentDate}
-          onDateChange={onDateChange}
         />
         {!isStatsPage ? (
-          <ViewToggle currentView={currentView} onViewChange={onViewChange} />
+          <ViewToggle />
         ) : (
           <IncomeExpenseToggleForStats
-            statType={statType}
-            handleStatTypeChange={handleStatTypeChange}
           />
         )}
       </nav>

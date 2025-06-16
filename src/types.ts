@@ -20,3 +20,8 @@ export interface FirestoreEntry extends Entry {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export type View = "Day" | "Month" | "Year";
+
+
+export type statType = "expense" | "income";

@@ -9,25 +9,35 @@ import {
   today,
 } from "../utils/dateUtils";
 
-export default function DatePicker({ isStatsPage, currentView, currentDate, onDateChange }) {
-  const [openMode, setOpenMode] = useState(null);
+import { useEntryContext } from "../contexts/entryContext";
 
-  const handleDateChange = (date) => {
-    onDateChange(date);
+type DatePickerProps = {
+  isStatsPage: boolean;
+};
+
+type DateMode = "year" | "month" | "date" | null;
+
+
+export default function DatePicker({isStatsPage}:DatePickerProps) {
+  const { calendarView, currentDate, setCurrentDate } = useEntryContext();
+  const [openMode, setOpenMode] = useState<DateMode>(null);
+
+  const handleDateChange = (date: Date) => {
+    setCurrentDate(date);
     setOpenMode(null);
   };
 
   const handleLeftClick = () => {
-    onDateChange((prevDate) =>
-      currentView === "Day"
+    setCurrentDate((prevDate) =>
+      calendarView === "Day"
         ? subtractDays(prevDate, 1)
         : subtractMonths(prevDate, 1),
     );
   };
 
   const handleRightClick = () => {
-    onDateChange((prevDate) =>
-      currentView === "Day" ? addDays(prevDate, 1) : addMonths(prevDate, 1),
+    setCurrentDate((prevDate) =>
+      calendarView === "Day" ? addDays(prevDate, 1) : addMonths(prevDate, 1),
     );
   };
 
@@ -35,11 +45,14 @@ export default function DatePicker({ isStatsPage, currentView, currentDate, onDa
     <div className="flex items-center space-x-1 lg:space-x-2">
       <div className="relative flex items-center space-x-0.5 sm:space-x-1">
         {!isStatsPage &&<div className="hidden lg:flex">
-          <DateBox
-          type="today"
-          value="Today"
-          onClick={() => onDateChange(today)}
-        />
+          <div className="relative">
+                <div
+                  onClick={() => setCurrentDate(today)}
+                  className="flex h-[38px] cursor-pointer items-center justify-center rounded-[10px] border border-blue-400/50 bg-white/10 px-2 text-xl hover:bg-blue-400/50 sm:text-2xl lg:text-3xl"
+                >
+                  Today
+                </div>   
+              </div>
         </div> }
 
         <DateBox
@@ -52,7 +65,7 @@ export default function DatePicker({ isStatsPage, currentView, currentDate, onDa
           setOpenMode={setOpenMode}
         />
 
-        {currentView !== "Year" && <DateBox
+        {calendarView !== "Year" && <DateBox
           type="month"
           value={String(currentDate.getMonth() + 1).padStart(2, "0")}
           onClick={() => setOpenMode("month")}
@@ -62,7 +75,7 @@ export default function DatePicker({ isStatsPage, currentView, currentDate, onDa
           setOpenMode={setOpenMode}
         />}
 
-        {currentView === "Day" && (
+        {calendarView === "Day" && (
           <DateBox
             type="date"
             value={String(currentDate.getDate()).padStart(2, "0")}
@@ -74,7 +87,7 @@ export default function DatePicker({ isStatsPage, currentView, currentDate, onDa
           />
         )}
 
-        {currentView === "Day" && (
+        {calendarView === "Day" && (
           <span className="hidden lg:flex w-12 text-center text-2xl font-medium text-white/50">
             {currentDate.toLocaleDateString("en-US", { weekday: "short" })}
           </span>

@@ -8,9 +8,11 @@ import React, {
 import { useAuth } from "./authContext";
 import { firestoreService } from "../firestoreService";
 import { today } from "../utils/dateUtils";
-import { Entry, DialogState, FirestoreEntry } from "../types";
+import { Entry, DialogState, FirestoreEntry, View, statType } from "../types";
 
 type EntryContextType = {
+  calendarView: View;
+  setCalendarView: React.Dispatch<React.SetStateAction<View>>
   currentDate: Date;
   setCurrentDate: React.Dispatch<React.SetStateAction<Date>>;
   dialogState: DialogState;
@@ -20,6 +22,8 @@ type EntryContextType = {
   selectedEntry: Entry | null;
   setSelectedEntry: React.Dispatch<React.SetStateAction<Entry | null>>;
   entries: FirestoreEntry[];
+  statType: statType;
+  setStatType: React.Dispatch<React.SetStateAction<statType>>;
   loadEntries: () => Promise<void>;
 };
 
@@ -27,6 +31,7 @@ const EntryContext = createContext<EntryContextType | undefined>(undefined);
 
 export const EntryProvider = ({ children }: { children: ReactNode }) => {
   const { user } = useAuth();
+  const [calendarView, setCalendarView] = useState<View>("Day");
   const [currentDate, setCurrentDate] = useState<Date>(today);
   const [dialogState, setDialogState] = useState<DialogState>({
     entryForm: false,
@@ -37,6 +42,7 @@ export const EntryProvider = ({ children }: { children: ReactNode }) => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [selectedEntry, setSelectedEntry] = useState<Entry | null>(null);
   const [entries, setEntries] = useState<FirestoreEntry[]>([]);
+  const [statType, setStatType] = useState<statType>("expense")
 
   const loadEntries = async () => {
     if (!user) return;
@@ -61,6 +67,8 @@ export const EntryProvider = ({ children }: { children: ReactNode }) => {
   return (
     <EntryContext.Provider
       value={{
+        calendarView,
+        setCalendarView,
         currentDate,
         setCurrentDate,
         dialogState,
@@ -70,6 +78,8 @@ export const EntryProvider = ({ children }: { children: ReactNode }) => {
         selectedEntry,
         setSelectedEntry,
         entries,
+        statType,
+        setStatType,
         loadEntries,
       }}
     >
