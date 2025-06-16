@@ -14,7 +14,6 @@ export default function CalendarPage({
   dialogState,
   setDialogState,
   entries,
-  setEntries,
   selectedEntry,
   setSelectedEntry,
   isEditing,
@@ -97,7 +96,6 @@ export default function CalendarPage({
             handleOpenEntryForm={handleOpenEntryForm}
             handleOpenEntryDetail={handleOpenEntryDetail}
             entries={entries}
-            setSelectedEntry={setSelectedEntry}
           />
         )}
       </main>
@@ -107,7 +105,6 @@ export default function CalendarPage({
         open={dialogState.entryForm}
         onClose={handleCloseEntryForm}
         currentDate={currentDate}
-        setEntries={setEntries}
         isEditing={isEditing}
         selectedEntry={selectedEntry}
         user={user}
@@ -117,19 +114,15 @@ export default function CalendarPage({
       <EntryDetailDialog
         open={dialogState.entryDetail}
         onClose={handleCloseEntryDetail}
-        currentDate={currentDate}
         selectedEntry={selectedEntry}
-        setSelectedEntry={setSelectedEntry}
         handleOpenEntryEdit={handleOpenEntryEdit}
         handleOpenEntryDelete={handleOpenEntryDelete}
-        setIsEditing={setIsEditing}
       />
 
       <EntryDeleteDialog
         open={dialogState.entryDelete}
         onClose={handleCloseEntryDelete}
         selectedEntry={selectedEntry}
-        setEntries={setEntries}
         user={user}
         loadEntries={loadEntries}
       />

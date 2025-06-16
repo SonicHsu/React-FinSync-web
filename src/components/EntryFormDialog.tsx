@@ -8,13 +8,12 @@ import {
 } from "../constants/entryCategories";
 import { v4 as uuidv4 } from "uuid";
 import { validAmount, validDate, validNote } from "../utils/validation";
-import { firestoreService } from "../src/firestoreService";
+import { firestoreService } from "../firestoreService";
 
 export default function EntryFormDialog({
   open,
   onClose,
   currentDate,
-  setEntries,
   isEditing,
   selectedEntry,
   user,
