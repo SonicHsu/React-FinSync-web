@@ -1,7 +1,7 @@
 import MonthStatChart from "./MonthStatChart";
 import MonthlySummaryItem from "./MonthlySummaryItem";
-import { calculateMonthStatsData } from "../utils/monthStatCalculator";
-import { formatMonthZh } from "../utils/dateUtils";
+import { calculateMonthStatsData } from "../../utils/monthStatCalculator";
+import { formatMonthZh } from "../../utils/dateUtils";
 
 export default function StatsDisplay({
   entries,

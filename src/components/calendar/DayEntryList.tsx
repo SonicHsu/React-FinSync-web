@@ -1,26 +1,22 @@
 import DayEntry from "./DayEntry";
 import CalendarActionButtons from "./CalendarActionButtons";
-import { getDayEntriesAndTotals } from "../utils/calculator";
+import { getDayEntriesAndTotals } from "../../utils/calculator";
+import { Entry } from "../../types";
 
-export default function DayEntryList({
-  selectedDate,
-  entries,
-  handleOpenEntryDetail,
-  handleOpenEntryForm,
-}) {
+import { useEntryContext } from "../../contexts/entryContext";
+
+export default function DayEntryList() {
+  const {entries, currentDate } = useEntryContext();
+
   const { dayEntries, expenseTotal, incomeTotal } = getDayEntriesAndTotals(
     entries,
-    selectedDate,
+    currentDate,
   );
 
-  const entriesComponents = dayEntries.map((entry) => (
+  const entriesComponents = dayEntries.map((entry: Entry) => (
     <DayEntry
       key={entry.id}
-      type={entry.type}
-      category={entry.category}
-      amount={entry.amount}
-      note={entry.note}
-      onClick={() => handleOpenEntryDetail(entry)}
+      entryId={entry.id}
     />
   ));
 
@@ -43,7 +39,7 @@ export default function DayEntryList({
         </div>
       </div>
       <footer className="mt-6 mb-6 flex w-full items-center justify-center space-x-2 sm:hidden lg:hidden">
-        <CalendarActionButtons handleOpenEntryForm={handleOpenEntryForm} />
+        <CalendarActionButtons />
       </footer>
     </>
   );

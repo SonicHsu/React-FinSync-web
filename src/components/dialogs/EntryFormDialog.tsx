@@ -1,17 +1,20 @@
 import { useState } from "react";
-import IncomeExpenseToggleForForm from "./IncomeExpenseToggleForForm";
-import EntryCategoryButton from "./EntryCategoryButton";
-import EntryInputSection from "./EntryInputSection";
+import IncomeExpenseToggleForForm from "../forms/IncomeExpenseToggleForForm";
+import EntryCategoryButton from "../forms/EntryCategoryButton";
+import EntryInputSection from "../forms/EntryInputSection";
 import {
   EXPENSE_CATEGORIES,
   INCOME_CATEGORIES,
-} from "../constants/entryCategories";
+} from "../../constants/entryCategories";
 import { v4 as uuidv4 } from "uuid";
-import { validAmount, validDate, validNote } from "../utils/validation";
-import { firestoreService } from "../firestoreService";
+import { validAmount, validDate, validNote } from "../../utils/validation";
+import { firestoreService } from "../../firestoreService";
+
+import { useAuth } from "../../contexts/authContext";
+import { useEntryContext } from "../../contexts/entryContext";
+import { useEntryDialog } from "../../hooks/useEntryDialog";
 
 export default function EntryFormDialog({
-  open,
   onClose,
   currentDate,
   isEditing,
@@ -19,7 +22,13 @@ export default function EntryFormDialog({
   user,
   loadEntries,
 }) {
-  if (!open) return null; // TODO: 如果出現編輯狀態不同步問題，考慮加上 useEffect 來同步 props 到 state
+  
+  const { dialogState } = useEntryDialog();
+  const { user } = useAuth();
+  const {currentDate, isEditing, selectedEntry, loadEntries } = useEntryContext();
+
+
+  if (!dialogState.entryForm) return null; 
 
   const [type, setType] = useState(
     isEditing && selectedEntry ? selectedEntry.type : "expense",

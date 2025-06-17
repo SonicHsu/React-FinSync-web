@@ -1,6 +1,6 @@
 import React from 'react';
 import { Routes, Route, Navigate } from "react-router-dom";
-import AuthButtons from "./components/AuthButtons";
+import AuthButtons from "./components/ui/AuthButtons";
 import CalendarPage from "./pages/CalendarPage";
 import StatsPage from "./pages/StatsPage";
 import LoginPage from "./pages/LoginPage";

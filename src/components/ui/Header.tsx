@@ -1,6 +1,6 @@
 import DatePicker from "./DatePicker";
 import ViewToggle from "./ViewToggle";
-import IncomeExpenseToggleForStats from "./IncomeExpenseToggleForStats";
+import IncomeExpenseToggleForStats from "../stats/IncomeExpenseToggleForStats";
 import { useNavigate, useLocation } from "react-router-dom";
 
 

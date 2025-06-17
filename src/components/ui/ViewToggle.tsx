@@ -1,4 +1,4 @@
-import { useEntryContext } from "../contexts/entryContext";
+import { useEntryContext } from "../../contexts/entryContext";
 
 
 export default function ViewToggle() {

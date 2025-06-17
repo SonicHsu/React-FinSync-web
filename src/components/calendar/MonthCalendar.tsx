@@ -1,10 +1,10 @@
 import React from "react";
 import MonthCalendarDay from "./MonthCalendarDay";
 import CalendarActionButtons from "./CalendarActionButtons";
-import { generateMonthCalendarDays, isTheSameMonth } from "../utils/dateUtils";
-import { calculateDateTotals } from "../utils/calculator";
+import { generateMonthCalendarDays, isTheSameMonth } from "../../utils/dateUtils";
+import { calculateDateTotals } from "../../utils/calculator";
 
-import { useEntryContext } from "../contexts/entryContext";
+import { useEntryContext } from "../../contexts/entryContext";
 
 export default function MonthCalendar() {
   const { currentDate, entries } = useEntryContext();

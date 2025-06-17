@@ -1,8 +1,8 @@
 import {
   EXPENSE_CATEGORIES,
   INCOME_CATEGORIES,
-} from "../constants/entryCategories";
-import { formatDate } from "../utils/dateUtils";
+} from "../../constants/entryCategories";
+import { formatDate } from "../../utils/dateUtils";
 
 export default function EntryDetailDialog({
   open,

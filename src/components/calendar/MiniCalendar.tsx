@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import CalendarActionButtons from "./CalendarActionButtons";
+import React, { useState, useEffect } from "react";
 import MiniCalendarDay from "./MiniCalendarDay";
 import {
   today,
@@ -8,38 +7,39 @@ import {
   subtractMonths,
   formatMonth,
   isTheSameDay,
-  isTheSameMonth
-} from "../utils/dateUtils";
+  isTheSameMonth,
+} from "../../utils/dateUtils";
+import { useEntryContext } from "../../contexts/entryContext";
 
-export default function DayCalendarSidebar({ date, onDateChange, handleOpenEntryForm }) {
-  const [miniCalendarDate, setMiniCalendarDate] = useState(today);
+export default function MiniCalendar() {
+  const { currentDate, setCurrentDate } = useEntryContext();
 
-  const miniCalendarDays = generateMonthCalendarDays(miniCalendarDate);
-  const miniCalendarDayComponents = miniCalendarDays.map((calendarDay) => (
-    <MiniCalendarDay
-    key={calendarDay.getTime()}
-    day={calendarDay}
-    currentDate={miniCalendarDate}
-    onClick={() => onDateChange(calendarDay)}
-    isToday={isTheSameDay(calendarDay, today())}
-    isSelected={isTheSameDay(calendarDay, date)}
-     />
-  ));
+  const [miniCalendarDate, setMiniCalendarDate] = useState<Date>(today);
+
+  const miniCalendarDays: Date[] = generateMonthCalendarDays(miniCalendarDate);
+  const miniCalendarDayComponents: React.JSX.Element[] = miniCalendarDays.map(
+    (calendarDay) => (
+      <MiniCalendarDay
+        key={calendarDay.getTime()}
+        day={calendarDay}
+        currentDate={miniCalendarDate}
+        onClick={() => setCurrentDate(calendarDay)}
+        isToday={isTheSameDay(calendarDay, today())}
+        isSelected={isTheSameDay(calendarDay, currentDate)}
+      />
+    ),
+  );
 
   useEffect(() => {
-    if (!isTheSameMonth(date, miniCalendarDate)) {
-      setMiniCalendarDate(date);
+    if (!isTheSameMonth(currentDate, miniCalendarDate)) {
+      setMiniCalendarDate(currentDate);
     }
-  }, [date]);
+  }, [currentDate]);
 
   return (
-    <div className="flex  w-[90%] max-w-sm min-w-[250px] sm:w-[280px] flex-col rounded-[10px]">
-      <div
-        className="flex h-auto w-full flex-col rounded-[10px] bg-gray-800/30"
-      >
-        <div
-          className="flex h-[40px] w-full items-center justify-between p-4"
-        >
+    <>
+      <div className="flex h-auto w-full flex-col rounded-[10px] bg-gray-800/30">
+        <div className="flex h-[40px] w-full items-center justify-between p-4">
           <div className="text-base sm:text-lg lg:text-2xl">
             {formatMonth(miniCalendarDate)}
           </div>
@@ -105,14 +105,12 @@ export default function DayCalendarSidebar({ date, onDateChange, handleOpenEntry
           </ul>
         </div>
 
-        <div className="w-full px-2 mb-2">
-          <ul className="grid grid-cols-7 gap-0 lg:gap-1">{miniCalendarDayComponents}</ul>
+        <div className="mb-2 w-full px-2">
+          <ul className="grid grid-cols-7 gap-0 lg:gap-1">
+            {miniCalendarDayComponents}
+          </ul>
         </div>
       </div>
-
-      <footer className="mt-4 lg:flex w-full space-x-2 hidden sm:flex">
-        <CalendarActionButtons handleOpenEntryForm={handleOpenEntryForm} />
-      </footer>
-    </div>
+    </>
   );
 }

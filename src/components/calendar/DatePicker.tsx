@@ -1,15 +1,15 @@
 import { useState } from "react";
-import ArrowButton from "./ArrowButton";
-import DateBox from "./DateBox";
+import ArrowButton from "../ui/ArrowButton";
+import DateBox from "../ui/DateBox";
 import {
   addMonths,
   subtractMonths,
   addDays,
   subtractDays,
   today,
-} from "../utils/dateUtils";
+} from "../../utils/dateUtils";
 
-import { useEntryContext } from "../contexts/entryContext";
+import { useEntryContext } from "../../contexts/entryContext";
 
 type DatePickerProps = {
   isStatsPage: boolean;

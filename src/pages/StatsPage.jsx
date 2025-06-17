@@ -1,6 +1,6 @@
 import { useState } from "react";
-import StatsDisplay from "../components/StatsDisplay";
-import Header from "../components/Header";
+import StatsDisplay from "../components/stats/StatsContent";
+import Header from "../components/ui/Header";
 
 export default function StatsPage({  currentDate, setCurrentDate, entries }) {
 

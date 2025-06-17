@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-import { useEntryDialog } from "../hooks/useEntryDialog";
+import { useEntryDialog } from "../../hooks/useEntryDialog";
 
 export default function CalendarActionButtons() {
   const navigate = useNavigate();

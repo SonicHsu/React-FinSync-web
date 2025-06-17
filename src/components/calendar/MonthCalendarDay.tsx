@@ -1,7 +1,6 @@
-import { today, isTheSameDay, isTheSameMonth } from "../utils/dateUtils";
-import { getDayEntriesAndTotals } from "../utils/calculator";
-
-import { useEntryContext } from "../contexts/entryContext";
+import { today, isTheSameDay, isTheSameMonth } from "../../utils/dateUtils";
+import { getDayEntriesAndTotals } from "../../utils/calculator";
+import { useEntryContext } from "../../contexts/entryContext";
 
 export default function MonthCalendarDay({ day }: { day: Date }) {
   const { currentDate, setCurrentDate, setCalendarView, entries } =

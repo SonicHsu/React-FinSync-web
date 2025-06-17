@@ -1,6 +1,6 @@
 import { useState } from "react";
 import ReactDatePicker from "react-datepicker";
-import { formatDate } from "../utils/dateUtils";
+import { formatDate } from "../../utils/dateUtils";
 
 export default function EntryInputSection({
   amount,

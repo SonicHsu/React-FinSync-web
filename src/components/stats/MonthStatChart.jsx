@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Bar } from "react-chartjs-2";
-import { getMonthChartOptions } from "../utils/monthStatChartConfig";
-import { useBreakpoint } from "../hooks/useBreakpoint";
+import { getMonthChartOptions } from "../../utils/monthStatChartConfig";
+import { useBreakpoint } from "../../hooks/useBreakpoint";
 
 export default function MonthStatChart({
   statsToUse,

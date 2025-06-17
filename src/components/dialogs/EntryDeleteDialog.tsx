@@ -1,4 +1,4 @@
-import { firestoreService } from "../firestoreService.js";
+import { firestoreService } from "../../firestoreService.js";
 
 export default function EntryDeleteDialog({
   open,

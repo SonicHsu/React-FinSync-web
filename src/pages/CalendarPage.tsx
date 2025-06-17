@@ -1,22 +1,18 @@
 import { useEffect } from "react";
-import Header from "../components/Header";
-import MonthCalendar from "../components/MonthCalendar";
-import DayCalendar from "../components/DayCalendar";
-import EntryFormDialog from "../components/EntryFormDialog";
-import EntryDetailDialog from "../components/EntryDetailDialog";
-import EntryDeleteDialog from "../components/EntryDeleteDialog";
+import Header from "../components/ui/Header";
+import MonthCalendar from "../components/calendar/MonthCalendar";
+import DayCalendar from "../components/calendar/DayCalendar";
+import EntryFormDialog from "../components/dialogs/EntryFormDialog";
+import EntryDetailDialog from "../components/dialogs/EntryDetailDialog";
+import EntryDeleteDialog from "../components/dialogs/EntryDeleteDialog";
 import { useBreakpoint } from "../hooks/useBreakpoint";
 
 import { useEntryContext } from "../contexts/entryContext";
 
-import { useEntryDialog } from "../hooks/useEntryDialog";
 
 export default function CalendarPage() {
   const { isMobile } = useBreakpoint();
-    const { dialogState, openForm, closeForm, openDetail, closeDetail, openEdit, openDelete, closeDelete } =
-    useEntryDialog();
-
-  const { currentView, setCalendarView } = useEntryContext();
+  const { calendarView, setCalendarView } = useEntryContext();
 
 
   useEffect(() => {
@@ -30,7 +26,7 @@ export default function CalendarPage() {
       <Header />
 
       <main className="flex min-h-0 flex-grow flex-col">
-        {currentView === "Month" ? (
+        {calendarView === "Month" ? (
           <MonthCalendar
           />
         ) : (
@@ -40,17 +36,12 @@ export default function CalendarPage() {
       </main>
 
       {/* 所有的對話框 */}
-      <EntryFormDialog
-      />
+      <EntryFormDialog />
 
       <EntryDetailDialog
-        open={dialogState.entryDetail}
       />
 
-      <EntryDeleteDialog
-        open={dialogState.entryDelete}
-
-      />
+      <EntryDeleteDialog />
     </>
   );
 }

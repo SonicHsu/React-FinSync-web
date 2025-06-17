@@ -1,5 +1,5 @@
-import { useEntryContext } from "../contexts/entryContext";
-import { statType } from "../types";
+import { useEntryContext } from "../../contexts/entryContext";
+import { statType } from "../../types";
 
 export default function IncomeExpenseToggleForStats() {
   const { statType, setStatType } = useEntryContext();
