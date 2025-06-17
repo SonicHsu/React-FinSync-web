@@ -22,8 +22,6 @@ export default function EntryFormDialog() {
   const { currentDate, isEditing, selectedEntry, loadEntries } =
     useEntryContext();
 
-  if (!dialogState.entryForm) return null;
-
   const [type, setType] = useState<Entry["type"]>(
     isEditing && selectedEntry ? selectedEntry.type : "expense",
   );
@@ -42,6 +40,8 @@ export default function EntryFormDialog() {
   const [mode, setMode] = useState<Entry["mode"]>(
     isEditing && selectedEntry ? selectedEntry.mode : "once",
   );
+
+  if (!dialogState.entryForm) return null;
 
   const handleTypeChange = (newType: Entry["type"]) => {
     setType(newType);
