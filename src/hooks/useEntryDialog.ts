@@ -1,5 +1,5 @@
 import { useEntryContext } from "../contexts/entryContext";
-import { Entry } from "../types";
+import { FirestoreEntry } from "../types";
 
 export function useEntryDialog() {
   const {
@@ -18,7 +18,7 @@ export function useEntryDialog() {
     setIsEditing(false);
   };
 
-    const openDetail = (entry: Entry) => {
+    const openDetail = (entry: FirestoreEntry) => {
     setSelectedEntry(entry);
     setDialogState((prev) => ({ ...prev, entryDetail: true }));
   };

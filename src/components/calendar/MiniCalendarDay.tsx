@@ -1,4 +1,12 @@
-export default function MiniCalendarDay({day, currentDate, onClick, isToday, isSelected}) {
+interface MiniCalendarDayProps {
+  day: Date;
+  currentDate: Date;
+  onClick: () => void;
+  isToday: boolean;
+  isSelected: boolean;
+}
+
+export default function MiniCalendarDay({day, currentDate, onClick, isToday, isSelected}: MiniCalendarDayProps) {
     const currentMonth = currentDate.getMonth();    
 
     return (

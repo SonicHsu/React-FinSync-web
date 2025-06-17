@@ -8,7 +8,7 @@ import React, {
 import { useAuth } from "./authContext";
 import { firestoreService } from "../firestoreService";
 import { today } from "../utils/dateUtils";
-import { Entry, DialogState, FirestoreEntry, View, statType } from "../types";
+import { DialogState, FirestoreEntry, View, statType } from "../types";
 
 type EntryContextType = {
   calendarView: View;
@@ -19,8 +19,8 @@ type EntryContextType = {
   setDialogState: React.Dispatch<React.SetStateAction<DialogState>>;
   isEditing: boolean;
   setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
-  selectedEntry: Entry | null;
-  setSelectedEntry: React.Dispatch<React.SetStateAction<Entry | null>>;
+  selectedEntry: FirestoreEntry | null;
+  setSelectedEntry: React.Dispatch<React.SetStateAction<FirestoreEntry | null>>;
   entries: FirestoreEntry[];
   statType: statType;
   setStatType: React.Dispatch<React.SetStateAction<statType>>;
@@ -40,7 +40,7 @@ export const EntryProvider = ({ children }: { children: ReactNode }) => {
     viewStats: false,
   });
   const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [selectedEntry, setSelectedEntry] = useState<Entry | null>(null);
+  const [selectedEntry, setSelectedEntry] = useState<FirestoreEntry | null>(null);
   const [entries, setEntries] = useState<FirestoreEntry[]>([]);
   const [statType, setStatType] = useState<statType>("expense")
 

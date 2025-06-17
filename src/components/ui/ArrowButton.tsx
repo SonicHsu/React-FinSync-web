@@ -1,4 +1,9 @@
-export default function ArrowButton({ direction = "left", onClick }) {
+type ArrowButtonProps = {
+  direction?: "left" | "right";
+  onClick: () => void;
+};
+
+export default function ArrowButton({ direction = "left", onClick }: ArrowButtonProps) {
   const isLeft = direction === "left";
   const path = isLeft
     ? "M15 10L10 15M10 15L15 20M10 15H20M27.5 15C27.5 21.9036 21.9036 27.5 15 27.5C8.09644 27.5 2.5 21.9036 2.5 15C2.5 8.09644 8.09644 2.5 15 2.5C21.9036 2.5 27.5 8.09644 27.5 15Z"

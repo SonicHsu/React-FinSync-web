@@ -25,3 +25,13 @@ export type View = "Day" | "Month" | "Year";
 
 
 export type statType = "expense" | "income";
+
+export interface Category {
+  category: string;         // 分類代號
+  label: string;            // 顯示用標籤（中文）
+  color: TailwindColor;     // Tailwind 顏色 class
+  chartColor: HexColor;     // 圖表用的 HEX 色碼
+}
+
+type TailwindColor = `bg-${string}`;
+type HexColor = `#${string}`;

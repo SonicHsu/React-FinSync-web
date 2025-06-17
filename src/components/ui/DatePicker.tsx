@@ -17,12 +17,15 @@ type DatePickerProps = {
 
 type DateMode = "year" | "month" | "date" | null;
 
-
-export default function DatePicker({isStatsPage}:DatePickerProps) {
+export default function DatePicker({ isStatsPage }: DatePickerProps) {
   const { calendarView, currentDate, setCurrentDate } = useEntryContext();
   const [openMode, setOpenMode] = useState<DateMode>(null);
 
-  const handleDateChange = (date: Date) => {
+  const handleDateChange = (date: Date | null) => {
+      if (!date) {
+    return; 
+  }
+
     setCurrentDate(date);
     setOpenMode(null);
   };
@@ -44,51 +47,52 @@ export default function DatePicker({isStatsPage}:DatePickerProps) {
   return (
     <div className="flex items-center space-x-1 lg:space-x-2">
       <div className="relative flex items-center space-x-0.5 sm:space-x-1">
-        {!isStatsPage &&<div className="hidden lg:flex">
-          <div className="relative">
-                <div
-                  onClick={() => setCurrentDate(today)}
-                  className="flex h-[38px] cursor-pointer items-center justify-center rounded-[10px] border border-blue-400/50 bg-white/10 px-2 text-xl hover:bg-blue-400/50 sm:text-2xl lg:text-3xl"
-                >
-                  Today
-                </div>   
+        {!isStatsPage && (
+          <div className="hidden lg:flex">
+            <div className="relative">
+              <div
+                onClick={() => setCurrentDate(today)}
+                className="flex h-[38px] cursor-pointer items-center justify-center rounded-[10px] border border-blue-400/50 bg-white/10 px-2 text-xl hover:bg-blue-400/50 sm:text-2xl lg:text-3xl"
+              >
+                Today
               </div>
-        </div> }
+            </div>
+          </div>
+        )}
 
         <DateBox
           type="year"
-          value={currentDate.getFullYear()}
           onClick={() => setOpenMode("year")}
           currentDate={currentDate}
           mode={openMode}
-          handleDateChange={handleDateChange}
           setOpenMode={setOpenMode}
+          handleDateChange={handleDateChange}
         />
 
-        {calendarView !== "Year" && <DateBox
-          type="month"
-          value={String(currentDate.getMonth() + 1).padStart(2, "0")}
-          onClick={() => setOpenMode("month")}
-          currentDate={currentDate}
-          mode={openMode}
-          handleDateChange={handleDateChange}
-          setOpenMode={setOpenMode}
-        />}
-
-        {calendarView === "Day" && (
+        {calendarView !== "Year" && (
           <DateBox
-            type="date"
-            value={String(currentDate.getDate()).padStart(2, "0")}
-            onClick={() => setOpenMode("date")}
+            type="month"
+            onClick={() => setOpenMode("month")}
             currentDate={currentDate}
             mode={openMode}
-            handleDateChange={handleDateChange}
             setOpenMode={setOpenMode}
+            handleDateChange={handleDateChange}
           />
         )}
 
         {calendarView === "Day" && (
-          <span className="hidden lg:flex w-12 text-center text-2xl font-medium text-white/50">
+          <DateBox
+            type="date"
+            onClick={() => setOpenMode("date")}
+            currentDate={currentDate}
+            mode={openMode}
+            setOpenMode={setOpenMode}
+            handleDateChange={handleDateChange}
+          />
+        )}
+
+        {calendarView === "Day" && (
+          <span className="hidden w-12 text-center text-2xl font-medium text-white/50 lg:flex">
             {currentDate.toLocaleDateString("en-US", { weekday: "short" })}
           </span>
         )}

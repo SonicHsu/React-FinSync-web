@@ -14,42 +14,36 @@ import { useAuth } from "../../contexts/authContext";
 import { useEntryContext } from "../../contexts/entryContext";
 import { useEntryDialog } from "../../hooks/useEntryDialog";
 
-export default function EntryFormDialog({
-  onClose,
-  currentDate,
-  isEditing,
-  selectedEntry,
-  user,
-  loadEntries,
-}) {
-  
-  const { dialogState } = useEntryDialog();
+import { Entry, Category } from "../../types";
+
+export default function EntryFormDialog() {
+  const { dialogState, closeForm } = useEntryDialog();
   const { user } = useAuth();
-  const {currentDate, isEditing, selectedEntry, loadEntries } = useEntryContext();
+  const { currentDate, isEditing, selectedEntry, loadEntries } =
+    useEntryContext();
 
+  if (!dialogState.entryForm) return null;
 
-  if (!dialogState.entryForm) return null; 
-
-  const [type, setType] = useState(
+  const [type, setType] = useState<Entry["type"]>(
     isEditing && selectedEntry ? selectedEntry.type : "expense",
   );
-  const [category, setCategory] = useState(
+  const [category, setCategory] = useState<Entry["category"]>(
     isEditing && selectedEntry ? selectedEntry.category : "food",
   );
-  const [amount, setAmount] = useState(
+  const [amount, setAmount] = useState<string>(
     isEditing && selectedEntry ? selectedEntry.amount.toString() : "",
   );
-  const [date, setDate] = useState(
+  const [date, setDate] = useState<Entry["date"]>(
     isEditing && selectedEntry ? selectedEntry.date : currentDate,
   );
-  const [note, setNote] = useState(
+  const [note, setNote] = useState<Entry["note"]>(
     isEditing && selectedEntry ? selectedEntry.note : "",
   );
-  const [mode, setMode] = useState(
+  const [mode, setMode] = useState<Entry["mode"]>(
     isEditing && selectedEntry ? selectedEntry.mode : "once",
   );
 
-  const handleTypeChange = (newType) => {
+  const handleTypeChange = (newType: Entry["type"]) => {
     setType(newType);
     if (newType === "expense") {
       setCategory("food"); // 支出預設：飲食
@@ -58,7 +52,7 @@ export default function EntryFormDialog({
     }
   };
 
-  const currentCategories =
+  const currentCategories: Category[] =
     type === "expense" ? EXPENSE_CATEGORIES : INCOME_CATEGORIES;
 
   const currentCategoryComponents = currentCategories.map((cat) => (
@@ -74,7 +68,7 @@ export default function EntryFormDialog({
 
   const handleSubmit = async () => {
     try {
-      const data = {
+      const data: Entry = {
         id: isEditing && selectedEntry ? selectedEntry.id : uuidv4(),
         type: type,
         category: category,
@@ -84,20 +78,24 @@ export default function EntryFormDialog({
         mode: mode,
       };
 
-      if (isEditing && selectedEntry) {
+      if (isEditing && selectedEntry && user?.uid) {
         await firestoreService.editEntry(
-          user?.uid,
+          user.uid,
           selectedEntry.firebaseId,
           data,
         );
-      } else {
+      } else if (user?.uid) {
         await firestoreService.addEntry(user?.uid, data);
       }
 
       await loadEntries();
-      onClose();
+      closeForm();
     } catch (error) {
-      alert(error.message);
+      if (error instanceof Error) {
+        alert(error.message); // ✅ 正確用法
+      } else {
+        alert("發生未知錯誤");
+      }
     }
   };
 
@@ -105,7 +103,7 @@ export default function EntryFormDialog({
     <div>
       <div
         className="fixed inset-0 z-40 bg-slate-950/70 backdrop-blur-sm"
-        onClick={onClose}
+        onClick={closeForm}
       ></div>
 
       <div
@@ -171,7 +169,7 @@ export default function EntryFormDialog({
           <div className="mb-3 flex w-full justify-between space-x-4 px-6 lg:mb-5">
             <button
               className="flex w-full cursor-pointer items-center justify-center rounded-xl bg-gray-800 py-0.5 text-xl text-white/50 hover:bg-gray-600 lg:py-1 lg:text-2xl"
-              onClick={onClose}
+              onClick={closeForm}
             >
               取消
             </button>
