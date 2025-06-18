@@ -1,101 +1,45 @@
-import { useState } from "react";
 import IncomeExpenseToggleForForm from "../forms/IncomeExpenseToggleForForm";
 import EntryCategoryButton from "../forms/EntryCategoryButton";
 import EntryInputSection from "../forms/EntryInputSection";
+import ModeSelection from "../forms/ModeSelection";
 import {
   EXPENSE_CATEGORIES,
   INCOME_CATEGORIES,
 } from "../../constants/entryCategories";
-import { v4 as uuidv4 } from "uuid";
-import { validAmount, validDate, validNote } from "../../utils/validation";
-import { firestoreService } from "../../firestoreService";
-
-import { useAuth } from "../../contexts/authContext";
 import { useEntryContext } from "../../contexts/entryContext";
 import { useEntryDialog } from "../../hooks/useEntryDialog";
-
-import { Entry, Category } from "../../types";
+import { useEntryForm } from "../../hooks/useEntryForm";
+import { Category } from "../../types";
 
 export default function EntryFormDialog() {
   const { dialogState, closeForm } = useEntryDialog();
-  const { user } = useAuth();
-  const { currentDate, isEditing, selectedEntry, loadEntries } =
-    useEntryContext();
+  const { isEditing } = useEntryContext();
 
-  const [type, setType] = useState<Entry["type"]>(
-    isEditing && selectedEntry ? selectedEntry.type : "expense",
-  );
-  const [category, setCategory] = useState<Entry["category"]>(
-    isEditing && selectedEntry ? selectedEntry.category : "food",
-  );
-  const [amount, setAmount] = useState<string>(
-    isEditing && selectedEntry ? selectedEntry.amount.toString() : "",
-  );
-  const [date, setDate] = useState<Entry["date"]>(
-    isEditing && selectedEntry ? selectedEntry.date : currentDate,
-  );
-  const [note, setNote] = useState<Entry["note"]>(
-    isEditing && selectedEntry ? selectedEntry.note : "",
-  );
-  const [mode, setMode] = useState<Entry["mode"]>(
-    isEditing && selectedEntry ? selectedEntry.mode : "once",
-  );
+  const {
+    type,
+    category,
+    amount,
+    date,
+    note,
+    mode,
+    setCategory,
+    setAmount,
+    setDate,
+    setNote,
+    setMode,
+    handleTypeChange,
+    handleSubmit,
+  } = useEntryForm();
 
   if (!dialogState.entryForm) return null;
-
-  const handleTypeChange = (newType: Entry["type"]) => {
-    setType(newType);
-    if (newType === "expense") {
-      setCategory("food"); // 支出預設：飲食
-    } else {
-      setCategory("salary"); // 收入預設：薪資
-    }
-  };
 
   const currentCategories: Category[] =
     type === "expense" ? EXPENSE_CATEGORIES : INCOME_CATEGORIES;
 
-  const currentCategoryComponents = currentCategories.map((cat) => (
-    <EntryCategoryButton
-      key={cat.category}
-      category={cat.category}
-      label={cat.label}
-      color={cat.color}
-      selected={category === cat.category}
-      onClick={setCategory}
-    />
-  ));
-
-  const handleSubmit = async () => {
-    try {
-      const data: Entry = {
-        id: isEditing && selectedEntry ? selectedEntry.id : uuidv4(),
-        type: type,
-        category: category,
-        amount: validAmount(amount),
-        date: validDate(date),
-        note: validNote(note),
-        mode: mode,
-      };
-
-      if (isEditing && selectedEntry && user?.uid) {
-        await firestoreService.editEntry(
-          user.uid,
-          selectedEntry.firebaseId,
-          data,
-        );
-      } else if (user?.uid) {
-        await firestoreService.addEntry(user?.uid, data);
-      }
-
-      await loadEntries();
+  const handleConfirm = async () => {
+    const success = await handleSubmit();
+    if (success) {
       closeForm();
-    } catch (error) {
-      if (error instanceof Error) {
-        alert(error.message); // ✅ 正確用法
-      } else {
-        alert("發生未知錯誤");
-      }
     }
   };
 
@@ -126,7 +70,16 @@ export default function EntryFormDialog() {
 
           <div className="w-full px-6">
             <ul className="grid grid-cols-4 gap-2 lg:gap-4">
-              {currentCategoryComponents}
+              {currentCategories.map((cat) => (
+                <EntryCategoryButton
+                  key={cat.category}
+                  category={cat.category}
+                  label={cat.label}
+                  color={cat.color}
+                  selected={category === cat.category}
+                  onClick={setCategory}
+                />
+              ))}
             </ul>
           </div>
 
@@ -143,26 +96,7 @@ export default function EntryFormDialog() {
 
           <div className="dialog-entry-divider"></div>
 
-          <div className="w-full px-6">
-            <ul className="grid grid-cols-4 gap-2 lg:gap-4">
-              <li className="relative h-[30px] w-[60px] overflow-hidden rounded-full lg:w-[80px]">
-                <div
-                  className={`${mode === "once" ? "category-button-selected" : "category-button"}`}
-                  onClick={() => setMode("once")}
-                >
-                  單次
-                </div>
-              </li>
-              <li className="relative h-[30px] w-[60px] overflow-hidden rounded-full lg:w-[80px]">
-                <div
-                  className={`${mode === "recurring" ? "category-button-selected" : "category-button"}`}
-                  onClick={() => setMode("recurring")}
-                >
-                  週期
-                </div>
-              </li>
-            </ul>
-          </div>
+          <ModeSelection mode={mode} setMode={setMode} />
 
           <div className="dialog-entry-divider"></div>
 
@@ -175,7 +109,7 @@ export default function EntryFormDialog() {
             </button>
             <button
               className="flex w-full cursor-pointer items-center justify-center rounded-xl bg-blue-600 py-0.5 text-xl text-white hover:bg-blue-400 lg:py-1 lg:text-2xl"
-              onClick={handleSubmit}
+              onClick={handleConfirm}
             >
               確認
             </button>
