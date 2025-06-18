@@ -1,4 +1,4 @@
-export function today() {
+export function today() : Date {
     const now = new Date();
 
     return new Date(
@@ -8,7 +8,7 @@ export function today() {
     );
 }
 
-export function addMonths(date, months) {
+export function addMonths(date: Date, months: number):Date {
     const firstDayOfMonth = new Date(
         date.getFullYear(),
         date.getMonth() + months,
@@ -27,11 +27,11 @@ export function addMonths(date, months) {
     );
 }
 
-export function subtractMonths(date, months) {
+export function subtractMonths(date:Date, months:number):Date {
     return addMonths(date, -months);
 }
 
-export function addDays(date, days) {
+export function addDays(date:Date, days:number):Date {
     return new Date(
         date.getFullYear(),
         date.getMonth(),
@@ -40,13 +40,13 @@ export function addDays(date, days) {
     );
 }
 
-export function subtractDays(date, days) {
+export function subtractDays(date:Date, days:number):Date {
     return addDays(date, -days);
 }
 
 
-export function generateMonthCalendarDays(currentDate) {
-    const calendarDays = [];
+export function generateMonthCalendarDays(currentDate:Date): Date[] {
+    const calendarDays: Date[]= [];
 
     const lastDayOfPreviousMonthDate = getLastDayOfMonthDate(
         subtractMonths(currentDate, 1)
@@ -77,15 +77,15 @@ export function generateMonthCalendarDays(currentDate) {
     return calendarDays;
 }
 
-export function isTheSameDay(dateA, dateB) {
+export function isTheSameDay(dateA:Date, dateB:Date):boolean {
     return dateA.getFullYear() === dateB.getFullYear() && dateA.getMonth() === dateB.getMonth() && dateA.getDate() === dateB.getDate();
 }
 
-export function isTheSameMonth(dateA, dateB) {
+export function isTheSameMonth(dateA:Date, dateB:Date):boolean {
     return dateA.getFullYear() === dateB.getFullYear() && dateA.getMonth() === dateB.getMonth();
 }
 
-function getLastDayOfMonthDate(date) {
+function getLastDayOfMonthDate(date:Date):Date {
     return new Date(
         date.getFullYear(),
         date.getMonth() + 1,
@@ -93,56 +93,32 @@ function getLastDayOfMonthDate(date) {
     );
 }
 
-export function formatDate(date) {
-    const options = { year: "numeric", month: "2-digit", day: "2-digit" };
+export function formatDate(date:Date):string {
+    const options:Intl.DateTimeFormatOptions = { year: "numeric", month: "2-digit", day: "2-digit" };
     return date.toLocaleString('zh-TW', options);
 }
 
-export function formatMonth(date) {
-    const options = { year: "numeric", month: "2-digit"};
+export function formatMonth(date:Date):string {
+    const options:Intl.DateTimeFormatOptions = { year: "numeric", month: "2-digit"};
     return date.toLocaleString('zh-TW', options);
 }
 
-export function formatMonthZh(date) {
+export function formatMonthZh(date:Date):string {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
   return `${year} 年 ${month} 月`;
 }
 
 
-export function formatDateForStats(date) {
+export function formatDateForStats(date:Date):string {
     const yyyy = date.getFullYear();
     const mm = String(date.getMonth() + 1).padStart(2, '0');
     const dd = String(date.getDate()).padStart(2, '0');
-    return `${yyyy} -${mm} -${dd}`;
+    return `${yyyy}-${mm}-${dd}`;
 }
 
-export function formatMonthForStats(date) {
+export function formatMonthForStats(date:Date):string {
     const yyyy = date.getFullYear();
     const mm = String(date.getMonth() + 1).padStart(2, '0');
     return `${yyyy} -${mm}`;
-}
-
-export function initDatePicker(entryFormElement) {
-    const datePicker = entryFormElement.querySelector("[data-entry-date-picker]");
-    const dateDisplay = entryFormElement.querySelector("[data-entry-date]");
-
-
-    dateDisplay.addEventListener("click", () => datePicker.showPicker());
-
-    datePicker.addEventListener("change", () => {
-        const selectedDateStr = datePicker.value;
-        const selectedDate = new Date(selectedDateStr);
-
-        datePicker.dispatchEvent(new CustomEvent("dialog-date-change", {
-            detail: { date: selectedDate },
-            bubbles: true
-        }));
-    });
-
-}
-
-export function updateDateDisplay(entryFormElement, date) {
-    const dateDisplay = entryFormElement.querySelector("[data-entry-date]");
-    dateDisplay.textContent = formatDate(date);
 }

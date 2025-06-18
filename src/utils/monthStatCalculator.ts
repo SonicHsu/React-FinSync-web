@@ -1,11 +1,26 @@
-import { isTheSameMonth } from "../utils/dateUtils";
+import { isTheSameMonth } from "./dateUtils";
 import {
   calculateDateTotals,
   calculateCategoryStats,
   getYearlyMonthlyTotals,
-} from "../utils/calculator";
+} from "./calculator";
+import { FirestoreEntry, statType, CategoryStat } from "../types";
 
-export function calculateMonthStatsData(entries, currentDate, statType) {
+interface MonthStatsData {
+  statsToUse: CategoryStat[];
+  maxWithBuffer: number;
+  monthTotals: {
+    expenseTotal: number;
+    incomeTotal: number;
+  };
+  monthBalance: number;
+}
+
+export function calculateMonthStatsData(
+  entries: FirestoreEntry[],
+  currentDate: Date,
+  statType: statType,
+): MonthStatsData {
   const monthEntries = entries.filter((entry) =>
     isTheSameMonth(entry.date, currentDate),
   );
@@ -33,6 +48,6 @@ export function calculateMonthStatsData(entries, currentDate, statType) {
     statsToUse,
     maxWithBuffer,
     monthTotals,
-    monthBalance
+    monthBalance,
   };
 }

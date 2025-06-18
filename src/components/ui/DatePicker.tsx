@@ -31,16 +31,14 @@ export default function DatePicker({ isStatsPage }: DatePickerProps) {
   };
 
   const handleLeftClick = () => {
-    setCurrentDate((prevDate) =>
-      calendarView === "Day"
-        ? subtractDays(prevDate, 1)
-        : subtractMonths(prevDate, 1),
+    setCurrentDate((prevDate: Date) =>
+      calendarView === "Day"   ? subtractDays(prevDate, 1)  : subtractMonths(prevDate, 1) 
     );
   };
 
   const handleRightClick = () => {
     setCurrentDate((prevDate) =>
-      calendarView === "Day" ? addDays(prevDate, 1) : addMonths(prevDate, 1),
+      calendarView === "Day" ? addDays(prevDate, 1) : addMonths(prevDate, 1)
     );
   };
 

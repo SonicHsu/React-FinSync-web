@@ -12,18 +12,18 @@ import { DialogState, FirestoreEntry, View, statType } from "../types";
 
 type EntryContextType = {
   calendarView: View;
-  setCalendarView: React.Dispatch<React.SetStateAction<View>>
+  setCalendarView: (calendarView: View) => void;
   currentDate: Date;
   setCurrentDate: React.Dispatch<React.SetStateAction<Date>>;
   dialogState: DialogState;
-  setDialogState: React.Dispatch<React.SetStateAction<DialogState>>;
+  setDialogState: (dialogState: DialogState) => void;
   isEditing: boolean;
-  setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsEditing: (isEditing: boolean) => void;
   selectedEntry: FirestoreEntry | null;
-  setSelectedEntry: React.Dispatch<React.SetStateAction<FirestoreEntry | null>>;
+  setSelectedEntry: (selectedEntry: FirestoreEntry | null) => void;
   entries: FirestoreEntry[];
   statType: statType;
-  setStatType: React.Dispatch<React.SetStateAction<statType>>;
+  setStatType: (statType: statType) => void;
   loadEntries: () => Promise<void>;
 };
 
@@ -40,9 +40,11 @@ export const EntryProvider = ({ children }: { children: ReactNode }) => {
     viewStats: false,
   });
   const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [selectedEntry, setSelectedEntry] = useState<FirestoreEntry | null>(null);
+  const [selectedEntry, setSelectedEntry] = useState<FirestoreEntry | null>(
+    null,
+  );
   const [entries, setEntries] = useState<FirestoreEntry[]>([]);
-  const [statType, setStatType] = useState<statType>("expense")
+  const [statType, setStatType] = useState<statType>("expense");
 
   const loadEntries = async () => {
     if (!user) return;
@@ -89,7 +91,7 @@ export const EntryProvider = ({ children }: { children: ReactNode }) => {
 };
 
 export const useEntryContext = (): EntryContextType => {
-    const context = useContext(EntryContext);
-    if (!context) throw new Error("useEntryContext 必須在 EntryProvider 內使用");
-    return context;
+  const context = useContext(EntryContext);
+  if (!context) throw new Error("useEntryContext 必須在 EntryProvider 內使用");
+  return context;
 };

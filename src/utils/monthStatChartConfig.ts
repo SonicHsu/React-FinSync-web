@@ -1,6 +1,8 @@
-import { useResponsiveValue } from "../hooks/useResponsiveValue.ts";
+import { useResponsiveValue } from "../hooks/useResponsiveValue";
+import type { ChartOptions } from "chart.js";
 
-export function getMonthChartOptions(maxWithBuffer, isMobile) {
+export function getMonthChartOptions(maxWithBuffer: number, isMobile: boolean):
+ChartOptions<"bar"> {
 
   const fontSize = useResponsiveValue({
   mobile: 18,
@@ -26,7 +28,7 @@ export function getMonthChartOptions(maxWithBuffer, isMobile) {
         anchor: "end",
         align: "end",
         color: "white",
-        font: { weight: "500", size: labelFontSize },
+        font: { weight: 500, size: labelFontSize },
         formatter: (value) => value === 0 ? "" : value,
       },
     },

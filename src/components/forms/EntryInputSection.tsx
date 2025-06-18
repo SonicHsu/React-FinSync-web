@@ -1,6 +1,17 @@
+import React from "react";
 import { useState } from "react";
 import ReactDatePicker from "react-datepicker";
 import { formatDate } from "../../utils/dateUtils";
+import { Entry } from "../../types";
+
+interface EntryInputSectionProps {
+  amount: string;
+  setAmount: (amount: string) => void;
+  date: Date;
+  setDate: (date:  Date) => void;
+  note: Entry["note"];
+  setNote: (note: Entry["note"]) => void;
+}
 
 export default function EntryInputSection({
   amount,
@@ -9,10 +20,10 @@ export default function EntryInputSection({
   setDate,
   note,
   setNote,
-}) {
-  const [isOpen, setIsOpen] = useState(false);
+}: EntryInputSectionProps) {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const handleAmountChange = (e) => {
+  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const input = e.target.value.replace(/[^0-9]/g, "");
     setAmount(input);
   };
@@ -21,12 +32,14 @@ export default function EntryInputSection({
     setIsOpen(!isOpen);
   };
 
-  const handleEntryDateChange = (entryDate) => {
+  const handleEntryDateChange = (entryDate:  Date | null) => {
+  if (entryDate) {
     setDate(entryDate);
-    setIsOpen(null);
+    setIsOpen(false);
+  }
   };
 
-  const handleNoteChange = (e) => {
+  const handleNoteChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const rawInput = e.target.value;
     const trimmedInput = rawInput.trim();
 
@@ -62,7 +75,7 @@ export default function EntryInputSection({
               <ReactDatePicker
                 selected={date}
                 onChange={handleEntryDateChange}
-                onClickOutside={() => setIsOpen(null)}
+                onClickOutside={() => setIsOpen(false)}
                 open
                 inline
               />
