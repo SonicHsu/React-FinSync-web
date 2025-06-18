@@ -1,25 +1,34 @@
 import { firestoreService } from "../../firestoreService.js";
+import { useAuth } from "../../contexts/authContext.js";
+import { useEntryContext } from "../../contexts/entryContext";
+import { useEntryDialog } from "../../hooks/useEntryDialog";
 
-export default function EntryDeleteDialog({
-  open,
-  onClose,
-  selectedEntry,
-  user,
-  loadEntries,
-}) {
-  if (!open) return null;
 
-  const handleDeleteButton = async () => {
-    await firestoreService.deleteEntry(user?.uid, selectedEntry.firebaseId);
+export default function EntryDeleteDialog() {
+const {user} = useAuth();
+const { selectedEntry, loadEntries }  = useEntryContext();
+const {dialogState, closeDelete} = useEntryDialog();
+
+
+
+  if (!dialogState.entryDelete || !user || !selectedEntry) return null;
+
+ const handleDeleteButton = async () => {
+  try {
+    await firestoreService.deleteEntry(user.uid, selectedEntry.firebaseId);
     await loadEntries();
-    onClose();
-  };
+    closeDelete();
+  } catch (error) {
+    console.error('刪除失敗:', error);
+    alert('刪除失敗，請稍後再試');
+  }
+};
 
   return (
     <div>
       <div
         className="fixed inset-0 z-40 bg-slate-950/70 backdrop-blur-sm"
-        onClick={onClose}
+        onClick={closeDelete}
       ></div>
 
       <div
@@ -37,7 +46,7 @@ export default function EntryDeleteDialog({
           <div className="m-5 flex w-full justify-between space-x-2 px-6">
             <button
               className="flex w-full cursor-pointer items-center justify-center rounded-xl bg-gray-800 py-0.5 text-lg text-white/50 outline-none hover:bg-gray-600 lg:text-2xl"
-              onClick={onClose}
+              onClick={closeDelete}
             >
               取消
             </button>

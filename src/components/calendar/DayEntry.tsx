@@ -6,13 +6,13 @@ import {
 import { useEntryContext } from "../../contexts/entryContext";
 import { useEntryDialog } from "../../hooks/useEntryDialog";
 
-import { Entry } from "../../types";
+import { FirestoreEntry } from "../../types";
 
-export default function DayEntry({ entryId }: { entryId: Entry["id"] }) {
+export default function DayEntry({ entryId }: { entryId: FirestoreEntry["id"] }) {
   const { entries } = useEntryContext();
   const { openDetail } = useEntryDialog();
 
-  const entry: Entry | undefined = entries.find((e) => e.id === entryId);
+  const entry: FirestoreEntry | undefined = entries.find((e) => e.id === entryId);
 
   if (!entry) {
     return null;

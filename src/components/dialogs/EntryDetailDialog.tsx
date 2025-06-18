@@ -3,27 +3,29 @@ import {
   INCOME_CATEGORIES,
 } from "../../constants/entryCategories";
 import { formatDate } from "../../utils/dateUtils";
+import { useEntryContext } from "../../contexts/entryContext";
+import { useEntryDialog } from "../../hooks/useEntryDialog";
+import { Category } from "../../types";
 
-export default function EntryDetailDialog({
-  open,
-  onClose,
-  selectedEntry,
-  handleOpenEntryEdit,
-  handleOpenEntryDelete,
-}) {
-  if (!open) return null;
+export default function EntryDetailDialog() {
 
-  const categoryList =
-    selectedEntry.type === "expense" ? EXPENSE_CATEGORIES : INCOME_CATEGORIES;
+const { selectedEntry }  = useEntryContext();
+const {dialogState, openEdit, openDelete, closeDetail} = useEntryDialog();
+
+if (!dialogState.entryDetail || !selectedEntry) return null;
+
+  const categoryList: Category[] = selectedEntry.type === "expense" ? EXPENSE_CATEGORIES : INCOME_CATEGORIES;
   const matchedCategory = categoryList.find(
     (item) => item.category === selectedEntry.category,
   );
+
+  if (!matchedCategory) return null;
 
   return (
     <div>
       <div
         className="fixed inset-0 z-40 bg-slate-950/70 backdrop-blur-sm"
-        onClick={onClose}
+        onClick={closeDetail}
       ></div>
 
       <div
@@ -38,7 +40,7 @@ export default function EntryDetailDialog({
               交易明細
             </div>
             <div className="flex justify-end space-x-2">
-              <span className="cursor-pointer" onClick={handleOpenEntryEdit}>
+              <span className="cursor-pointer" onClick={openEdit}>
                 <svg
                   width="20"
                   height="20"
@@ -57,7 +59,7 @@ export default function EntryDetailDialog({
                 </svg>
               </span>
 
-              <span className="cursor-pointer" onClick={handleOpenEntryDelete}>
+              <span className="cursor-pointer" onClick={openDelete}>
                 <svg
                   width="20"
                   height="20"
@@ -76,7 +78,7 @@ export default function EntryDetailDialog({
                 </svg>
               </span>
 
-              <span className="cursor-pointer" onClick={onClose}>
+              <span className="cursor-pointer" onClick={closeDetail}>
                 <svg
                   width="20"
                   height="20"

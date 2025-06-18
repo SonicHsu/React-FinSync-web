@@ -14,7 +14,6 @@ export default function CalendarPage() {
   const { isMobile } = useBreakpoint();
   const { calendarView, setCalendarView } = useEntryContext();
 
-
   useEffect(() => {
     if (isMobile) {
       setCalendarView("Day");
