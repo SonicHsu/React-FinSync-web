@@ -1,4 +1,9 @@
-export default function LoginPage({ login, loginAsGuest }) {
+import { useAuth } from "../contexts/authContext";
+
+
+export default function LoginPage() {
+const { login, loginAsGuest } = useAuth();
+
   return (
     <main className="mx-auto mt-30 flex w-[90%] max-w-sm flex-col items-center rounded-[10px] border border-blue-400/50 bg-slate-950/80 sm:mt-36 sm:max-w-md lg:mt-40">
       <section className="mt-3">
