@@ -1,7 +1,7 @@
 <a name="readme-top"></a>
 
 # [FinSync-web](https://你的佈署網址.com)
-[![License](https://img.shields.io/github/license/你的帳號/FinSync-web?style=for-the-badge&labelColor=000)](https://github.com/你的帳號/FinSync-web/blob/main/LICENSE)
+[![License](https://img.shields.io/github/license/SonicHsu/React-FinSync-web?style=for-the-badge&labelColor=000)](https://github.com/SonicHsu/React-FinSync-web/blob/main/LICENSE)
 [![Built with React](https://img.shields.io/badge/React-20232a?style=for-the-badge&logo=react&logoColor=61dafb&labelColor=000)](https://react.dev/)
 [![Built with TypeScript](https://img.shields.io/badge/TypeScript-007acc?style=for-the-badge&logo=typescript&logoColor=white&labelColor=000)](https://www.typescriptlang.org/)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge&labelColor=000)](https://github.com/你的帳號/FinSync-web/pulls)
