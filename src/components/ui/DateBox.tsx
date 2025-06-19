@@ -20,6 +20,7 @@ export default function DateBox({
 }: DateBoxProps) {
   const isOpen = mode === type;
 
+  // 根據 type 返回不同格式的字串作為顯示值
   const getValue = (): string => {
     switch (type) {
       case "date":
@@ -35,13 +36,14 @@ export default function DateBox({
 
   const value = getValue();
 
+   // 自訂月曆中月的顯示內容（用於 showMonthYearPicker）
   const renderMonthContent = (
     monthIndex: number,
     shortMonth: string,
     longMonth: string,
     day: Date,
   ): React.ReactNode => {
-    // 將 套件月份英文 轉換為 1-12 的月份數字
+    // 直接用 day 取得年份，不用 new Date(day)
     const numericMonth = monthIndex + 1;
 
     const fullYear = new Date(day).getFullYear();
@@ -66,8 +68,8 @@ export default function DateBox({
               selected={currentDate}
               onChange={handleDateChange}
               onClickOutside={() => setOpenMode(null)}
-              showMonthYearPicker
-              renderMonthContent={renderMonthContent}
+              showMonthYearPicker // 顯示年月選擇
+              renderMonthContent={renderMonthContent} // 自訂月顯示
               open
               inline
             />
@@ -78,7 +80,7 @@ export default function DateBox({
               selected={currentDate}
               onChange={handleDateChange}
               onClickOutside={() => setOpenMode(null)}
-              showYearPicker={type === "year"}
+              showYearPicker={type === "year"} // 年份選擇
               open
               inline
             />

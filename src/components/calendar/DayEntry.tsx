@@ -12,14 +12,18 @@ export default function DayEntry({ entryId }: { entryId: FirestoreEntry["id"] })
   const { entries } = useEntryContext();
   const { openDetail } = useEntryDialog();
 
+  // 找到對應 id 的 entry 資料
   const entry: FirestoreEntry | undefined = entries.find((e) => e.id === entryId);
 
   if (!entry) {
     return null;
   }
 
+   // 根據 entry 類型取得對應類別清單
   const categories =
     entry.type === "expense" ? EXPENSE_CATEGORIES : INCOME_CATEGORIES;
+
+  // 找出類別物件以取 label 和 color  
   const categoryItem = categories.find(
     (item) => item.category === entry.category,
   );
@@ -27,7 +31,7 @@ export default function DayEntry({ entryId }: { entryId: FirestoreEntry["id"] })
   return (
     <li
       className="lg :pb-1 mt-1 flex cursor-pointer items-center justify-between border-b border-white/5 pb-0.5 lg:mt-2"
-      onClick={() => openDetail(entry)}
+      onClick={() => openDetail(entry)} 
     >
       <div className="flex items-center space-x-3 px-3">
         <span

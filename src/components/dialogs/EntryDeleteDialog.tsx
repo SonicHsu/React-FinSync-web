@@ -13,6 +13,7 @@ const {dialogState, closeDelete} = useEntryDialog();
 
   if (!dialogState.entryDelete || !user || !selectedEntry) return null;
 
+  // 刪除按鈕處理：刪資料、重新載入、關閉對話框
  const handleDeleteButton = async () => {
   try {
     await firestoreService.deleteEntry(user.uid, selectedEntry.firebaseId);
@@ -26,6 +27,7 @@ const {dialogState, closeDelete} = useEntryDialog();
 
   return (
     <div>
+      {/* 背景遮罩，點擊關閉對話框 */}
       <div
         className="fixed inset-0 z-40 bg-slate-950/70 backdrop-blur-sm"
         onClick={closeDelete}
@@ -43,6 +45,8 @@ const {dialogState, closeDelete} = useEntryDialog();
             是否確認刪除這筆紀錄？
           </div>
 
+
+          {/* 按鈕區 */}
           <div className="m-5 flex w-full justify-between space-x-2 px-6">
             <button
               className="flex w-full cursor-pointer items-center justify-center rounded-xl bg-gray-800 py-0.5 text-lg text-white/50 outline-none hover:bg-gray-600 lg:text-2xl"

@@ -4,19 +4,17 @@ import { useEntryDialog } from "../../hooks/useEntryDialog";
 
 export default function CalendarActionButtons() {
   const navigate = useNavigate();
-  const handleStatsButton = (): void  => {
+
+  // 導向到統計頁面
+  const handleStatsButton = (): void => {
     navigate("/stats");
   };
 
-  const { openForm } = useEntryDialog();
+  const { openForm } = useEntryDialog(); // 取得打開新增記帳表單的函式
 
   return (
     <div className="flex space-x-2">
-      {/* 
-      第一個按鈕（小圓形用戶圖示）：
-      - 僅在小螢幕（sm以下）可見（因為 sm:hidden lg:hidden）
-      - 點擊會觸發 openForm，通常是打開某個表單（可能是新增或編輯用戶資料）
-    */}
+      {/* 用戶登入/登出按鈕（僅在手機顯示） */}
       <button
         className="group flex h-[62px] w-[62px] cursor-pointer items-center justify-center rounded-full bg-white/10 transition duration-150 ease-in-out hover:scale-105 sm:hidden lg:hidden"
         onClick={openForm}
@@ -38,11 +36,7 @@ export default function CalendarActionButtons() {
         </svg>
       </button>
 
-      {/* 
-      第二個按鈕（藍色大圓加號圖示）：
-      - 點擊會觸發 openForm，功能通常是「新增項目」或「新增記錄」
-      - 按鈕有 hover 放大和顏色變化的互動效果
-    */}
+      {/* 新增記帳資料按鈕（桌機/平板主要按鈕） */}
       <button
         className="group cursor-pointer transition duration-150 ease-in-out hover:scale-105"
         onClick={openForm}
@@ -70,11 +64,7 @@ export default function CalendarActionButtons() {
         </svg>
       </button>
 
-      {/* 
-      第三個按鈕（統計圖表圖示）：
-      - 點擊會觸發 handleStatsButton，通常是開啟統計或報表頁面
-      - 按鈕有 hover 放大和顏色變化的互動效果
-    */}
+    {/* 導向統計頁的按鈕 */}
       <button
         className="group cursor-pointer transition duration-150 ease-in-out hover:scale-105"
         onClick={handleStatsButton}

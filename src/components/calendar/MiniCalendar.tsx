@@ -14,9 +14,13 @@ import { useEntryContext } from "../../contexts/entryContext";
 export default function MiniCalendar() {
   const { currentDate, setCurrentDate } = useEntryContext();
 
+  // 控制 MiniCalendar 當前顯示月份
   const [miniCalendarDate, setMiniCalendarDate] = useState<Date>(today);
 
+  // 產生當月日曆格子用的日期陣列
   const miniCalendarDays: Date[] = generateMonthCalendarDays(miniCalendarDate);
+
+  // 每天產出對應元件
   const miniCalendarDayComponents: React.JSX.Element[] = miniCalendarDays.map(
     (calendarDay) => (
       <MiniCalendarDay
@@ -30,6 +34,7 @@ export default function MiniCalendar() {
     ),
   );
 
+  // 若全域 currentDate 不在當前顯示月份，切換 miniCalendarDate 同步顯示
   useEffect(() => {
     if (!isTheSameMonth(currentDate, miniCalendarDate)) {
       setMiniCalendarDate(currentDate);
@@ -45,6 +50,7 @@ export default function MiniCalendar() {
           </div>
 
           <div className="flex items-center space-x-6">
+            {/* 上個月按鈕 */}
             <button
               className="cursor-pointer"
               onClick={() =>
@@ -68,6 +74,7 @@ export default function MiniCalendar() {
               </svg>
             </button>
 
+            {/* 下個月按鈕 */}
             <button
               className="cursor-pointer"
               onClick={() =>
@@ -93,6 +100,7 @@ export default function MiniCalendar() {
           </div>
         </div>
 
+        {/* 星期標題 */}
         <div className="w-full px-2">
           <ul className="grid grid-cols-7 gap-1 text-white/50">
             <li className="mini-calendar-item">S</li>
@@ -105,6 +113,7 @@ export default function MiniCalendar() {
           </ul>
         </div>
 
+        {/* 日曆格子 */}
         <div className="mb-2 w-full px-2">
           <ul className="grid grid-cols-7 gap-0 lg:gap-1">
             {miniCalendarDayComponents}

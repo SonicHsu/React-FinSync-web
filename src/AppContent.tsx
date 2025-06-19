@@ -15,10 +15,8 @@ interface ProtectedRouteProps {
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   const { user } = useAuth(); // 從 AuthContext 獲取 user
 
-  // 如果 user 還在載入中 (例如 onAuthStateChanged 還沒有結果)，你可能希望顯示一個載入畫面
-  // 這裡簡化為直接判斷 user 是否存在
-  if (user === undefined) { // 如果你想區分載入狀態，可以在 useAuth 中提供 loading 狀態
-    return <div>載入中...</div>; // 或者一個 Spinner
+  if (user === undefined) { 
+    return <div>載入中...</div>; 
   }
   
   if (!user) {

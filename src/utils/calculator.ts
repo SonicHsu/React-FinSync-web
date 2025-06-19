@@ -5,6 +5,8 @@ import {
 } from "../constants/entryCategories";
 import { FirestoreEntry, Category } from "../types";
 
+
+// 計算一組 entries 裡，收入與支出的總和
 export function calculateDateTotals(entries: FirestoreEntry[]) {
   return entries.reduce(
     (acc, entry) => {
@@ -19,6 +21,8 @@ export function calculateDateTotals(entries: FirestoreEntry[]) {
   );
 }
 
+
+// 取得指定日期的所有條目和收入、支出總計
 export function getDayEntriesAndTotals(entries: FirestoreEntry[], day: Date) {
   const dayEntries = entries.filter((entry) => isTheSameDay(entry.date, day));
 
@@ -26,15 +30,19 @@ export function getDayEntriesAndTotals(entries: FirestoreEntry[], day: Date) {
   return { dayEntries, expenseTotal, incomeTotal };
 }
 
+
+// 計算某一期間（如某月）各分類的統計數據
 export function calculateCategoryStats(
   entries: FirestoreEntry[],
   selectedDate: Date,
   isSamePeriod: (a: Date, b: Date) => boolean,
 ) {
+  // 篩選出符合該期間的條目
   const monthEntries = entries.filter((entry) =>
     isSamePeriod(entry.date, selectedDate),
   );
 
+  // 以 type（expense/income）及分類累積金額
   type CategoryTotals = Record<FirestoreEntry["type"], Record<string, number>>;
 
   const categoryTotals: CategoryTotals = monthEntries.reduce((acc, entry) => {
@@ -48,6 +56,7 @@ export function calculateCategoryStats(
     return acc;
   }, {} as CategoryTotals);
 
+    // 將累積金額加入到各分類定義中，方便畫圖或顯示
   const addAmountToCategories = (categories:Category[], type:FirestoreEntry["type"]) => {
     return categories.map((category) => ({
       ...category,
@@ -61,6 +70,7 @@ export function calculateCategoryStats(
   };
 }
 
+// 計算該年份每個月的收入與支出總額
 export function getYearlyMonthlyTotals(entries: FirestoreEntry[], selectedDate:Date) {
   const result = [];
 

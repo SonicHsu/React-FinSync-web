@@ -37,8 +37,7 @@ export default function CalendarPage() {
       {/* 所有的對話框 */}
       <EntryFormDialog />
 
-      <EntryDetailDialog
-      />
+      <EntryDetailDialog />
 
       <EntryDeleteDialog />
     </>

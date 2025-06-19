@@ -8,26 +8,33 @@ import { useEntryDialog } from "../../hooks/useEntryDialog";
 import { Category } from "../../types";
 
 export default function EntryDetailDialog() {
+  // 取得目前選取的交易及對話框狀態與操作方法
+  const { selectedEntry } = useEntryContext();
+  const { dialogState, openEdit, openDelete, closeDetail } = useEntryDialog();
 
-const { selectedEntry }  = useEntryContext();
-const {dialogState, openEdit, openDelete, closeDetail} = useEntryDialog();
+  if (!dialogState.entryDetail || !selectedEntry) return null;
 
-if (!dialogState.entryDetail || !selectedEntry) return null;
+  // 根據交易類型取得對應的分類列表（支出或收入）
+  const categoryList: Category[] =
+    selectedEntry.type === "expense" ? EXPENSE_CATEGORIES : INCOME_CATEGORIES;
 
-  const categoryList: Category[] = selectedEntry.type === "expense" ? EXPENSE_CATEGORIES : INCOME_CATEGORIES;
+  // 找出目前交易所對應的分類物件（包含顏色、標籤等）
   const matchedCategory = categoryList.find(
     (item) => item.category === selectedEntry.category,
   );
 
+  // 找不到分類資料就不渲染
   if (!matchedCategory) return null;
 
   return (
     <div>
+      {/* 背景遮罩，點擊時關閉明細對話框 */}
       <div
         className="fixed inset-0 z-40 bg-slate-950/70 backdrop-blur-sm"
         onClick={closeDetail}
       ></div>
 
+      {/* 對話框主體，置中顯示 */}
       <div
         className="fixed z-50 w-[300px] rounded-[10px] border border-blue-400/50 bg-slate-950/80 lg:w-[420px]"
         style={{ top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}
@@ -39,6 +46,8 @@ if (!dialogState.entryDetail || !selectedEntry) return null;
             <div className="text-center text-2xl font-bold lg:text-3xl">
               交易明細
             </div>
+
+            {/* 右側操作按鈕：編輯、刪除、關閉 */}
             <div className="flex justify-end space-x-2">
               <span className="cursor-pointer" onClick={openEdit}>
                 <svg
@@ -100,6 +109,7 @@ if (!dialogState.entryDetail || !selectedEntry) return null;
             </div>
           </div>
 
+          {/* 類別標籤與金額顯示 */}
           <div className="mt-4 flex w-full items-center justify-between">
             <div className="flex items-center space-x-1">
               <span
