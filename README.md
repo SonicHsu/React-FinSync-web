@@ -18,12 +18,7 @@ FinSync 提供直覺化的記帳體驗，具備月視圖、日視圖切換、月
 
 ## 介面展示
 
-<div align="center">
-  <img 
-    alt="FinSync-web Demo" 
-    src="./screenshot.png"
-  />
-</div>
+施工中
 
 *建議圖片：筆電顯示月視圖，手機顯示日視圖或縮小後的月視圖。*
 
@@ -47,12 +42,7 @@ FinSync 提供直覺化的記帳體驗，具備月視圖、日視圖切換、月
 
 ## 架構流程圖
 
-<div align="center">
-  <img 
-    alt="FinSync-web Flow" 
-    src="./flow.png"
-  />
-</div>
+施工中
 
 ---
 
@@ -62,3 +52,20 @@ FinSync 提供直覺化的記帳體驗，具備月視圖、日視圖切換、月
 git clone https://github.com/你的帳號/FinSync-web.git
 cd FinSync-web
 npm install
+‵``
+
+## Run the Web App
+bash
+複製
+編輯
+npm run dev
+開啟 http://localhost:3000 在瀏覽器查看結果。
+
+## 部署
+FinSync-web 可輕鬆部署於 Netlify 或 Vercel。請參考各平台官方文件進行設定。
+已部署示範：https://你的佈署網址.com
+
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+<p align="right"> <a href="#readme-top" style="text-decoration: none; font-weight: bold;"> ↑ Back to Top ↑ </a> </p> ```
