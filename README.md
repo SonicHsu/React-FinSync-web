@@ -52,14 +52,14 @@ FinSync 提供直覺化的記帳體驗，具備月視圖、日視圖切換、月
 git clone https://github.com/你的帳號/FinSync-web.git
 cd FinSync-web
 npm install
-‵``
+```
 
 ## Run the Web App
-bash
-複製
-編輯
+```bash
 npm run dev
+```
 開啟 http://localhost:3000 在瀏覽器查看結果。
+
 
 ## 部署
 FinSync-web 可輕鬆部署於 Netlify 或 Vercel。請參考各平台官方文件進行設定。
