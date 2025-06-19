@@ -1,38 +1,45 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useAuth } from "../../contexts/authContext";
 
+interface MobileAuthButtonsProps {
+  closeAuth: () => void;
+}
 
-export default function MobileAuthButtons() {
- const {user , login, logout} = useAuth();
+export default function MobileAuthButtons({ closeAuth }: MobileAuthButtonsProps) {
+  const { user, login, logout } = useAuth();
+  const ref = useRef<HTMLDivElement>(null);
 
- // 每次 user 變更時，印出目前使用者名稱（debug用）
   useEffect(() => {
-    if (user) {
-      console.log("目前使用者:", user.displayName);
-    }
-  }, [user]);
+    const handleClickOutside = (event: MouseEvent) => {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
+        closeAuth(); // 點外面 => 關閉
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [closeAuth]);
 
-   if (!user) {
+  if (!user) {
     return null; // 或者你可以返回一個空的 React.Fragment: <> </>
   }
 
   return (
-
-    <div className="mx-auto mt-2 sm:mt-5 lg:mt-8 flex h-[30px] w-[90%]  items-center justify-end  bg-gray-800 space-x-2">
-      
-      {/* 顯示使用者名稱，如果是匿名就顯示 "Guest" */}
-      <div className="text-base">{user.isAnonymous ? "Guest" : user.displayName}</div>
-      {user.isAnonymous && (
+    <div
+      ref={ref}
+      className="mt-2 flex items-center justify-center space-x-2 rounded-lg px-4 py-2"
+    >
+      {user.isAnonymous ? (
         <button
-          className="flex cursor-pointer items-center justify-center rounded-xl bg-gray-800 px-5 text-xl font-semibold hover:bg-gray-700"
+          className="cursor-pointer rounded-xl border border-white/20 bg-gray-800/60 px-5 py-1 text-lg font-semibold hover:bg-gray-700"
           onClick={login}
         >
           登入
         </button>
-      )}
-      {!user.isAnonymous && (
+      ) : (
         <button
-          className="flex cursor-pointer items-center justify-center rounded-xl bg-gray-800 px-5 text-xl font-semibold hover:bg-gray-700"
+          className="cursor-pointer rounded-xl border border-white/20 bg-gray-800/60 px-5 py-1 text-lg font-semibold hover:bg-gray-700"
           onClick={logout}
         >
           登出
