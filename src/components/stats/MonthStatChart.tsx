@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js";
-
+import { useResponsiveValue } from "../../hooks/useResponsiveValue";
 import { getMonthChartOptions } from "../../utils/monthStatChartConfig";
 import { useBreakpoint } from "../../hooks/useBreakpoint";
 import { CategoryStat } from "../../types";
@@ -21,6 +21,12 @@ export default function MonthStatChart({
 
   const { isMobile } = useBreakpoint();
 
+    const barSize = useResponsiveValue({
+    mobile: 22,
+    tablet: 26,
+    desktop: 30
+  });
+
   // Chart.js 需要的資料格式
   const data = {
     labels: statsToUse.map((stat: CategoryStat) => stat.label),
@@ -33,7 +39,7 @@ export default function MonthStatChart({
         barPercentage: isMobile ? 0.5 : 0.7,
         categoryPercentage: isMobile ? 0.6 : 0.8,
         borderWidth: 1,
-        barThickness: isMobile ? 20 : 40,
+        barThickness: barSize,
       },
     ],
   };
@@ -58,7 +64,7 @@ export default function MonthStatChart({
   }, []);
 
   return (
-    <div className="h-[310px] w-full flex-1 px-5 sm:h-[480px]">
+    <div className="h-[310px] w-full flex-1 px-5 sm:h-[400px]">
       <Bar
         ref={chartRef}
         key={isMobile ? "mobile" : "desktop"} // 依據裝置類型強制重繪，避免樣式錯亂

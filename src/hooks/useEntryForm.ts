@@ -11,6 +11,7 @@ export function useEntryForm() {
   const { currentDate, isEditing, selectedEntry, loadEntries } =
     useEntryContext();
 
+
   // 表單欄位狀態
   const [type, setType] = useState<Entry["type"]>("expense");
   const [category, setCategory] = useState<Entry["category"]>("food");

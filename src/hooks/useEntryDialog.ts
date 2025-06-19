@@ -9,25 +9,28 @@ export function useEntryDialog() {
     setIsEditing,
   } = useEntryContext();
 
-    const openForm = () => {
-    setDialogState((prev) => ({ ...prev, entryForm: true }));
+  const openForm = () => {
+    setDialogState((prev) => ({
+      ...prev,
+      entryForm: true,
+    }));
   };
 
-    const closeForm = () => {
+  const closeForm = () => {
     setDialogState((prev) => ({ ...prev, entryForm: false }));
     setIsEditing(false);
   };
 
-    const openDetail = (entry: FirestoreEntry) => {
+  const openDetail = (entry: FirestoreEntry) => {
     setSelectedEntry(entry);
     setDialogState((prev) => ({ ...prev, entryDetail: true }));
   };
 
-    const closeDetail = () => {
+  const closeDetail = () => {
     setDialogState((prev) => ({ ...prev, entryDetail: false }));
   };
 
-    const openEdit = () => {
+  const openEdit = () => {
     setIsEditing(true);
     setDialogState((prev) => ({
       ...prev,
@@ -36,7 +39,7 @@ export function useEntryDialog() {
     }));
   };
 
-    const openDelete = () => {
+  const openDelete = () => {
     setDialogState((prev) => ({
       ...prev,
       entryDetail: false,
@@ -44,11 +47,11 @@ export function useEntryDialog() {
     }));
   };
 
-    const closeDelete = () => {
+  const closeDelete = () => {
     setDialogState((prev) => ({ ...prev, entryDelete: false }));
   };
 
-    return {
+  return {
     dialogState,
     openForm,
     closeForm,

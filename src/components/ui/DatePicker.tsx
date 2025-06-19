@@ -1,5 +1,4 @@
 import { useState } from "react";
-import ArrowButton from "./ArrowButton";
 import DateBox from "./DateBox";
 import {
   addMonths,
@@ -8,7 +7,7 @@ import {
   subtractDays,
   today,
 } from "../../utils/dateUtils";
-
+import { CircleChevronLeft, CircleChevronRight } from "lucide-react";
 import { useEntryContext } from "../../contexts/entryContext";
 
 type DatePickerProps = {
@@ -22,9 +21,9 @@ export default function DatePicker({ isStatsPage }: DatePickerProps) {
   const [openMode, setOpenMode] = useState<DateMode>(null);
 
   const handleDateChange = (date: Date | null) => {
-      if (!date) {
-    return; 
-  }
+    if (!date) {
+      return;
+    }
 
     setCurrentDate(date);
     setOpenMode(null);
@@ -32,13 +31,15 @@ export default function DatePicker({ isStatsPage }: DatePickerProps) {
 
   const handleLeftClick = () => {
     setCurrentDate((prevDate: Date) =>
-      calendarView === "Day"   ? subtractDays(prevDate, 1)  : subtractMonths(prevDate, 1) 
+      calendarView === "Day"
+        ? subtractDays(prevDate, 1)
+        : subtractMonths(prevDate, 1),
     );
   };
 
   const handleRightClick = () => {
     setCurrentDate((prevDate) =>
-      calendarView === "Day" ? addDays(prevDate, 1) : addMonths(prevDate, 1)
+      calendarView === "Day" ? addDays(prevDate, 1) : addMonths(prevDate, 1),
     );
   };
 
@@ -50,7 +51,7 @@ export default function DatePicker({ isStatsPage }: DatePickerProps) {
             <div className="relative">
               <div
                 onClick={() => setCurrentDate(today)}
-                className="flex h-[38px] cursor-pointer items-center justify-center rounded-[10px] border border-blue-400/50 bg-white/10 px-2 text-xl hover:bg-blue-400/50 sm:text-2xl lg:text-3xl"
+                className="flex h-[38px] cursor-pointer items-center justify-center rounded-[10px] bg-slate-800 px-2 text-xl text-white/30 hover:bg-blue-400/50 sm:text-xl lg:text-2xl"
               >
                 Today
               </div>
@@ -95,9 +96,10 @@ export default function DatePicker({ isStatsPage }: DatePickerProps) {
           </span>
         )}
       </div>
-
-      <ArrowButton direction="left" onClick={handleLeftClick} />
-      <ArrowButton direction="right" onClick={handleRightClick} />
+      <div className="flex gap-2 ">
+        <CircleChevronLeft size={25} strokeWidth={2} onClick={handleLeftClick} className="cursor-pointer lg:size-[30px] opacity-40 hover:opacity-100 transition" />
+        <CircleChevronRight size={25} strokeWidth={2} onClick={handleRightClick} className="cursor-pointer lg:size-[30px] opacity-40  hover:opacity-100 transition" />
+      </div>
     </div>
   );
 }

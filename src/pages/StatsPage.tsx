@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import StatsContent from "../components/stats/StatsContent";
 import Header from "../components/ui/Header";
+import EntryFormDialog from "../components/dialogs/EntryFormDialog";
 import { useEntryContext } from "../contexts/entryContext";
 
 export default function StatsPage() {
@@ -20,6 +21,8 @@ export default function StatsPage() {
     <Header />
 
     <StatsContent  />
+
+    <EntryFormDialog />
     </>
   );
 }

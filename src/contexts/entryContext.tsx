@@ -37,6 +37,7 @@ export const EntryProvider = ({ children }: { children: ReactNode }) => {
   const [currentDate, setCurrentDate] = useState<Date>(today);
   const [dialogState, setDialogState] = useState<DialogState>({
     entryForm: false,
+    entryFormType: "expense",
     entryDetail: false,
     entryDelete: false,
     viewStats: false,

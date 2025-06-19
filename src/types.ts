@@ -10,6 +10,7 @@ export interface Entry {
 
 export interface DialogState {
   entryForm: boolean;
+  entryFormType: "expense" | "income";
   entryDetail: boolean;
   entryDelete: boolean;
   viewStats: boolean;
