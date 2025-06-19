@@ -1,4 +1,5 @@
 import DayEntry from "./DayEntry";
+import MobileAuthButtons from "../ui/MobileAuthButtons";
 import CalendarActionButtons from "./CalendarActionButtons";
 import { getDayEntriesAndTotals } from "../../utils/calculator";
 import { Entry } from "../../types";
@@ -46,7 +47,13 @@ export default function DayEntryList() {
 
       {/* 僅手機顯示底部操作按鈕群 */}
       <footer className="mt-6 mb-6 flex w-full items-center justify-center space-x-2 sm:hidden lg:hidden">
-        <CalendarActionButtons />
+        <div className="relative w-full">
+          <CalendarActionButtons />
+          <div className="absolute bottom-full mb-2">
+              <MobileAuthButtons />
+          </div>
+
+        </div>
       </footer>
     </>
   );
