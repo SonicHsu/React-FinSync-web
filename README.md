@@ -68,4 +68,4 @@ FinSync-web 可輕鬆部署於 Netlify 或 Vercel。請參考各平台官方文�
 ## License
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-<p align="right"> <a href="#readme-top" style="text-decoration: none; font-weight: bold;"> ↑ Back to Top ↑ </a> </p> ```
+<p align="right"> <a href="#readme-top" style="text-decoration: none; font-weight: bold;"> ↑ Back to Top ↑ </a> </p> 
