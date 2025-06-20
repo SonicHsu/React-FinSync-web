@@ -1,5 +1,5 @@
 import { useAuth } from "../contexts/authContext";
-import { UserRound } from "lucide-react";
+import { UserRound, Mail } from "lucide-react";
 
 export default function LoginPage() {
   const { login, loginAsGuest } = useAuth();
@@ -20,11 +20,7 @@ export default function LoginPage() {
           className="flex cursor-pointer items-center justify-center gap-x-2 rounded-full bg-slate-700/20 px-6 py-3 text-sm text-gray-400 hover:bg-slate-700/50 hover:text-white sm:px-15 lg:text-lg"
           onClick={login}
         >
-          <img
-            src="/src/assets/google-icon.svg"
-            alt="Google"
-            className="h-5 w-5 sm:h-6 sm:w-6"
-          />
+          <Mail className="h-5 w-5" />
           Log in with Google
         </button>
 
@@ -32,7 +28,7 @@ export default function LoginPage() {
           className="flex cursor-pointer items-center justify-center gap-x-2 rounded-full bg-slate-700/20 px-6 py-3 text-sm text-gray-400 hover:bg-slate-700/50 hover:text-white sm:px-15 lg:text-lg"
           onClick={loginAsGuest}
         >
-          <UserRound size={20}/>
+          <UserRound size={20} />
           Continue as Guest
         </button>
       </section>
