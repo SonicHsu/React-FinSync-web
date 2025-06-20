@@ -1,6 +1,6 @@
 <a name="readme-top"></a>
 
-# [FinSync-web](https://你的佈署網址.com)
+# [FinSync-web](https://react-finsync-web.netlify.app)
 [![License](https://img.shields.io/github/license/SonicHsu/React-FinSync-web?style=for-the-badge&labelColor=000)](https://github.com/SonicHsu/React-FinSync-web/blob/main/LICENSE)
 [![Built with React](https://img.shields.io/badge/React-20232a?style=for-the-badge&logo=react&logoColor=61dafb&labelColor=000)](https://react.dev/)
 [![Built with TypeScript](https://img.shields.io/badge/TypeScript-007acc?style=for-the-badge&logo=typescript&logoColor=white&labelColor=000)](https://www.typescriptlang.org/)
@@ -19,8 +19,6 @@ FinSync 提供直覺化的記帳體驗，具備月視圖、日視圖切換、月
 ## 介面展示
 
 施工中
-
-*建議圖片：筆電顯示月視圖，手機顯示日視圖或縮小後的月視圖。*
 
 ---
 
@@ -64,7 +62,7 @@ npm run dev
 
 ## 部署
 FinSync-web 可輕鬆部署於 Netlify 或 Vercel。請參考各平台官方文件進行設定。
-已部署示範：施工中
+已部署示範：react-finsync-web.netlify.app
 
 ## License
 This project is licensed under the MIT License - see the LICENSE file for details.
