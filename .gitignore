@@ -7,8 +7,6 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-# Firebase config
-src/firebase.js
 
 # dotenv 環境變數檔
 .env
