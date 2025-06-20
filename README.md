@@ -19,7 +19,7 @@ FinSync 提供直覺化的記帳體驗，具備月視圖、日視圖切換、月
 
 ## 介面展示
 
-施工中
+![FinSync Demo Image](src/assets/FinSync-demo.png)
 
 ---
 
