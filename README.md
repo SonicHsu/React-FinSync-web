@@ -31,10 +31,10 @@ FinSync 提供直覺化的記帳體驗，具備月視圖、日視圖切換、月
 | UI 樣式 | Tailwind CSS |
 | 響應式設計 | RWD（Tailwind 實現） |
 | 路由管理 | React Router |
-| 狀態管理 | Context / Redux |
+| 狀態管理 | Context |
 | 資料庫 | Firebase Firestore |
 | 認證 | Firebase Authentication |
-| 部署 | Netlify 或 Vercel |
+| 部署 | Netlify |
 | 圖表庫 | Chart.js |
 | 日期元件 | React Datepicker |
 
