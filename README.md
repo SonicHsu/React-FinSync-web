@@ -62,8 +62,8 @@ npm run dev
 
 
 ## 部署
-FinSync-web 可輕鬆部署於 Netlify 或 Vercel。請參考各平台官方文件進行設定。
-已部署示範：react-finsync-web.netlify.app
+FinSync-web 可輕鬆部署於 Netlify 或 Vercel。請參考各平台官方文件進行設定。  
+已部署示範：[react-finsync-web.netlify.app](https://react-finsync-web.netlify.app)
 
 ## License
 This project is licensed under the MIT License - see the LICENSE file for details.
