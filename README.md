@@ -42,7 +42,7 @@ FinSync 提供直覺化的記帳體驗，具備月視圖、日視圖切換、月
 
 ## 架構流程圖
 
-施工中
+(https://whimsical.com/finsync-web-7HBvea6755tTPenJ5gwAc4)
 
 ---
 
