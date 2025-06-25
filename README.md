@@ -58,7 +58,6 @@ npm install
 ```bash
 npm run dev
 ```
-開啟 http://localhost:3000 在瀏覽器查看結果。
 
 
 ## 部署
