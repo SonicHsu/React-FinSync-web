@@ -17,14 +17,14 @@ export default function ModeSelection({ mode, setMode }: ModeSelectionProps) {
             單次
           </div>
         </li>
-        <li className="relative h-[30px] w-[60px] overflow-hidden rounded-full lg:w-[80px]">
+        {/* <li className="relative h-[30px] w-[60px] overflow-hidden rounded-full lg:w-[80px]">
           <div
             className={`${mode === "recurring" ? "category-button-selected" : "category-button"}`}
             onClick={() => setMode("recurring")}
           >
-            週期
+            週期     
           </div>
-        </li>
+        </li> //施工中 */} 
       </ul>
     </div>
   );
