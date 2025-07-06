@@ -4,7 +4,7 @@ interface ModeSelectionProps {
   mode: Entry["mode"];
   setMode: (mode: Entry["mode"]) => void;
 }
-
+//施工中
 export default function ModeSelection({ mode, setMode }: ModeSelectionProps) {
   return (
     <div className="w-full px-6">
@@ -24,7 +24,7 @@ export default function ModeSelection({ mode, setMode }: ModeSelectionProps) {
           >
             週期     
           </div>
-        </li> //施工中 */} 
+        </li>  */} 
       </ul>
     </div>
   );

@@ -3,11 +3,14 @@ import { useAuth } from "../../contexts/authContext.js";
 import { useEntryContext } from "../../contexts/entryContext";
 import { useEntryDialog } from "../../hooks/useEntryDialog";
 
+import toast from "react-hot-toast";
 
 export default function EntryDeleteDialog() {
 const {user} = useAuth();
 const { selectedEntry, loadEntries }  = useEntryContext();
 const {dialogState, closeDelete} = useEntryDialog();
+
+
 
 
 
@@ -18,10 +21,11 @@ const {dialogState, closeDelete} = useEntryDialog();
   try {
     await firestoreService.deleteEntry(user.uid, selectedEntry.firebaseId);
     await loadEntries();
+    toast.success("刪除成功！");
     closeDelete();
   } catch (error) {
     console.error('刪除失敗:', error);
-    alert('刪除失敗，請稍後再試');
+    toast.error("刪除失敗 請稍後再試");
   }
 };
 

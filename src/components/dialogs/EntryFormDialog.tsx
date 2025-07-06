@@ -11,6 +11,8 @@ import { useEntryDialog } from "../../hooks/useEntryDialog";
 import { useEntryForm } from "../../hooks/useEntryForm";
 import { Category } from "../../types";
 
+import toast from "react-hot-toast";
+
 export default function EntryFormDialog() {
   // 取得對話框狀態與關閉表單的函式
   const { dialogState, closeForm } = useEntryDialog();
@@ -37,15 +39,20 @@ export default function EntryFormDialog() {
 
   if (!dialogState.entryForm) return null;
 
+
+
   // 根據收支類型取得對應分類清單
   const currentCategories: Category[] =
     type === "expense" ? EXPENSE_CATEGORIES : INCOME_CATEGORIES;
 
   // 確認提交函式，成功提交後關閉表單
   const handleConfirm = async () => {
-    const success = await handleSubmit();
+    const { success, errorMsg } = await handleSubmit();
     if (success) {
-      closeForm();
+      isEditing ? toast.success("編輯交易紀錄成功") : toast.success("新增交易紀錄成功") 
+
+    } else {
+      toast.error(errorMsg || "儲存失敗，請稍後再試！");
     }
   };
 

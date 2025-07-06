@@ -11,7 +11,6 @@ export function useEntryForm() {
   const { currentDate, isEditing, selectedEntry, loadEntries } =
     useEntryContext();
 
-
   // 表單欄位狀態
   const [type, setType] = useState<Entry["type"]>("expense");
   const [category, setCategory] = useState<Entry["category"]>("food");
@@ -57,7 +56,10 @@ export function useEntryForm() {
   };
 
   // 表單送出，會做欄位驗證，並呼叫 Firebase API 新增或更新資料
-  const handleSubmit = async () => {
+  const handleSubmit = async (): Promise<{
+    success: boolean;
+    errorMsg?: string;
+  }> => {
     try {
       const data: Entry = {
         id: isEditing && selectedEntry ? selectedEntry.id : uuidv4(),
@@ -87,14 +89,13 @@ export function useEntryForm() {
         resetForm();
       }
 
-      return true;
+      return { success: true };
     } catch (error) {
+      let errorMsg = "發生未知錯誤";
       if (error instanceof Error) {
-        alert(error.message);
-      } else {
-        alert("發生未知錯誤");
+        errorMsg = error.message;
       }
-      return false;
+      return { success: false, errorMsg };
     }
   };
 
