@@ -50,10 +50,11 @@ export default function EntryFormDialog() {
     const { success, errorMsg } = await handleSubmit();
     if (success) {
       isEditing ? toast.success("編輯交易紀錄成功") : toast.success("新增交易紀錄成功") 
-
+     closeForm();
     } else {
       toast.error(errorMsg || "儲存失敗，請稍後再試！");
     }
+    
   };
 
     const handleCancel = () => {

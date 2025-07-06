@@ -1,19 +1,31 @@
-import { useEffect } from "react";
 import { useAuth } from "../../contexts/authContext";
+
+import toast from "react-hot-toast";
 
 
 export default function AuthButtons() {
  const {user , login, logout} = useAuth();
 
- // 每次 user 變更時，印出目前使用者名稱（debug用）
-  useEffect(() => {
-    if (user) {
-      console.log("目前使用者:", user.displayName);
-    }
-  }, [user]);
-
    if (!user) {
-    return null; // 或者你可以返回一個空的 React.Fragment: <> </>
+    return null; 
+  }
+
+  const handleLogin = async () => {
+   const {success, errorMsg} =  await login();
+   if(success){
+    toast.success("登入成功")
+   } else {
+    toast.error(errorMsg || "登入失敗，請稍後再試！");
+   }
+  }
+
+  const handleLoginout = async () => {
+   const {success, errorMsg} =  await logout();
+   if(success){
+    toast.success("登出成功")
+   } else {
+    toast.error(errorMsg || "登出失敗，請稍後再試！");
+   }
   }
 
   return (
@@ -25,7 +37,7 @@ export default function AuthButtons() {
       {user.isAnonymous && (
         <button
           className="flex cursor-pointer items-center justify-center rounded-xl bg-gray-800 px-5 text-xl font-semibold hover:bg-gray-700"
-          onClick={login}
+          onClick={handleLogin}
         >
           登入
         </button>
@@ -33,7 +45,7 @@ export default function AuthButtons() {
       {!user.isAnonymous && (
         <button
           className="flex cursor-pointer items-center justify-center rounded-xl bg-gray-800 px-5 text-xl font-semibold hover:bg-gray-700"
-          onClick={logout}
+          onClick={handleLoginout}
         >
           登出
         </button>

@@ -8,11 +8,12 @@ import {
 } from "firebase/auth";
 import { auth, provider } from "../firebase"; // firebase 初始化檔案，包含 auth 與 provider 物件
 
+
 interface AuthContextType {
   user: User | null;
-  login: () => Promise<void>;
-  logout: () => Promise<void>;
-  loginAsGuest: () => Promise<void>;
+  login: () => Promise<{ success: boolean; errorMsg?: string }>;
+  logout: () => Promise<{ success: boolean; errorMsg?: string }>;
+  loginAsGuest: () => Promise<{ success: boolean; errorMsg?: string }>;
 }
 
 // 建立 Context，初始值為 undefined（會在 Provider 中提供）
@@ -34,16 +35,32 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const login = async () => {
     try {
       await signInWithPopup(auth, provider);
+      
+      return { success: true };
     } catch (err) {
-      console.error("登入失敗", err);
+    let errorMsg = "登入失敗，請稍後再試";
+
+    if (err instanceof Error) {
+      errorMsg = err.message;
+    }
+
+    return { success: false, errorMsg };
     }
   };
 
   const logout = async () => {
     try {
       await signOut(auth);
+
+      return { success: true };
     } catch (err) {
-      console.error("登出失敗", err);
+     let errorMsg = "登出失敗，請稍後再試";
+
+    if (err instanceof Error) {
+      errorMsg = err.message;
+    }
+
+    return { success: false, errorMsg };
     }
   };
 
@@ -51,8 +68,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const loginAsGuest = async () => {
     try {
       await signInAnonymously(auth);
+
+      return { success: true };
     } catch (err) {
-      console.error("訪客登入失敗", err);
+      let errorMsg = "訪客登入失敗，請稍後再試";
+
+    if (err instanceof Error) {
+      errorMsg = err.message;
+    }
+
+    return { success: false, errorMsg };
     }
   };
 
